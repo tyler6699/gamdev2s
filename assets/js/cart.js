@@ -18,6 +18,17 @@ function Cart() {
   this.spiralEntity = new Entity(8, 8, 0, 0, 0, types.GRASS);
   this.figureEightEntity = new Entity(4, 4, 0, 0, 0, types.GRASS);
 
+  this.enemies = [];
+  const numberOfEnemies = 30;
+  const radius = 100; // Radius of the circle on which enemies will be placed
+
+  for (let i = 0; i < numberOfEnemies; i++) {
+    let angle = (i / numberOfEnemies) * 2 * Math.PI; // Divide the circle into 30 segments
+    let enemy = new Enemy(8, 8, types.GRASS, i, numberOfEnemies);
+    enemy.e.x=this.entity.x + radius * Math.cos(angle); // Position enemies in a circle
+    enemy.e.y=this.entity.y + radius * Math.sin(angle);
+    this.enemies.push(enemy); // Position and type for the enemy);
+  }
   // Render & Logic
   this.update = function(delta, time, gameStarted=false) {
     this.time+=delta;
@@ -26,14 +37,18 @@ function Cart() {
       mg.clear();
       // let font = "30px Papyrus";
       // writeTxt(ctx, 1, font,"WHITE","Main Game:", canvasW-300, 200);
-      // Test drawing one entity
+
+      // hero
       this.entity.update(delta);
-      this.rotatingEntity.update(delta);
-      this.spinningEntity.update(delta);
+
+      this.enemies.forEach(enemy => {
+        enemy.update(delta, this.enemies);
+        enemy.e.update(delta);
+      });
+      //this.rotatingEntity.update(delta);
+      //this.spinningEntity.update(delta);
       //this.chasingEntity.update(delta);
       //this.figureEightEntity.update(delta);
-      //this.helicalEntity.update(delta);
-      //this.spiralEntity.update(delta);
 
       // Update rotating entity position
       let radius = 100; // Adjust as needed
@@ -57,27 +72,6 @@ function Cart() {
         this.chasingEntity.x += chasingSpeed * dx;
         this.chasingEntity.y += chasingSpeed * dy;
       }
-
-      // Update helical entity position
-      radius = 100; // Adjust as needed
-      let helixSpeed = 0.1; // Adjust helix speed as needed
-      let helixAngle = this.time * 2 * Math.PI / 5; // Adjust rotation speed
-      let helixHeight = 20; // Adjust height of the helix
-      let helixX = this.entity.x + radius * Math.cos(helixAngle);
-      let helixY = this.entity.y + radius * Math.sin(helixAngle);
-      let helixZ = this.entity.y + helixHeight * this.time * helixSpeed; // Adjust speed and direction
-      this.helicalEntity.x = helixX;
-      this.helicalEntity.y = helixY;
-      this.helicalEntity.z = helixZ;
-
-      radius = 100; // Adjust as needed
-      let spiralSpeed = 0.1; // Adjust spiral speed as needed
-      let spiralAngle = this.time * 2 * Math.PI / 5; // Adjust rotation speed
-      let spiralRadius = radius + this.time * spiralSpeed; // Adjust the rate of change of the spiral
-      let spiralX = this.entity.x + spiralRadius * Math.cos(spiralAngle);
-      let spiralY = this.entity.y + spiralRadius * Math.sin(spiralAngle);
-      this.spiralEntity.x = spiralX;
-      this.spiralEntity.y = spiralY;
 
       // Update figure-eight entity position
       radius = 100; // Adjust as needed
@@ -117,4 +111,48 @@ function Cart() {
       ctx.restore();
     }
   }
+}
+
+function Enemy(x, y, type, index, totalEnemies) {
+  this.e = new Entity(8, 8, 0, 0, 0, types.GRASS);
+  this.speed = 1.5; // Speed of the enemy
+  this.angleOffset = (Math.PI * 2) * (index / totalEnemies); // Unique angle for each enemy
+
+  this.update = function(delta, mobs) {
+    let steerPow = this.steerFromNearbyMobs(mobs, 50);
+    let targetX = cart.entity.x + 24 + 50 * Math.cos(this.angleOffset); // 50 is the desired radius
+    let targetY = cart.entity.y + 24 + 50 * Math.sin(this.angleOffset);
+    this.e.x += (targetX - this.e.x > 0 ? this.speed : -this.speed) + steerPow.x;
+    this.e.y += (targetY - this.e.y > 0 ? this.speed : -this.speed) + steerPow.y;
+  };
+
+  this.steerFromNearbyMobs = function(allMobs, maxDist) {
+    let steerX = 0;
+    let steerY = 0;
+    let count = 0;
+
+    for(let i = 0; i < allMobs.length; i++) {
+      let mob = allMobs[i];
+      let d = Math.sqrt(Math.pow(this.e.x - mob.e.x, 2) + Math.pow(this.e.y - mob.e.y, 2));
+
+      if (mob !== this && d < maxDist) {
+        steerX += (this.e.x - mob.e.x);
+        steerY += (this.e.y - mob.e.y);
+        count++;
+      }
+    }
+
+    if (count > 0) {
+      steerX /= count;
+      steerY /= count;
+    }
+
+    // Normalize steering force, and adjust its mag
+    let mag = Math.sqrt(steerX * steerX + steerY * steerY);
+    if (mag > 0) {
+      steerX /= mag;
+      steerY /= mag;
+    }
+    return { x: steerX, y: steerY };
+    };
 }

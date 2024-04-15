@@ -30,7 +30,7 @@ let startDelay=0.1;
 let scaleRatio=0;
 let scaleHRatio=1;
 let scaleWRatio=1;
-let zoom=6;
+let zoom=4;
 
 const BASE_CANVAS_WIDTH = 800;
 const BASE_CANVAS_HEIGHT = 600;
@@ -41,7 +41,7 @@ const BASE_CANVAS_HEIGHT = 600;
 // Called by body onload on index page
 function startGame() {
   mg.start();
-  resizeCanvas(ctx); // Ensure we're at the right size at the start.
+  resizeCanvas(ctx);
 }
 
 let mg = {
