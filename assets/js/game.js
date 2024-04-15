@@ -231,6 +231,6 @@ function resizeCanvas(ctx) {
   }
 
   // Ensure the game contents are scaled and positioned in the center.
-  ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset the transformation matrix.
+  //ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset the transformation matrix.
   ctx.scale(newCanvasWidth / BASE_CANVAS_WIDTH, newCanvasHeight / BASE_CANVAS_HEIGHT);
 }

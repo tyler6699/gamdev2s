@@ -23,6 +23,9 @@ function Entity(w, h, x, y, angle, type) {
 
   // Render
   this.update = function(delta) {
+    this.x = Math.floor(this.x);
+    this.Y = Math.floor(this.Y);
+
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.globalAlpha = this.alpha;
@@ -37,7 +40,7 @@ function Entity(w, h, x, y, angle, type) {
     h   = this.height;
 
     // Camera Tracking
-    ctx.translate(cart.cam.x,cart.cam.y);
+    ctx.translate(Math.floor(cart.cam.x),Math.floor(cart.cam.y));
     ctx.scale(zoom,zoom);
     ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w, h);
     ctx.restore();
@@ -60,15 +63,15 @@ function Entity(w, h, x, y, angle, type) {
 
     switch(this.type){
       case types.HERO:
-        this.sx=0;
-        this.sy=0;
         break;
       case types.ENEMY:
-        this.sx=0;
-        this.sy=0;
+        this.sx=16;
         break;
       case types.GRASS:
         this.sx=16;
+        break;
+      case types.SHIELD:
+        this.sx=33;
         break;
     }
   }
