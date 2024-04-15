@@ -46,6 +46,13 @@ function Entity(w, h, x, y, angle, type) {
     this.cenY=this.y-this.mhHScld;
   }
 
+  this.isCollidingWith = function(other) {
+  return !(this.x + this.width < other.x - other.width ||
+           this.x - this.width > other.x + other.width ||
+           this.y + this.height < other.y - other.height ||
+           this.y - this.height > other.y + other.height);
+};
+
   this.setType = function(){
     this.alpha = 1;
     this.sy=0;
@@ -53,6 +60,10 @@ function Entity(w, h, x, y, angle, type) {
 
     switch(this.type){
       case types.HERO:
+        this.sx=0;
+        this.sy=0;
+        break;
+      case types.ENEMY:
         this.sx=0;
         this.sy=0;
         break;

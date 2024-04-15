@@ -24,11 +24,12 @@ function Cart() {
 
   for (let i = 0; i < numberOfEnemies; i++) {
     let angle = (i / numberOfEnemies) * 2 * Math.PI; // Divide the circle into 30 segments
-    let enemy = new Enemy(8, 8, types.GRASS, i, numberOfEnemies);
+    let enemy = new Enemy(16, 16, types.ENEMY, i, numberOfEnemies);
     enemy.e.x=this.entity.x + radius * Math.cos(angle); // Position enemies in a circle
     enemy.e.y=this.entity.y + radius * Math.sin(angle);
     this.enemies.push(enemy); // Position and type for the enemy);
   }
+
   // Render & Logic
   this.update = function(delta, time, gameStarted=false) {
     this.time+=delta;
@@ -45,17 +46,17 @@ function Cart() {
         enemy.update(delta, this.enemies);
         enemy.e.update(delta);
       });
-      //this.rotatingEntity.update(delta);
+      this.rotatingEntity.update(delta);
       //this.spinningEntity.update(delta);
       //this.chasingEntity.update(delta);
       //this.figureEightEntity.update(delta);
 
       // Update rotating entity position
-      let radius = 100; // Adjust as needed
+      let radius = 60; // Adjust as needed
       let rotateSpeed = 2;
       let angle = this.time * 2 * Math.PI / rotateSpeed;
       this.rotatingEntity.x = (this.entity.x+32) + radius * Math.cos(angle);
-      this.rotatingEntity.y = (this.entity.y+64) + radius * Math.sin(angle);
+      this.rotatingEntity.y = (this.entity.y+32) + radius * Math.sin(angle);
 
       // Update spinning entity position around rotatingEntity
       let spinningRadius = 60; // Adjust as needed
@@ -114,16 +115,22 @@ function Cart() {
 }
 
 function Enemy(x, y, type, index, totalEnemies) {
-  this.e = new Entity(8, 8, 0, 0, 0, types.GRASS);
-  this.speed = 1.5; // Speed of the enemy
+  this.e = new Entity(16, 16, 0, 0, 0, type);
+  this.speed = .8; // Speed of the enemy
   this.angleOffset = (Math.PI * 2) * (index / totalEnemies); // Unique angle for each enemy
 
   this.update = function(delta, mobs) {
-    let steerPow = this.steerFromNearbyMobs(mobs, 50);
+    let steerPow = this.steerFromNearbyMobs(mobs, 60);
     let targetX = cart.entity.x + 24 + 50 * Math.cos(this.angleOffset); // 50 is the desired radius
     let targetY = cart.entity.y + 24 + 50 * Math.sin(this.angleOffset);
     this.e.x += (targetX - this.e.x > 0 ? this.speed : -this.speed) + steerPow.x;
     this.e.y += (targetY - this.e.y > 0 ? this.speed : -this.speed) + steerPow.y;
+
+    // Check collision with hero
+   if (this.e.isCollidingWith(cart.entity)) {
+     console.log('Enemy is touching the hero!');
+     this.e.x+=1000;
+   }
   };
 
   this.steerFromNearbyMobs = function(allMobs, maxDist) {
