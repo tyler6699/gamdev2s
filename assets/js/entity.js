@@ -40,7 +40,7 @@ function Entity(w, h, x, y, angle, type) {
     h   = this.height;
 
     // Camera Tracking
-    ctx.translate(Math.floor(cart.cam.x),Math.floor(cart.cam.y));
+    ctx.translate(cart.cam.x,cart.cam.y);
     ctx.scale(zoom,zoom);
     ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w, h);
     ctx.restore();

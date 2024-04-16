@@ -5,6 +5,8 @@
 // Reference for new atlas
 let canvasW = window.innerWidth;
 let canvasH = window.innerHeight;
+let newCanvasWidth;
+let newCanvasHeight;
 let gameStarted = false;
 let delta = 0.0;
 let prevDelta = Date.now();
@@ -146,14 +148,9 @@ function updateGameArea(delta) {
   }
 
   if(start) gameStarted=true;
-  TIME += delta;
   if(startDelay>0)startDelay-=delta;
-  cart.update(delta, TIME, gameStarted);
-  // TODO: Hero HP and Power
-  drawBar(ctx, 100, 100, 'red',0);
-  drawBar(ctx, 50, 100, 'lime',30);
+  cart.update(delta, gameStarted);
 
-  drawCountdown(ctx, TIME, 5);
   // Reset Click to false
   // If it is still true on the next loop could cause an unexpected action
   processClick=false;
@@ -220,8 +217,6 @@ function resizeCanvas(ctx) {
   let windowHeight = window.innerHeight;
   let windowRatio = windowWidth / windowHeight;
   let gameRatio = BASE_CANVAS_WIDTH / BASE_CANVAS_HEIGHT;
-  let newCanvasWidth;
-  let newCanvasHeight;
 
   // Check the ratios to maintain the aspect ratio of the canvas.
   if (windowRatio < gameRatio) {

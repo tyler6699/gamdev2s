@@ -9,6 +9,9 @@ function Cart() {
 
   // Set up one entity to render test
   this.hero = new Entity(16, 16, 0, 0, 0, types.HERO);
+  // TODO Hero start position
+  this.hero.x=100;
+  this.hero.y=100;
 
   // New entity for rotation
   this.rotatingEntity = new Entity(8, 8, 0, 0, 0, types.SHIELD);
@@ -18,7 +21,7 @@ function Cart() {
   this.figureEightEntity = new Entity(4, 4, 0, 0, 0, types.SHIELD);
 
   this.enemies = [];
-  const numberOfEnemies = 50;
+  const numberOfEnemies = 2;
   const radius = 100; // Radius of the circle on which enemies will be placed
 
   for (let i = 0; i < numberOfEnemies; i++) {
@@ -26,19 +29,19 @@ function Cart() {
     let enemy = new Enemy(16, 16, types.ENEMY, i, numberOfEnemies);
     enemy.e.x=this.hero.x + radius * Math.cos(angle); // Position enemies in a circle
     enemy.e.y=this.hero.y + radius * Math.sin(angle);
-    //this.enemies.push(enemy); // Position and type for the enemy);
+    this.enemies.push(enemy); // Position and type for the enemy);
   }
 
   // Render & Logic
-  this.update = function(delta, time, gameStarted=false) {
-    this.time+=delta;
-
+  this.update = function(delta, gameStarted=false) {
     if(gameStarted){ // Game loop
-      mg.clear();
-      // let font = "30px Papyrus";
-      // writeTxt(ctx, 1, font,"WHITE","Main Game:", canvasW-300, 200);
+      // Follow hero
+      this.cam.x = lerp(-this.hero.x + (newCanvasWidth/2)-20,this.cam.x ,.8);
+      this.cam.y = lerp(-this.hero.y + (newCanvasHeight/2)-80,this.cam.y ,.8);
 
-      // hero
+      TIME += delta;
+      mg.clear();
+
       this.hero.update(delta);
 
       this.enemies.forEach(enemy => {
@@ -46,6 +49,13 @@ function Cart() {
         enemy.e.update(delta);
       });
 
+      this.time+=delta;
+
+      // TODO: Hero HP and Power
+      drawBar(ctx, 100, 100, 'red',0);
+      drawBar(ctx, 50, 100, 'lime',30);
+
+      drawCountdown(ctx, TIME, 5);
       //this.rotatingEntity.update(delta);
       //this.spinningEntity.update(delta);
       //this.chasingEntity.update(delta);

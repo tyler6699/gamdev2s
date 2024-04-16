@@ -56,7 +56,20 @@ function drawBar(ctx, hp, maxHp, colour, yOff) {
     ctx.fillStyle = colour;
     ctx.fillRect(margin+2, margin+2, redBarWidth-4, hpBarHeight-4);
 
-    ctx.restore();
+    // Set text properties
+   ctx.font = '14px Arial';
+   ctx.fillStyle = 'white';
+   ctx.textAlign = 'center';
+   ctx.textBaseline = 'middle';
+
+   // Calculate text position
+   const textX = margin + hpBarWidth / 2;
+   const textY = margin + hpBarHeight / 2;
+
+   // Draw text (current HP and max HP)
+   ctx.fillText(`${hp} / ${maxHp}`, textX, textY);
+
+   ctx.restore();
 }
 
 // Useful Functions and classes
