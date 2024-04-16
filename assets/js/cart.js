@@ -46,9 +46,9 @@ function Cart() {
         enemy.e.update(delta);
       });
 
-      this.rotatingEntity.update(delta);
-      this.spinningEntity.update(delta);
-      this.chasingEntity.update(delta);
+      //this.rotatingEntity.update(delta);
+      //this.spinningEntity.update(delta);
+      //this.chasingEntity.update(delta);
       //this.figureEightEntity.update(delta);
 
       // Update rotating entity position
@@ -75,10 +75,10 @@ function Cart() {
       }
 
       // Update figure-eight entity position
-      radius = 100; // Adjust as needed
+      radius = 80; // Adjust as needed
       let orbitSpeed = 2; // Adjust orbit speed as needed
-      let x = this.hero.x + radius * Math.sin(this.time * orbitSpeed);
-      let y = this.hero.y + radius * Math.sin(this.time * 2 * orbitSpeed); // Double the frequency for the figure-eight pattern
+      let x = this.hero.x + 32 + radius * Math.sin(this.time * orbitSpeed);
+      let y = this.hero.y + 50 + radius * Math.sin(this.time * 2 * orbitSpeed); // Double the frequency for the figure-eight pattern
       this.figureEightEntity.x = x;
       this.figureEightEntity.y = y;
 

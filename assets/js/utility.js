@@ -1,3 +1,64 @@
+function drawCountdown(ctx, elapsedTime, totalTime) {
+    const centerX = 300;
+    const centerY = 50;
+    const radius = 20;
+
+    // Calculate the angle for the countdown
+    angle = (Math.PI * 2) * (elapsedTime / totalTime);
+    if (elapsedTime >= totalTime) angle=Math.PI * 2;
+
+    // Draw the full circle background (time passed)
+    ctx.beginPath();
+    ctx.fillStyle = '#cccccc'; // Color of the elapsed time
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.fill();
+
+    // Draw the countdown part (remaining time)
+    ctx.beginPath();
+    ctx.fillStyle = 'white'; // Color of the remaining time
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, radius, -Math.PI / 2, angle - Math.PI / 2, false);
+    ctx.closePath();
+    ctx.fill();
+
+    // Draw the hand
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.lineTo(
+        centerX + radius * Math.cos(angle - Math.PI / 2),
+        centerY + radius * Math.sin(angle - Math.PI / 2)
+    );
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+}
+
+function drawBar(ctx, hp, maxHp, colour, yOff) {
+    ctx.save();
+    ctx.translate(0,yOff);
+    const hpBarWidth = 200;
+    const hpBarHeight = 20;
+    const margin = 10;
+
+    // Draw the black background of the HP bar
+    ctx.fillStyle = 'black';
+    ctx.fillRect(margin, margin, hpBarWidth, hpBarHeight);
+
+    // Calculate the width of the red inner HP bar based on current health
+    const hpPercentage = hp / maxHp;
+    const redBarWidth = hpBarWidth * hpPercentage;
+
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(margin+2, margin+2, hpBarWidth-4, hpBarHeight-4);
+
+    ctx.fillStyle = colour;
+    ctx.fillRect(margin+2, margin+2, redBarWidth-4, hpBarHeight-4);
+
+    ctx.restore();
+}
+
 // Useful Functions and classes
 function rectanlge(x, y, w, h) {
   this.x = x;

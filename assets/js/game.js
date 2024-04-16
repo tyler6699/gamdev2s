@@ -149,7 +149,11 @@ function updateGameArea(delta) {
   TIME += delta;
   if(startDelay>0)startDelay-=delta;
   cart.update(delta, TIME, gameStarted);
+  // TODO: Hero HP and Power
+  drawBar(ctx, 100, 100, 'red',0);
+  drawBar(ctx, 50, 100, 'lime',30);
 
+  drawCountdown(ctx, TIME, 5);
   // Reset Click to false
   // If it is still true on the next loop could cause an unexpected action
   processClick=false;
