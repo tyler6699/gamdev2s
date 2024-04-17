@@ -88,22 +88,22 @@ function Cart() {
       this.figureEightEntity.y = y;
 
       // Movement for Hero
-      let speed = (delta*100*this.hero.zoom);
+      let speed = (delta*900);
 
       if(left()){
-        this.hero.x-=speed;
+        this.hero.x-=speed/zoom;
       }
 
       if(right()){
-        this.hero.x+=speed;
+        this.hero.x+=speed/zoom;
       }
 
       if(up()){
-        this.hero.y-=speed;
+        this.hero.y-=speed/zoom;
       }
 
       if(down()){
-        this.hero.y+=speed;
+        this.hero.y+=speed/zoom;
       }
     } else { // Intro Screen
       let fontSize=getResponsiveFontSize(.05);

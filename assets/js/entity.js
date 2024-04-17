@@ -46,7 +46,7 @@ function Entity(w, h, x, y, angle, type) {
 
     // Camera Tracking
     ctx.translate(cart.cam.x,cart.cam.y);
-    ctx.scale(this.zoom,this.zoom);
+    ctx.scale(zoom,zoom);
     ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w, h);
     ctx.restore();
 

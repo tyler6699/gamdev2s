@@ -213,26 +213,22 @@ function setclicks(){
 }
 
 function resizeCanvas(ctx) {
-  // let windowWidth = window.innerWidth;
-  // let windowHeight = window.innerHeight;
-  // let windowRatio = windowWidth / windowHeight;
-  //
-  // // Check the ratios to maintain the aspect ratio of the canvas.
-  // if (windowRatio < gameRatio) {
-  //   // tall and narrow,
-  //   newCanvasWidth = windowWidth;
-  //   newCanvasHeight = windowWidth / gameRatio;
-  // } else {
-  //   // wide and short,
-  //   newCanvasHeight = windowHeight;
-  //   newCanvasWidth = windowHeight * gameRatio;
-  // }
-  //
-  // // ctx.translate(width / 2, height / 2);
-  // // ctx.scale(newCanvasWidth / BASE_CANVAS_WIDTH, newCanvasHeight / BASE_CANVAS_HEIGHT);
-  // // ctx.translate(-width / 2, -height / 2);
-  //
-  // // Ensure the game contents are scaled and positioned in the center.
-  // //ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset the transformation matrix.
-  // ctx.scale(newCanvasWidth / BASE_CANVAS_WIDTH, newCanvasHeight / BASE_CANVAS_HEIGHT);
+  let windowWidth = window.innerWidth;
+  let windowHeight = window.innerHeight;
+  let windowRatio = windowWidth / windowHeight;
+
+  // Check the ratios to maintain the aspect ratio of the canvas.
+  if (windowRatio < gameRatio) {
+    // tall and narrow,
+    newCanvasWidth = windowWidth;
+    newCanvasHeight = windowWidth / gameRatio;
+  } else {
+    // wide and short,
+    newCanvasHeight = windowHeight;
+    newCanvasWidth = windowHeight * gameRatio;
+  }
+
+  ctx.translate(width / 2, height / 2);
+  ctx.scale(newCanvasWidth / BASE_CANVAS_WIDTH, newCanvasHeight / BASE_CANVAS_HEIGHT);
+  ctx.translate(-width / 2, -height / 2);
 }
