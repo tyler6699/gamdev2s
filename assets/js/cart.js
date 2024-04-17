@@ -1,5 +1,6 @@
-let xxx=500;
-let yyy=300;
+let xx=0;
+let yy=0;
+
 function Cart() {
   this.cam=new Camera();
   this.tips=true;
@@ -33,8 +34,8 @@ function Cart() {
   this.update = function(delta, gameStarted=false) {
     if(gameStarted){ // Game loop
       // Follow hero
-      this.cam.x = lerp(this.cam.x+xxx,-this.hero.x,.8);
-      this.cam.y = lerp(this.cam.y+yyy,-this.hero.y,.8);
+      this.cam.x = lerp(this.cam.x+xx,-this.hero.x,.8);
+      this.cam.y = lerp(this.cam.y+yy,-this.hero.y,.8);
       TIME += delta;
       mg.clear();
 
