@@ -7,6 +7,8 @@ function Cart() {
   this.attacks=new Attack(this.hero);
   this.spawner = new Spawner(this.hero);
   this.intro = new Intro();
+  let wave = 1;
+  
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
     if(gameStarted){
