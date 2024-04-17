@@ -179,10 +179,6 @@ function shift() {
   return (mg.keys && mg.keys[SHIFT]) || rightMB;
 }
 
-function map() {
-  return mg.keys && mg.keys[M];
-}
-
 function one() {
   return mg.keys && (mg.keys[ONE]);
 }

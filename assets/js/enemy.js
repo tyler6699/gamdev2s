@@ -5,8 +5,8 @@ function Enemy(x, y, type, index, totalEnemies) {
 
   this.update = function(delta, mobs) {
     let steerPow = this.steerFromNearbyMobs(mobs, 60);
-    let targetX = cart.hero.x + 24 + 50 * Math.cos(this.angleOffset); // 50 is the desired radius
-    let targetY = cart.hero.y + 24 + 50 * Math.sin(this.angleOffset);
+    let targetX = cart.hero.x + 50 * Math.cos(this.angleOffset); // 50 is the desired radius
+    let targetY = cart.hero.y + 50 * Math.sin(this.angleOffset);
     this.e.x += (targetX - this.e.x > 0 ? this.speed : -this.speed) + steerPow.x;
     this.e.y += (targetY - this.e.y > 0 ? this.speed : -this.speed) + steerPow.y;
 
