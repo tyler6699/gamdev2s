@@ -5,8 +5,6 @@
 // Reference for new atlas
 let canvasW = window.innerWidth;
 let canvasH = window.innerHeight;
-let newCanvasWidth;
-let newCanvasHeight;
 let gameStarted = false;
 let delta = 0.0;
 let prevDelta = Date.now();
@@ -31,9 +29,12 @@ let rightMB=false;
 let startDelay=0.1;
 let zoom=4;
 
-const BASE_CANVAS_WIDTH = 800;
-const BASE_CANVAS_HEIGHT = 600;
-let gameRatio = BASE_CANVAS_WIDTH / BASE_CANVAS_HEIGHT;
+var nativeWidth = 800;  // The resolution the game is designed to look best in
+var nativeHeight = 600;
+var deviceWidth = window.innerWidth;  // Check for browser compatibility
+var deviceHeight = window.innerHeight;
+
+var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
 
 // Load the music player
 // genAudio();
@@ -41,18 +42,17 @@ let gameRatio = BASE_CANVAS_WIDTH / BASE_CANVAS_HEIGHT;
 // Called by body onload on index page
 function startGame() {
   mg.start();
-  resizeCanvas(ctx);
-  let r = newCanvasWidth / BASE_CANVAS_WIDTH;
-
+  resizeCanvas(this.ctx);
 }
 
 let mg = {
   canvas: document.createElement("canvas"),
   start: function() {
-    this.canvas.width = canvasW;
-    this.canvas.height = canvasH;
+    this.canvas.width = nativeWidth * scaleFillNative;
+    this.canvas.height = nativeHeight * scaleFillNative;
     this.context = this.canvas.getContext("2d");
     this.context.scale(1, 1);
+    this.context.setTransform(scaleFillNative, 0, 0, scaleFillNative, 0, 0);
 
     // PixelArt Sharp
     ctx=this.context;
@@ -212,23 +212,13 @@ function setclicks(){
   clickedRec.w=10;
 }
 
-function resizeCanvas(ctx) {
-  let windowWidth = window.innerWidth;
-  let windowHeight = window.innerHeight;
-  let windowRatio = windowWidth / windowHeight;
+function resizeCanvas() {
+  deviceWidth = window.innerWidth;
+  deviceHeight = window.innerHeight;
+  let scaleFillNative = Math.min(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
 
-  // Check the ratios to maintain the aspect ratio of the canvas.
-  if (windowRatio < gameRatio) {
-    // tall and narrow,
-    newCanvasWidth = windowWidth;
-    newCanvasHeight = windowWidth / gameRatio;
-  } else {
-    // wide and short,
-    newCanvasHeight = windowHeight;
-    newCanvasWidth = windowHeight * gameRatio;
-  }
-
-  ctx.translate(width / 2, height / 2);
-  ctx.scale(newCanvasWidth / BASE_CANVAS_WIDTH, newCanvasHeight / BASE_CANVAS_HEIGHT);
-  ctx.translate(-width / 2, -height / 2);
+  this.ctx.mozImageSmoothingEnabled = false;
+  this.ctx.webkitImageSmoothingEnabled = false;
+  this.ctx.imageSmoothingEnabled = false;
+  this.ctx.setTransform(scaleFillNative, 0, 0, scaleFillNative, 0, 0);
 }

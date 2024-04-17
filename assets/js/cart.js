@@ -1,3 +1,5 @@
+let xxx=500;
+let yyy=300;
 function Cart() {
   this.cam=new Camera();
   this.tips=true;
@@ -8,7 +10,6 @@ function Cart() {
 
   // Set up one entity to render test
   this.hero = new Entity(16, 16, 0, 0, 0, types.HERO);
-
   // New entity for rotation
   this.rotatingEntity = new Entity(8, 8, 0, 0, 0, types.SHIELD);
   this.spinningEntity = new Entity(4, 4, 0, 0, 0, types.SHIELD);
@@ -32,8 +33,8 @@ function Cart() {
   this.update = function(delta, gameStarted=false) {
     if(gameStarted){ // Game loop
       // Follow hero
-      this.cam.x = lerp(-this.hero.x+(canvasW/2)-32,this.cam.x ,.8);
-      this.cam.y = lerp(-this.hero.y+(canvasH/2)-80,this.cam.y ,.8);
+      this.cam.x = lerp(this.cam.x+xxx,-this.hero.x,.8);
+      this.cam.y = lerp(this.cam.y+yyy,-this.hero.y,.8);
       TIME += delta;
       mg.clear();
 
@@ -115,9 +116,6 @@ function Cart() {
       writeTxt(ctx, 1, font,"WHITE",startDelay>0?"Generating World ..":"Press any key to start", 30, canvasH-120);
       writeTxt(ctx, 1, font,"WHITE","INTRO SCREEN " + TIME, 30, 200);
       ctx.restore();
-
-      this.hero.x=(canvasW/2)-32;
-      this.hero.y=(canvasH/2)-80;
     }
   }
 }
