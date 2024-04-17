@@ -42,7 +42,7 @@ function Entity(w, h, x, y, angle, type) {
     //
     // Extra Zoom
     let targetScreenWidth = 16 * 12;
-    this.zoom = ctx.canvas.width / 200;
+    //this.zoom = ctx.canvas.width / 200;
 
     // Camera Tracking
     ctx.translate(cart.cam.x,cart.cam.y);

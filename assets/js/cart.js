@@ -1,4 +1,4 @@
-let xx=0;
+let xx=330;
 let yy=0;
 
 function Cart() {
@@ -34,8 +34,8 @@ function Cart() {
   this.update = function(delta, gameStarted=false) {
     if(gameStarted){ // Game loop
       // Follow hero
-      this.cam.x = lerp(this.cam.x+xx,-this.hero.x,.8);
-      this.cam.y = lerp(this.cam.y+yy,-this.hero.y,.8);
+      this.cam.x = lerp(-this.hero.x+350,this.cam.x,.8);
+      this.cam.y = lerp(-this.hero.y+200,this.cam.y,.8);
       TIME += delta;
       mg.clear();
 
@@ -90,22 +90,22 @@ function Cart() {
       this.figureEightEntity.y = y;
 
       // Movement for Hero
-      let speed = (delta*900);
+      let speed = 10;
 
       if(left()){
-        this.hero.x-=speed/zoom;
+        this.hero.x-=speed;
       }
 
       if(right()){
-        this.hero.x+=speed/zoom;
+        this.hero.x+=speed;
       }
 
       if(up()){
-        this.hero.y-=speed/zoom;
+        this.hero.y-=speed;
       }
 
       if(down()){
-        this.hero.y+=speed/zoom;
+        this.hero.y+=speed;
       }
     } else { // Intro Screen
       let fontSize=getResponsiveFontSize(.05);

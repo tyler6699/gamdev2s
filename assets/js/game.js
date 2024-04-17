@@ -33,7 +33,6 @@ var nativeWidth = 800;  // The resolution the game is designed to look best in
 var nativeHeight = 600;
 var deviceWidth = window.innerWidth;  // Check for browser compatibility
 var deviceHeight = window.innerHeight;
-
 var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
 
 // Load the music player
@@ -210,15 +209,19 @@ function setclicks(){
   clickedRec.y=mousePos.y+5;
   clickedRec.h=10;
   clickedRec.w=10;
+  console.log(clickedAt);
 }
 
 function resizeCanvas() {
-  deviceWidth = window.innerWidth;
+  deviceWidth = window.innerWidth;  // Check for browser compatibility
   deviceHeight = window.innerHeight;
-  let scaleFillNative = Math.min(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
+  scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
+  ctx.canvas.width = nativeWidth * scaleFillNative;
+  ctx.canvas.height = nativeHeight * scaleFillNative;
 
+  this.context = ctx.canvas.getContext("2d");
+  this.context.setTransform(scaleFillNative, 0, 0, scaleFillNative, 0, 0);
   this.ctx.mozImageSmoothingEnabled = false;
   this.ctx.webkitImageSmoothingEnabled = false;
   this.ctx.imageSmoothingEnabled = false;
-  this.ctx.setTransform(scaleFillNative, 0, 0, scaleFillNative, 0, 0);
 }
