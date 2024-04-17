@@ -16,6 +16,7 @@ function Entity(w, h, x, y, angle, type) {
   this.image = atlas;
   this.alpha = 1;
   this.isSolid = false;
+  this.zoom=0;
 
   // ATLAS Positions
   this.sx=0;
@@ -38,10 +39,14 @@ function Entity(w, h, x, y, angle, type) {
     hh  = this.hHeight;
     w   = this.width;
     h   = this.height;
+    //
+    // Extra Zoom
+    let targetScreenWidth = 16 * 12;
+    this.zoom = ctx.canvas.width / 200;
 
     // Camera Tracking
     ctx.translate(cart.cam.x,cart.cam.y);
-    ctx.scale(zoom,zoom);
+    ctx.scale(this.zoom,this.zoom);
     ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w, h);
     ctx.restore();
 

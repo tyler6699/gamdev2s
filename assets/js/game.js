@@ -29,13 +29,11 @@ let pause=false;
 let leftMB=false;
 let rightMB=false;
 let startDelay=0.1;
-let scaleRatio=0;
-let scaleHRatio=1;
-let scaleWRatio=1;
 let zoom=4;
 
 const BASE_CANVAS_WIDTH = 800;
 const BASE_CANVAS_HEIGHT = 600;
+let gameRatio = BASE_CANVAS_WIDTH / BASE_CANVAS_HEIGHT;
 
 // Load the music player
 // genAudio();
@@ -44,6 +42,8 @@ const BASE_CANVAS_HEIGHT = 600;
 function startGame() {
   mg.start();
   resizeCanvas(ctx);
+  let r = newCanvasWidth / BASE_CANVAS_WIDTH;
+
 }
 
 let mg = {
@@ -213,23 +213,26 @@ function setclicks(){
 }
 
 function resizeCanvas(ctx) {
-  let windowWidth = window.innerWidth;
-  let windowHeight = window.innerHeight;
-  let windowRatio = windowWidth / windowHeight;
-  let gameRatio = BASE_CANVAS_WIDTH / BASE_CANVAS_HEIGHT;
-
-  // Check the ratios to maintain the aspect ratio of the canvas.
-  if (windowRatio < gameRatio) {
-    // tall and narrow,
-    newCanvasWidth = windowWidth;
-    newCanvasHeight = windowWidth / gameRatio;
-  } else {
-    // wide and short,
-    newCanvasHeight = windowHeight;
-    newCanvasWidth = windowHeight * gameRatio;
-  }
-
-  // Ensure the game contents are scaled and positioned in the center.
-  //ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset the transformation matrix.
-  ctx.scale(newCanvasWidth / BASE_CANVAS_WIDTH, newCanvasHeight / BASE_CANVAS_HEIGHT);
+  // let windowWidth = window.innerWidth;
+  // let windowHeight = window.innerHeight;
+  // let windowRatio = windowWidth / windowHeight;
+  //
+  // // Check the ratios to maintain the aspect ratio of the canvas.
+  // if (windowRatio < gameRatio) {
+  //   // tall and narrow,
+  //   newCanvasWidth = windowWidth;
+  //   newCanvasHeight = windowWidth / gameRatio;
+  // } else {
+  //   // wide and short,
+  //   newCanvasHeight = windowHeight;
+  //   newCanvasWidth = windowHeight * gameRatio;
+  // }
+  //
+  // // ctx.translate(width / 2, height / 2);
+  // // ctx.scale(newCanvasWidth / BASE_CANVAS_WIDTH, newCanvasHeight / BASE_CANVAS_HEIGHT);
+  // // ctx.translate(-width / 2, -height / 2);
+  //
+  // // Ensure the game contents are scaled and positioned in the center.
+  // //ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset the transformation matrix.
+  // ctx.scale(newCanvasWidth / BASE_CANVAS_WIDTH, newCanvasHeight / BASE_CANVAS_HEIGHT);
 }

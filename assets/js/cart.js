@@ -4,14 +4,10 @@ function Cart() {
   this.time=0;
 
   // if the window is 800px and your canvas 600px, apply scale(/*800/600 = */ 1.2)
-  this.scale = 1;
   this.reset=false;
 
   // Set up one entity to render test
   this.hero = new Entity(16, 16, 0, 0, 0, types.HERO);
-  // TODO Hero start position
-  this.hero.x=100;
-  this.hero.y=100;
 
   // New entity for rotation
   this.rotatingEntity = new Entity(8, 8, 0, 0, 0, types.SHIELD);
@@ -21,8 +17,8 @@ function Cart() {
   this.figureEightEntity = new Entity(4, 4, 0, 0, 0, types.SHIELD);
 
   this.enemies = [];
-  const numberOfEnemies = 2;
-  const radius = 100; // Radius of the circle on which enemies will be placed
+  const numberOfEnemies = 20;
+  const radius = 120; // Radius of the circle on which enemies will be placed
 
   for (let i = 0; i < numberOfEnemies; i++) {
     let angle = (i / numberOfEnemies) * 2 * Math.PI; // Divide the circle into 30 segments
@@ -36,9 +32,8 @@ function Cart() {
   this.update = function(delta, gameStarted=false) {
     if(gameStarted){ // Game loop
       // Follow hero
-      this.cam.x = lerp(-this.hero.x + (newCanvasWidth/2)-20,this.cam.x ,.8);
-      this.cam.y = lerp(-this.hero.y + (newCanvasHeight/2)-80,this.cam.y ,.8);
-
+      this.cam.x = lerp(-this.hero.x+(canvasW/2)-32,this.cam.x ,.8);
+      this.cam.y = lerp(-this.hero.y+(canvasH/2)-80,this.cam.y ,.8);
       TIME += delta;
       mg.clear();
 
@@ -58,7 +53,7 @@ function Cart() {
       drawCountdown(ctx, TIME, 5);
       //this.rotatingEntity.update(delta);
       //this.spinningEntity.update(delta);
-      //this.chasingEntity.update(delta);
+      this.chasingEntity.update(delta);
       //this.figureEightEntity.update(delta);
 
       // Update rotating entity position
@@ -93,7 +88,8 @@ function Cart() {
       this.figureEightEntity.y = y;
 
       // Movement for Hero
-      let speed = delta*400;
+      let speed = (delta*100*this.hero.zoom);
+
       if(left()){
         this.hero.x-=speed;
       }
@@ -119,6 +115,9 @@ function Cart() {
       writeTxt(ctx, 1, font,"WHITE",startDelay>0?"Generating World ..":"Press any key to start", 30, canvasH-120);
       writeTxt(ctx, 1, font,"WHITE","INTRO SCREEN " + TIME, 30, 200);
       ctx.restore();
+
+      this.hero.x=(canvasW/2)-32;
+      this.hero.y=(canvasH/2)-80;
     }
   }
 }
