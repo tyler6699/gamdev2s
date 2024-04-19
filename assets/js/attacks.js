@@ -31,7 +31,6 @@ function Attack(hero){
       this.spinningEntity.y = (this.rotatingEntity.y+16) + spinningRadius * Math.sin(spinningAngle);
 
       this.spinningEntity.update(delta);
-
     }
 
     if(this.rotate){
@@ -45,7 +44,6 @@ function Attack(hero){
       }
 
       this.chasingEntity.update(delta);
-
     }
 
     if(this.loop){
@@ -56,7 +54,7 @@ function Attack(hero){
       let y = this.hero.y + 50 + radius * Math.sin(t * 2 * orbitSpeed); // Double the frequency for the figure-eight pattern
       this.figureEightEntity.x = x;
       this.figureEightEntity.y = y;
-      
+
       this.figureEightEntity.update(delta);
     }
   }

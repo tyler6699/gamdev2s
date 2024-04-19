@@ -1,7 +1,7 @@
 function Spawner(hero){
   this.hero=hero;
-  const numberOfEnemies = 20;
-  const radius = 120; // Radius of the circle on which enemies will be placed
+  const numberOfEnemies = 300;
+  const radius = 600; // Radius of the circle on which enemies will be placed
   this.enemies = [];
 
   for (let i = 0; i < numberOfEnemies; i++) {
@@ -17,6 +17,10 @@ function Spawner(hero){
       enemy.update(delta, this.enemies);
       enemy.e.update(delta);
     });
+
+    this.enemies = this.enemies.filter(function (i) {
+     return i.active;
+   });
   }
 
 }

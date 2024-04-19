@@ -28,6 +28,9 @@ let leftMB=false;
 let rightMB=false;
 let startDelay=0.1;
 let zoom=4;
+let fps = 60; // A reasonable default value
+let frameCount = 0;
+let elapsedTime = 0;
 
 var nativeWidth = 800;  // The resolution the game is designed to look best in
 var nativeHeight = 600;
@@ -128,8 +131,20 @@ function updateGameLoop(timestamp) {
   let deltaTime = (timestamp - lastTimestamp) / 1000;
   lastTimestamp = timestamp;
 
+  // Update the FPS every second
+  elapsedTime += deltaTime;
+  frameCount++;
+  if (elapsedTime >= 1.0) { // Update the FPS once every second
+    fps = frameCount / elapsedTime;
+    frameCount = 0;
+    elapsedTime = 0;
+  }
+
   // Update the game state and render
   updateGameArea(deltaTime);
+
+  // Display FPS
+  displayFPS(fps);
 
   // Request the next frame
   mg.frameId = requestAnimationFrame(updateGameLoop);

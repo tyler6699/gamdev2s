@@ -21,6 +21,26 @@ function Entity(w, h, x, y, angle, type) {
   this.sx=0;
   this.sy=0;
 
+  this.move = function(){
+    let speed = 5;
+
+    if(left()){
+      this.x-=speed;
+    }
+
+    if(right()){
+      this.x+=speed;
+    }
+
+    if(up()){
+      this.y-=speed;
+    }
+
+    if(down()){
+      this.y+=speed;
+    }
+  }
+
   // Render
   this.update = function(delta) {
     this.x = Math.floor(this.x);
@@ -72,6 +92,21 @@ function Entity(w, h, x, y, angle, type) {
         break;
       case types.SHIELD:
         this.sx=33;
+        break;
+      case types.HAIR1:
+        this.sx=60;
+        this.w=15
+        break;
+      case types.HAIR2:
+        this.sx=75;
+        this.w=17;
+        break;
+      case types.HAIR3:
+        this.sx=92;
+        this.w=15;
+        break;
+      case types.HAND:
+        this.sx=40;
         break;
     }
   }

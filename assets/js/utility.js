@@ -1,38 +1,38 @@
 function drawCountdown(ctx, elapsedTime, totalTime) {
-    const centerX = 300;
-    const centerY = 50;
-    const radius = 20;
+  const centerX = 400;
+  const centerY = 35;
+  const radius = 30;
 
-    // Calculate the angle for the countdown
-    angle = (Math.PI * 2) * (elapsedTime / totalTime);
-    if (elapsedTime >= totalTime) angle=Math.PI * 2;
+  // Calculate the angle for the countdown
+  angle = (Math.PI * 2) * (elapsedTime / totalTime);
+  if (elapsedTime >= totalTime) angle=Math.PI * 2;
 
-    // Draw the full circle background (time passed)
-    ctx.beginPath();
-    ctx.fillStyle = '#cccccc'; // Color of the elapsed time
-    ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.fill();
+  // Draw the full circle background (time passed)
+  ctx.beginPath();
+  ctx.fillStyle = '#cccccc'; // Color of the elapsed time
+  ctx.moveTo(centerX, centerY);
+  ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+  ctx.closePath();
+  ctx.fill();
 
-    // Draw the countdown part (remaining time)
-    ctx.beginPath();
-    ctx.fillStyle = 'white'; // Color of the remaining time
-    ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radius, -Math.PI / 2, angle - Math.PI / 2, false);
-    ctx.closePath();
-    ctx.fill();
+  // Draw the countdown part (remaining time)
+  ctx.beginPath();
+  ctx.fillStyle = 'white'; // Color of the remaining time
+  ctx.moveTo(centerX, centerY);
+  ctx.arc(centerX, centerY, radius, -Math.PI / 2, angle - Math.PI / 2, false);
+  ctx.closePath();
+  ctx.fill();
 
-    // Draw the hand
-    ctx.beginPath();
-    ctx.moveTo(centerX, centerY);
-    ctx.lineTo(
-        centerX + radius * Math.cos(angle - Math.PI / 2),
-        centerY + radius * Math.sin(angle - Math.PI / 2)
-    );
-    ctx.strokeStyle = '#000000';
-    ctx.lineWidth = 3;
-    ctx.stroke();
+  // Draw the hand
+  ctx.beginPath();
+  ctx.moveTo(centerX, centerY);
+  ctx.lineTo(
+      centerX + radius * Math.cos(angle - Math.PI / 2),
+      centerY + radius * Math.sin(angle - Math.PI / 2)
+  );
+  ctx.strokeStyle = '#000000';
+  ctx.lineWidth = 3;
+  ctx.stroke();
 }
 
 function drawBar(ctx, hp, maxHp, colour, yOff) {
@@ -181,3 +181,100 @@ function knockback(hero, src, amt) {
     hero.e.x += dx * amt;
     hero.e.y += dy * amt;
 }
+
+const fontMap = {
+    '0': [
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1],
+        [1, 0, 0, 0, 1],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1]
+    ],
+    '1': [
+        [0, 0, 1, 0, 0],
+        [0, 1, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0]
+    ],
+    '2': [
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1]
+    ],
+    '3': [
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1],
+        [0, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1]
+    ],
+    '4': [
+        [1, 0, 0, 0, 1],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1]
+    ],
+    '5': [
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1]
+    ],
+    '6': [
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1]
+    ],
+    '7': [
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0],
+        [0, 1, 0, 0, 0]
+    ],
+    '8': [
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1]
+    ],
+    '9': [
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1]
+    ]
+};
+
+
+   function drawNumber(x, y, number, scale) {
+       for (let i = 0; i < fontMap[number].length; i++) {
+           for (let j = 0; j < fontMap[number][i].length; j++) {
+               if (fontMap[number][i][j] === 1) {
+                   ctx.fillStyle = 'white';
+                   ctx.fillRect(x + j * scale, y + i * scale, scale, scale);
+               }
+           }
+       }
+   }
+
+   function displayFPS(fps) {
+     mg.context.fillStyle = "yellow";
+     mg.context.font = "16px Arial";
+     mg.context.fillText("FPS: " + fps.toFixed(2), nativeWidth-100, 20);
+   }
+
+   function displayEnemyCount(n) {
+     mg.context.fillStyle = "white";
+     mg.context.font = "16px Arial";
+     mg.context.fillText("Mobs: " + n, nativeWidth-100, 50);
+   }
