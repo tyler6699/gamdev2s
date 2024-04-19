@@ -94,21 +94,45 @@ function Entity(w, h, x, y, angle, type) {
         this.sx=33;
         break;
       case types.HAIR1:
-        this.sx=60;
-        this.w=15
+        this.sx=63;
+        this.width=13
+        this.height=13
         break;
       case types.HAIR2:
-        this.sx=75;
-        this.w=17;
+        this.sx=77;
+        this.width=15;
+        this.height=12
         break;
       case types.HAIR3:
-        this.sx=92;
-        this.w=15;
+        this.sx=94;
+        this.width=13;
+        this.height=11;
+        break;
+      case types.HAIR4:
+        this.sx=50;
+        this.sy=12;
+        this.width=11;
+        this.height=8;
+        break;
+      case types.HEAD1:
+        this.sx=2;
+        this.sy=1;
+        break;
+      case types.HEAD2:
+        this.sx=48;
+        this.sy=1;
+        break;
+      case types.HEAD3:
+        this.sx=11;
+        this.sy=17;
         break;
       case types.HAND:
         this.sx=40;
         break;
     }
+
+    this.hWidth = this.width / 2;
+    this.hHeight = this.height / 2;
   }
 
   this.setType();

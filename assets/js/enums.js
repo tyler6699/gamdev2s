@@ -7,5 +7,9 @@ const types = {
   HAIR1:5,
   HAIR2:6,
   HAIR3:7,
-  HAND:8
+  HAIR4:8,
+  HAND:9,
+  HEAD1:10,
+  HEAD2:11,
+  HEAD3:12
 }

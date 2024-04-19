@@ -57,6 +57,7 @@ function Cart() {
     } else {
       // Intro Screen
       this.intro.update();
+      this.hero.update(delta);
     }
   }
 }
