@@ -45,8 +45,8 @@ function Cart() {
       }
 
       // TODO: Hero HP and Power
-      drawBar(ctx, 100, 100, 'red',0);
-      drawBar(ctx, 50, 100, 'lime',30);
+      drawBar(ctx, 60, 100, '#f68687', '#a15156','#faf1f0',0); // HP RED
+      drawBar(ctx, 50, 100, '#84e3b3','#589572','#f0faf7',30); // Power Green
       displayEnemyCount(this.spawner.enemies.length)
       displayFPS(fps);
     } else {

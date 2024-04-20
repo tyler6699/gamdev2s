@@ -9,7 +9,7 @@ function drawCountdown(ctx, elapsedTime, totalTime) {
 
   // Draw the full circle background (time passed)
   ctx.beginPath();
-  ctx.fillStyle = '#cccccc'; // Color of the elapsed time
+  ctx.fillStyle = '#a6f1c8'; // Color of the elapsed time
   ctx.moveTo(centerX, centerY);
   ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
   ctx.closePath();
@@ -30,12 +30,12 @@ function drawCountdown(ctx, elapsedTime, totalTime) {
       centerX + radius * Math.cos(angle - Math.PI / 2),
       centerY + radius * Math.sin(angle - Math.PI / 2)
   );
-  ctx.strokeStyle = '#000000';
+  ctx.strokeStyle = '#589572';
   ctx.lineWidth = 3;
   ctx.stroke();
 }
 
-function drawBar(ctx, hp, maxHp, colour, yOff) {
+function drawBar(ctx, hp, maxHp, colour, border, backcol, yOff) {
     ctx.save();
     ctx.translate(0,yOff);
     const hpBarWidth = 200;
@@ -43,14 +43,14 @@ function drawBar(ctx, hp, maxHp, colour, yOff) {
     const margin = 10;
 
     // Draw the black background of the HP bar
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = border;
     ctx.fillRect(margin, margin, hpBarWidth, hpBarHeight);
 
     // Calculate the width of the red inner HP bar based on current health
     const hpPercentage = hp / maxHp;
     const redBarWidth = hpBarWidth * hpPercentage;
 
-    ctx.fillStyle = 'grey';
+    ctx.fillStyle = backcol;
     ctx.fillRect(margin+2, margin+2, hpBarWidth-4, hpBarHeight-4);
 
     ctx.fillStyle = colour;
@@ -58,7 +58,7 @@ function drawBar(ctx, hp, maxHp, colour, yOff) {
 
     // Set text properties
    ctx.font = '14px Arial';
-   ctx.fillStyle = 'white';
+   ctx.fillStyle = 'black';
    ctx.textAlign = 'center';
    ctx.textBaseline = 'middle';
 
@@ -312,7 +312,7 @@ const fontMap = {
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.roundRect(50, 40, 150, 100, 40);
+    ctx.roundRect(50, 45, 150, 90, 40);
     ctx.stroke();
     ctx.fill();
     ctx.restore();

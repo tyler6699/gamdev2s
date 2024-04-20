@@ -30,18 +30,19 @@ function Intro(){
      }
 
     let font=`${fontSize}px Arial`;
-    writeStroke(ctx, 1, font,"Black","GameDevJS 2024 ", 30, canvasH*.1,12);
+    writeStroke(ctx, 1, font,"Black","GameDevJS 2024", 30, canvasH*.1,12);
     writeTxt(ctx, 1, font,"WHITE","GameDevJS 2024 ", 30, canvasH*.1);
-    writeTxt(ctx, 1, font,"WHITE",startDelay>0?"Generating World ..":"", 30, canvasH-120);
     font=`${fontSize-15}px Arial`;
 
-    if (up() && delay <= 0 && charSet > 0) {
+    if (up() && delay <= 0) {
       delay = 0.3;
       charSet--;
-    } else if (down() && delay <= 0 && charSet < 3) {
+    } else if (down() && delay <=0) {
       delay = 0.3;
       charSet++;
     }
+
+    charSet = (charSet + 3) % 3;
 
     drawHeroBox(0, 0, 300, 300, 15);
 
@@ -54,9 +55,6 @@ function Intro(){
           const h = [types.HAIR1, types.HAIR2, types.HAIR3, types.HAIR4];
           cart.hero.hair.type = h[(h.indexOf(cart.hero.hair.type) + 1) % h.length];
           cart.hero.change = true;
-      } else if (space() && delay <= 0) {
-          charSet = 1;
-          delay = 0.3;
       }
     } else if (charSet == 1) {
       this.arrow.y = 140;
@@ -78,19 +76,11 @@ function Intro(){
             cart.hero.lHand.sx=30;
             cart.hero.lHand.sy=9;
           }
-
-      } else if (space() && delay <= 0) {
-          charSet = 2;
-          delay = 0.3;
       }
     } else if (charSet == 2) {
       this.arrow.y = 170;
       writeStroke(ctx, 1, font, "BLACK", "Select Clothes (Left / Right)", 30, canvasH*.2,6);
       writeTxt(ctx, 1, font, "WHITE", "Select Clothes (Left / Right)", 30, canvasH*.2);
-    } else if (charSet == 3) {
-      this.arrow.y = 190;
-      writeStroke(ctx, 1, font, "BLACK", "[ Start ]",  (canvasW / 2) - 90, canvasH - 60,10);
-      writeTxt(ctx, 1, font, "WHITE", "[ Start ]", (canvasW / 2) - 90, canvasH - 60);
     }
 
     delay-=delta;
@@ -107,5 +97,11 @@ function Intro(){
     this.arrow.update(delta);
     ctx.restore();
 
+    writeStroke(ctx, 1, font,"Black","Space to Start", canvasH*.5, canvasH*.88,12);
+    writeTxt(ctx, 1, font,"WHITE","Space to Start",canvasH*.5, canvasH*.88);
+
+    if(space()){
+      gameStarted=true;
+    }
   }
 }
