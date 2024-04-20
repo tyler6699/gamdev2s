@@ -9,8 +9,15 @@ function Intro(){
     ctx.save();
     drawBox(ctx,0.8,"black",0,0,canvasW,canvasH)
 
+    // BACKGROUND STRIPES
+    var colors=['#a8f2cb', '#88e4b0'];
     const stripeWidth = 50; // width of each stripe
-    const colors = ['#a8f2cb', '#88e4b0']; // two-tone greens, mint and darker mint
+    if(colour==1){
+      colors = ['#a8f2cb', '#88e4b0']; // two-tone greens,
+    } else {
+      colors = ['#ffb3a6', '#ff9e9a']; // two-tone pinks
+    }
+
     let colorIndex = 0;
 
      // Calculate the number of stripes needed to fill the screen diagonally
@@ -34,17 +41,25 @@ function Intro(){
     writeTxt(ctx, 1, font,"WHITE","GameDevJS 2024 ", 30, canvasH*.1);
     font=`${fontSize-15}px Arial`;
 
-    if (up() && delay <= 0) {
-      delay = 0.3;
-      charSet--;
-    } else if (down() && delay <=0) {
-      delay = 0.3;
-      charSet++;
+
+    if (delay <= 0) {
+      if (up()) {
+        delay = 0.3;
+        charSet--;
+      } else if (down()) {
+        delay = 0.3;
+        charSet++;
+      }
+
+      if(t()){ // colour swapper
+        colour = (colour + 1) % 2;
+        delay = 0.3;
+      }
     }
 
     charSet = (charSet + 3) % 3;
 
-    drawHeroBox(0, 0, 300, 300, 15);
+    drawHeroBox(0, 0, 300, 300, 15, colour);
 
     if (charSet == 0) {
       this.arrow.y = 100;

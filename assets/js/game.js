@@ -38,6 +38,7 @@ var nativeHeight = 600;
 var deviceWidth = window.innerWidth;  // Check for browser compatibility
 var deviceHeight = window.innerHeight;
 var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
+var colour = 1;
 
 // Load the music player
 // genAudio();

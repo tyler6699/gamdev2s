@@ -9,7 +9,7 @@ function drawCountdown(ctx, elapsedTime, totalTime) {
 
   // Draw the full circle background (time passed)
   ctx.beginPath();
-  ctx.fillStyle = '#a6f1c8'; // Color of the elapsed time
+  ctx.fillStyle = colour == 1 ? '#a6f1c8':'#ffb3a6'; // Color of the elapsed time
   ctx.moveTo(centerX, centerY);
   ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
   ctx.closePath();
@@ -30,7 +30,7 @@ function drawCountdown(ctx, elapsedTime, totalTime) {
       centerX + radius * Math.cos(angle - Math.PI / 2),
       centerY + radius * Math.sin(angle - Math.PI / 2)
   );
-  ctx.strokeStyle = '#589572';
+  ctx.strokeStyle = colour == 1 ? '#589572':'#f8847c';
   ctx.lineWidth = 3;
   ctx.stroke();
 }
@@ -293,11 +293,11 @@ const fontMap = {
      mg.context.fillText("Mobs: " + n, nativeWidth-100, 50);
    }
 
-   function drawHeroBox(x, y, width, height, borderRadius) {
+   function drawHeroBox(x, y, width, height, borderRadius, colour) {
      ctx.save();
      ctx.scale(3,3)
      // Set shadow properties
-     ctx.shadowColor = '#3CB371'; // Dark mint green shadow
+     ctx.shadowColor = colour == 1 ? '#3CB371':'#f67c84';
      ctx.shadowBlur = 10;
      ctx.shadowOffsetX = 5;
      ctx.shadowOffsetY = 5;
@@ -307,7 +307,7 @@ const fontMap = {
     ctx.fill();
 
     // Box stroke color
-    ctx.strokeStyle = '#3CB371';
+    ctx.strokeStyle = colour == 1 ? '#3CB371':'#ffb3a6';
     ctx.lineWidth = 4;
     ctx.stroke();
 
