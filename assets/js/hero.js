@@ -1,7 +1,7 @@
 function Hero(w, h, x, y, angle, type) {
 
   this.e = new Entity(16, 16, 0, 0, 0, types.HERO);
-  this.hair = new Entity(13, 13, 0, 0, 0, types.HAIR4);
+  this.hair = new Entity(13, 13, 0, 0, 0, types.HAIR1);
   this.head = new Entity(11, 9, 0, 0, 0, types.HEAD1);
   this.rHand = new Entity(4, 4, 0, 0, 0, types.HAND);
   this.lHand = new Entity(4, 4, 0, 0, 0, types.HAND);
@@ -21,7 +21,7 @@ function Hero(w, h, x, y, angle, type) {
         this.hair.y=this.e.y-6;
         break;
       case types.HAIR2:
-        this.hair.x=this.e.x-8;
+        this.hair.x=this.e.x-6;
         this.hair.y=this.e.y-8;
         break;
       case types.HAIR3:

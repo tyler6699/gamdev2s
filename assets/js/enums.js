@@ -11,5 +11,6 @@ const types = {
   HAND:9,
   HEAD1:10,
   HEAD2:11,
-  HEAD3:12
+  HEAD3:12,
+  ARROW:13
 }

@@ -26,11 +26,6 @@ function Cart() {
       this.time+=delta;
       this.hero.update(delta);
 
-      // Test numbers
-      // drawNumber(10, 60, 1, 2);
-      // drawNumber(20, 60, 0, 2);
-      // drawNumber(30, 60, 0, 2);
-
       // Wave Start Count Down
       if(waveStart<=0){
         this.spawner.update(delta, this.time);
@@ -56,8 +51,7 @@ function Cart() {
       displayFPS(fps);
     } else {
       // Intro Screen
-      this.intro.update();
-      this.hero.update(delta);
+      this.intro.update(delta);
     }
   }
 }

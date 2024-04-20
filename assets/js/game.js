@@ -6,6 +6,7 @@
 let canvasW = window.innerWidth;
 let canvasH = window.innerHeight;
 let gameStarted = false;
+let charSet=0;
 let delta = 0.0;
 let prevDelta = Date.now();
 let currentDelta = Date.now();
@@ -68,7 +69,7 @@ let mg = {
 
     // Keyboard
     window.addEventListener('keydown', function(e) {
-      if(startDelay<=0)start=true;
+      if(startDelay<=0&&charSet==3)start=true;
       e.preventDefault();
       mg.keys = (mg.keys || []);
       mg.keys[e.keyCode] = (e.type == "keydown");

@@ -127,7 +127,12 @@ function Entity(w, h, x, y, angle, type) {
         this.sy=17;
         break;
       case types.HAND:
-        this.sx=40;
+        this.sx=30;
+        this.sy=9;
+        break;
+      case types.ARROW:
+        this.sx=36;
+        this.sy=3;
         break;
     }
 
