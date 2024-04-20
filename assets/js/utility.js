@@ -150,9 +150,23 @@ function writeTxt(ctx,a,font,colour,txt,x,y) {
   ctx.globalAlpha = a;
   ctx.font = font;
   ctx.fillStyle = colour;
+
   ctx.fillText(txt, x, y);
   ctx.restore();
 }
+
+function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = a;
+  ctx.font = font;
+  ctx.fillStyle = colour;
+  ctx.strokeStyle = colour; // Color of the stroke
+  ctx.lineWidth = strokeW; // Width of the stroke
+  ctx.strokeText(txt, x, y);
+  ctx.restore();
+}
+
 
 function getTile(x,y,h,offY){
   let gridX = x / 32;

@@ -1,6 +1,6 @@
 function Enemy(x, y, type, index, totalEnemies) {
   this.active=true;
-  this.e = new Entity(16, 16, 0, 0, 0, type);
+  this.e = new Entity(12, 16, 0, 0, 0, type);
   this.speed = .8; // Speed of the enemy
   this.angleOffset = (Math.PI * 2) * (index / totalEnemies); // Unique angle for each enemy
 
