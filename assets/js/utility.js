@@ -292,3 +292,28 @@ const fontMap = {
      mg.context.font = "16px Arial";
      mg.context.fillText("Mobs: " + n, nativeWidth-100, 50);
    }
+
+   function drawHeroBox(x, y, width, height, borderRadius) {
+     ctx.save();
+     ctx.scale(3,3)
+     // Set shadow properties
+     ctx.shadowColor = '#3CB371'; // Dark mint green shadow
+     ctx.shadowBlur = 10;
+     ctx.shadowOffsetX = 5;
+     ctx.shadowOffsetY = 5;
+
+    // Box fill color
+    ctx.fillStyle = 'white';
+    ctx.fill();
+
+    // Box stroke color
+    ctx.strokeStyle = '#3CB371';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.roundRect(50, 40, 150, 100, 40);
+    ctx.stroke();
+    ctx.fill();
+    ctx.restore();
+}
