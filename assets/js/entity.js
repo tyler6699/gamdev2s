@@ -16,6 +16,7 @@ function Entity(w, h, x, y, angle, type) {
   this.image = atlas;
   this.alpha = 1;
   this.isSolid = false;
+  this.flip=false;
 
   // ATLAS Positions
   this.sx=0;
@@ -50,7 +51,6 @@ function Entity(w, h, x, y, angle, type) {
   this.update = function(delta) {
     this.x = Math.floor(this.x);
     this.Y = Math.floor(this.Y);
-
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.globalAlpha = this.alpha;
@@ -66,7 +66,16 @@ function Entity(w, h, x, y, angle, type) {
 
     // Camera Tracking
     ctx.translate(cart.cam.x,cart.cam.y);
-    ctx.scale(zoom,zoom);
+    if (this.flip){
+      if(this.type==types.HAIR2){
+        ctx.translate(8.3*w,0);
+      } else {
+        ctx.translate(-w*-7,0);
+      }
+      ctx.scale(-zoom,zoom);
+    } else {
+      ctx.scale(zoom,zoom);
+    }
     ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w, h);
     ctx.restore();
 
