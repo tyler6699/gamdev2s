@@ -14,7 +14,8 @@ module.exports = function(grunt) {
       build: {
         files: [{
           expand: false,
-          src: ["assets/js/spawner.js",
+          src: ["assets/js/decor.js",
+                "assets/js/spawner.js",
                 "assets/js/enemy.js",
                 "assets/js/camera.js",
                 "assets/js/keys.js",

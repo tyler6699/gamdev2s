@@ -38,6 +38,9 @@ function Cart() {
           TIME=0;
           waveStart=3;
           this.spawner.enemies = [];
+          wave++;
+          this.hero.e.x=65;
+          this.hero.e.y=30; 
         }
       } else {
         waveStart-=delta;
