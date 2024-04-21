@@ -14,9 +14,16 @@ function Cart() {
   let currentNumber = 3;
   let scale = 20; // Initial scale of the squares
   let prevNumber = 0;
-
+  let runOnce=true;
+  var imageData;
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
+    if(runOnce){
+      var gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+      gradient.addColorStop(0, '#3CB371'); // Dark green at the top
+      gradient.addColorStop(1, '#A6F1C8'); // Lighter green at the bottom
+    }
+
     if(gameStarted){
       // Camera follow hero
       // Example usage: draw the number "190"
@@ -24,11 +31,15 @@ function Cart() {
       this.cam.y = lerp(-this.hero.e.y+200,this.cam.y,.1);
       TIME += delta;
       mg.clear();
-      ctx.fillStyle = colour == 0 ? '#a6f1c8':'#ffb3a6'; // Grass color
+
+      // GRASS
+      ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
       this.time+=delta;
       this.decor.update(delta);
       this.hero.update(delta);
+
       // Wave Start Count Down
       if(waveStart<=0){
         this.spawner.update(delta, this.time);
@@ -40,7 +51,7 @@ function Cart() {
           this.spawner.enemies = [];
           wave++;
           this.hero.e.x=65;
-          this.hero.e.y=30; 
+          this.hero.e.y=30;
         }
       } else {
         waveStart-=delta;
