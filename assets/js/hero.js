@@ -51,13 +51,15 @@ function Hero(w, h, x, y, angle, type) {
     // Update the phase, increase by delta time
     this.handMovementPhase += delta;
 
-    // Calculate the vertical offset using sine for a smooth oscillation
-    let handVerticalOffset = 3 * Math.sin(this.handMovementPhase * 2 * Math.PI * 0.4); // Oscillates with an amplitude of 5 pixels, frequency of 0.5 Hz
+    // Bouncing Hands
+    let bounce = 3 * Math.sin(this.handMovementPhase * 2 * Math.PI * 0.4); // Oscillates with an amplitude of 5 pixels, frequency of 0.5 Hz
+    let xr=this.e.flip?55:65;
+    let xl=this.e.flip?15:25;
+    this.rHand.x = this.e.x + xr;
+    this.rHand.y = this.e.y + 65 + bounce;
+    this.lHand.x = this.e.x + xl;
+    this.lHand.y = this.e.y + 65 + bounce;
 
-    this.rHand.x = this.e.x + 65;
-    this.rHand.y = this.e.y + 65 + handVerticalOffset;
-    this.lHand.x = this.e.x + 25;
-    this.lHand.y = this.e.y + 65 + handVerticalOffset;
     this.rHand.update(delta);
     this.lHand.update(delta);
 

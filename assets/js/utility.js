@@ -325,3 +325,29 @@ const fontMap = {
     ctx.fill();
     ctx.restore();
 }
+
+function mkShadows(image) {
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = image.width;
+    tempCanvas.height = image.height;
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.drawImage(image, 0, 0);
+
+    const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+    const data = imageData.data;
+
+    // Convert all non-transparent pixels to black
+    for (let i = 0; i < data.length; i += 4) {
+        if (data[i + 3] !== 0) { // Check if pixel is not transparent
+            data[i] = 0;     // Red
+            data[i + 1] = 0; // Green
+            data[i + 2] = 0; // Blue
+        }
+    }
+
+    tempCtx.putImageData(imageData, 0, 0);
+
+    const blackImage = new Image();
+    blackImage.src = tempCanvas.toDataURL("image/png");
+    return blackImage;
+}

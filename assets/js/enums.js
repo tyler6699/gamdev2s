@@ -17,5 +17,8 @@ const types = {
   BIGROCK:15,
   STUMP:16,
   BIGMUSH:17,
-  SMALLMUSH:18
+  SMALLMUSH:18,
+  LILY:19,
+  LILG:20,
+  LILP:21
 }

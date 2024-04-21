@@ -14,6 +14,7 @@ function Entity(w, h, x, y, angle, type) {
   this.x = x;
   this.y = y;
   this.image = atlas;
+  this.shadow = shadowImage;
   this.alpha = 1;
   this.isSolid = false;
   this.flip=false;
@@ -76,6 +77,7 @@ function Entity(w, h, x, y, angle, type) {
     } else {
       ctx.scale(zoom,zoom);
     }
+
     ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w, h);
     ctx.restore();
 
@@ -165,6 +167,18 @@ function Entity(w, h, x, y, angle, type) {
         break;
       case types.BIGMUSH:
         this.sy=20;
+        break;
+      case types.LILY:
+        this.sy=40;
+        this.sx=53;
+        break;
+      case types.LILG:
+        this.sy=40;
+        this.sx=63;
+        break;
+      case types.LILP:
+        this.sy=40;
+        this.sx=73;
         break;
     }
 

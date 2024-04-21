@@ -21,6 +21,8 @@ let WIN = false;
 let STAGE=0;
 let atlas = new Image();
 atlas.src = "atlas.png";
+// Shadows
+let shadowImage=new Image();
 let cart = new Cart();
 let start=false;
 let music=true;
@@ -47,6 +49,12 @@ var colour = 1;
 function startGame() {
   mg.start();
   resizeCanvas(this.ctx);
+  setupControls();
+
+  document.getElementById('gameControls').addEventListener('touchstart', (event) => {
+      event.preventDefault();  // Prevent scrolling/zooming on the control buttons
+  }, { passive: false });
+
 }
 
 let mg = {
@@ -67,6 +75,11 @@ let mg = {
     document.body.insertBefore(this.canvas, document.body.childNodes[6]);
     // Run the game loop
     this.frameId = requestAnimationFrame(updateGameLoop);
+
+    shadowImage.src = 'atlas.png';
+    shadowImage.onload = function() {
+      shadowImage = mkShadows(shadowImage);
+    }
 
     // Keyboard
     window.addEventListener('keydown', function(e) {
@@ -124,6 +137,27 @@ let mg = {
     this.context.clearRect(0, 0, 4*this.canvas.width, 4*this.canvas.height);
   }
 }
+
+// Mobile Controls
+function setupControls() {
+    document.getElementById('up').addEventListener('touchstart', () => move('up'));
+    document.getElementById('down').addEventListener('touchstart', () => move('down'));
+    document.getElementById('left').addEventListener('touchstart', () => move('left'));
+    document.getElementById('right').addEventListener('touchstart', () => move('right'));
+    document.getElementById('aButton').addEventListener('touchstart', () => action('A'));
+    document.getElementById('bButton').addEventListener('touchstart', () => action('B'));
+}
+
+function move(direction) {
+    // Handle movement logic here
+    console.log('Move:', direction);
+}
+
+function action(button) {
+    // Handle action button logic here
+    console.log('Button pressed:', button);
+}
+
 
 let lastTimestamp = null;
 function updateGameLoop(timestamp) {
@@ -231,6 +265,7 @@ function resizeCanvas() {
   canvasW = window.innerWidth;
   canvasH = window.innerHeight;
   scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
+  scaleFitNative = Math.min(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
   ctx.canvas.width = nativeWidth * scaleFillNative;
   ctx.canvas.height = nativeHeight * scaleFillNative;
 
