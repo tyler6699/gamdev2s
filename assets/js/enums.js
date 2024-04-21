@@ -12,5 +12,10 @@ const types = {
   HEAD1:10,
   HEAD2:11,
   HEAD3:12,
-  ARROW:13
+  ARROW:13,
+  SMALLROCK:14,
+  BIGROCK:15,
+  STUMP:16,
+  BIGMUSH:17,
+  SMALLMUSH:18
 }

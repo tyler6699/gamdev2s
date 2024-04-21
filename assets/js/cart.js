@@ -6,6 +6,7 @@ function Cart() {
   this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
   this.attacks=new Attack(this.hero);
   this.spawner = new Spawner(this.hero.e);
+  this.decor = new Decor();
   this.intro = new Intro();
   let waveStart=3;
   let waveEnd=20;
@@ -23,9 +24,11 @@ function Cart() {
       this.cam.y = lerp(-this.hero.e.y+200,this.cam.y,.1);
       TIME += delta;
       mg.clear();
+      ctx.fillStyle = colour == 0 ? '#a6f1c8':'#ffb3a6'; // Grass color
+      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       this.time+=delta;
+      this.decor.update(delta);
       this.hero.update(delta);
-
       // Wave Start Count Down
       if(waveStart<=0){
         this.spawner.update(delta, this.time);

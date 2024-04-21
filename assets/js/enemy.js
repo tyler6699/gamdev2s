@@ -13,7 +13,7 @@ function Enemy(x, y, type, index, totalEnemies) {
 
     // Check collision with hero
    if (this.e.isCollidingWith(cart.hero.e)) {
-     console.log('Enemy is touching the hero!');
+     //console.log('Enemy is touching the hero!');
      this.active = false;
    }
   };

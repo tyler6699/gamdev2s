@@ -39,6 +39,11 @@ function Entity(w, h, x, y, angle, type) {
     if(down()){
       this.y+=speed;
     }
+
+    if(this.x < -2000) this.x=-2000;
+    if(this.x > 2000) this.x=2000;
+    if(this.y < -2000) this.y=-2000;
+    if(this.y > 2000) this.y=2000;
   }
 
   // Render
@@ -133,6 +138,24 @@ function Entity(w, h, x, y, angle, type) {
       case types.ARROW:
         this.sx=36;
         this.sy=3;
+        break;
+      case types.SMALLROCK:
+        this.sx=24;
+        this.sy=17;
+        break;
+      case types.BIGROCK:
+        this.sx=35;
+        this.sy=16;
+        break;
+      case types.STUMP:
+        this.sx=23;
+        this.sy=25;
+        break;
+      case types.SMALLMUSH:
+        this.sy=32;
+        break;
+      case types.BIGMUSH:
+        this.sy=20;
         break;
     }
 
