@@ -1,6 +1,6 @@
 function Spawner(hero){
   this.hero=hero;
-  const numberOfEnemies = 300;
+  const numberOfEnemies = 30;
   const radius = 600; // Radius of the circle on which enemies will be placed
   this.enemies = [];
 

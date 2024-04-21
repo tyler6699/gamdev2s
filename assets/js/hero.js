@@ -6,15 +6,17 @@ function Hero(w, h, x, y, angle, type) {
   this.lHand = new Entity(4, 4, 0, 0, 0, types.HAND);
   this.change=false;
   this.handMovementPhase = 0;
+  this.hp=100;
+  this.power=0;
 
   this.update = function(delta) {
     this.e.move(delta);
     this.e.update(delta);
 
     if(gameStarted){
-      cart.hero.e.flip=mg.keys && (mg.keys[LEFT] || mg.keys[A]);
-      cart.hero.hair.flip=mg.keys && (mg.keys[LEFT] || mg.keys[A]);
-      cart.hero.head.flip=mg.keys && (mg.keys[LEFT] || mg.keys[A]);
+      cart.hero.e.flip=this.e.dir==1;
+      cart.hero.hair.flip=this.e.dir==1;
+      cart.hero.head.flip=this.e.dir==1;
     }
 
     this.head.x=this.e.x+18;

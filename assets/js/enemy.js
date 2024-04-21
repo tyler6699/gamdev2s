@@ -13,6 +13,17 @@ function Enemy(x, y, w, h, type, index, totalEnemies) {
 
     // Check collision with hero
    if (this.e.isCollidingWith(cart.hero.e)) {
+     cart.hero.hp--;
+   }
+
+   cart.attacks.weapons.forEach(weapon => {
+     if (this.e.isCollidingWith(weapon)) {
+       this.active = false;
+       cart.hero.power++;
+     }
+   });
+
+   if (this.e.isCollidingWith(cart.hero.e)) {
      //console.log('Enemy is touching the hero!');
      this.active = false;
    }

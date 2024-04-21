@@ -1,13 +1,16 @@
 function Attack(hero){
   this.hero = hero;
+  this.weapons=[];
 
-  this.rotatingEntity = new Entity(8, 8, 0, 0, 0, types.SHIELD);
+  this.rotatingEntity = new Entity(6, 8, 0, 0, 0, types.SHIELD);
   this.spinningEntity = new Entity(4, 4, 0, 0, 0, types.SHIELD);
-  this.chasingEntity = new Entity(8, 8, 0, 0, 0, types.SHIELD);
-  this.helicalEntity = new Entity(8, 8, 0, 0, 0, types.SHIELD);
+  this.chasingEntity = new Entity(6, 8, 0, 0, 0, types.SHIELD);
+  this.helicalEntity = new Entity(6, 8, 0, 0, 0, types.SHIELD);
   this.figureEightEntity = new Entity(4, 4, 0, 0, 0, types.SHIELD);
 
-  this.rotate = false;
+  this.weapons.push(this.rotatingEntity);
+
+  this.rotate = true;
   this.spin = false;
   this.chase = false;
   this.loop = false;
@@ -16,10 +19,10 @@ function Attack(hero){
     if(this.rotate){
       // Update rotating entity position
       let radius = 60; // Adjust as needed
-      let rotateSpeed = 2;
+      let rotateSpeed = .8;
       let angle = t * 2 * Math.PI / rotateSpeed;
-      this.rotatingEntity.x = (this.hero.x+32) + radius * Math.cos(angle);
-      this.rotatingEntity.y = (this.hero.y+32) + radius * Math.sin(angle);
+      this.rotatingEntity.x = (this.hero.e.x+32) + radius * Math.cos(angle);
+      this.rotatingEntity.y = (this.hero.e.y+32) + radius * Math.sin(angle);
 
       this.rotatingEntity.update(delta);
     }
@@ -33,10 +36,10 @@ function Attack(hero){
       this.spinningEntity.update(delta);
     }
 
-    if(this.rotate){
+    if(this.chase){
       let chasingSpeed = 0.1; // Adjust chasing speed as needed
-      let dx = this.hero.x - this.chasingEntity.x;
-      let dy = this.hero.y - this.chasingEntity.y;
+      let dx = this.hero.e.x - this.chasingEntity.x;
+      let dy = this.hero.e.y - this.chasingEntity.y;
       let distance = Math.sqrt(dx * dx + dy * dy);
       if (distance > 1) { // Move only if distance is significant
         this.chasingEntity.x += chasingSpeed * dx;
@@ -50,8 +53,8 @@ function Attack(hero){
       // Update figure-eight entity position
       radius = 80; // Adjust as needed
       let orbitSpeed = 2; // Adjust orbit speed as needed
-      let x = this.hero.x + 32 + radius * Math.sin(t * orbitSpeed);
-      let y = this.hero.y + 50 + radius * Math.sin(t * 2 * orbitSpeed); // Double the frequency for the figure-eight pattern
+      let x = this.hero.e.x + 32 + radius * Math.sin(t * orbitSpeed);
+      let y = this.hero.e.y + 50 + radius * Math.sin(t * 2 * orbitSpeed); // Double the frequency for the figure-eight pattern
       this.figureEightEntity.x = x;
       this.figureEightEntity.y = y;
 

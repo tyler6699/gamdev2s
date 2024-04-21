@@ -18,6 +18,7 @@ function Entity(w, h, x, y, angle, type) {
   this.alpha = 1;
   this.isSolid = false;
   this.flip=false;
+  this.dir=0;//0=R 1=L
 
   // ATLAS Positions
   this.sx=0;
@@ -28,10 +29,12 @@ function Entity(w, h, x, y, angle, type) {
 
     if(left()){
       this.x-=speed;
+      this.dir=1;
     }
 
     if(right()){
       this.x+=speed;
+      this.dir=0;
     }
 
     if(up()){
@@ -107,7 +110,7 @@ function Entity(w, h, x, y, angle, type) {
         this.sx=16;
         break;
       case types.SHIELD:
-        this.sx=33;
+        this.sx=29;
         break;
       case types.HAIR1:
         this.sx=63;
