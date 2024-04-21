@@ -115,8 +115,14 @@ function Intro(){
     this.arrow.update(delta);
     ctx.restore();
 
-    writeStroke(ctx, 1, font,"Black","Space to Start", canvasH*.5, canvasH*.88,12);
-    writeTxt(ctx, 1, font,"WHITE","Space to Start",canvasH*.5, canvasH*.88);
+    // Start Text
+    let bottomOffset = 30;
+    let viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+    let textY = viewportHeight - bottomOffset; // Position text 30px above the bottom edge of the viewport
+    writeCentre(ctx, "Space to Start", font, canvasW / 2, viewportHeight - bottomOffset)
+
+    //writeStroke(ctx, 1, font,"Black","Space to Start", canvasH*.5, canvasH*.88,12);
+    //writeTxt(ctx, 1, font,"WHITE","Space to Start",canvasH*.5, canvasH*.88);
 
     if(space()){
       gameStarted=true;

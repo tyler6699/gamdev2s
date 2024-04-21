@@ -155,6 +155,14 @@ function writeTxt(ctx,a,font,colour,txt,x,y) {
   ctx.restore();
 }
 
+function writeCentre(ctx, text, font, x, y) {
+  ctx.font = font;
+  let textWidth = ctx.measureText(text).width;
+  let centeredX = x - (textWidth / 2);
+  writeStroke(ctx, 1, font, "BLACK", text, centeredX, y, 12);
+  writeTxt(ctx, 1, font, "WHITE", text, centeredX, y);
+}
+
 function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
   ctx.save();
   ctx.setTransform(1, 0, 0, 1, 0, 0);

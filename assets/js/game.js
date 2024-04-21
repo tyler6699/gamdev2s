@@ -228,6 +228,8 @@ function setclicks(){
 function resizeCanvas() {
   deviceWidth = window.innerWidth;  // Check for browser compatibility
   deviceHeight = window.innerHeight;
+  canvasW = window.innerWidth;
+  canvasH = window.innerHeight;
   scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
   ctx.canvas.width = nativeWidth * scaleFillNative;
   ctx.canvas.height = nativeHeight * scaleFillNative;
