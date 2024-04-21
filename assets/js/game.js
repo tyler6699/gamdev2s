@@ -42,6 +42,11 @@ var deviceHeight = window.innerHeight;
 var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
 var colour = 1;
 
+var mobUp=false;
+var mobDown=false;
+var mobRight=false;
+var mobLeft=false;
+
 // Load the music player
 // genAudio();
 
@@ -141,21 +146,51 @@ let mg = {
 // Mobile Controls
 function setupControls() {
     document.getElementById('up').addEventListener('touchstart', () => move('up'));
+    document.getElementById('up').addEventListener('touchend', () => stopmove('up'));
     document.getElementById('down').addEventListener('touchstart', () => move('down'));
+    document.getElementById('down').addEventListener('touchend', () => stopmove('down'));
     document.getElementById('left').addEventListener('touchstart', () => move('left'));
+    document.getElementById('left').addEventListener('touchend', () => stopmove('left'));
     document.getElementById('right').addEventListener('touchstart', () => move('right'));
+    document.getElementById('right').addEventListener('touchend', () => stopmove('right'));
     document.getElementById('aButton').addEventListener('touchstart', () => action('A'));
     document.getElementById('bButton').addEventListener('touchstart', () => action('B'));
 }
 
-function move(direction) {
+function move(d) {
     // Handle movement logic here
-    console.log('Move:', direction);
+    console.log('Move:', d);
+    if(d=='up'){
+      mobUp=true;
+    } else if(d=='down'){
+      mobDown=true;
+    } else if(d=='left'){
+      mobLeft=true;
+    } else if(d=='right'){
+      mobRight=true;
+    }
+    console.log(d + " - " + mobUp);
+}
+
+function stopmove(d) {
+    if(d=='up'){
+      mobUp=false;
+    } else if(d=='down'){
+      mobDown=false;
+    } else if(d=='left'){
+      mobLeft=false;
+    } else if(d=='right'){
+      mobRight=false;
+    }
+    console.log(d + " - " + mobUp);
 }
 
 function action(button) {
     // Handle action button logic here
     console.log('Button pressed:', button);
+    if(!gameStarted){
+      gameStarted=true;
+    }
 }
 
 
@@ -207,19 +242,19 @@ function updateGameArea(delta) {
 }
 
 function left() {
-  return mg.keys && (mg.keys[LEFT] || mg.keys[A]);
+  return (mg.keys && (mg.keys[LEFT] || mg.keys[A])) || mobLeft;
 }
 
 function right() {
-  return mg.keys && (mg.keys[RIGHT] || mg.keys[D]);
+  return (mg.keys && (mg.keys[RIGHT] || mg.keys[D])) || mobRight;
 }
 
 function up() {
-  return mg.keys && (mg.keys[UP] || mg.keys[W]);
+  return (mg.keys && (mg.keys[UP] || mg.keys[W])) || mobUp;
 }
 
 function down() {
-  return mg.keys && (mg.keys[DOWN] || mg.keys[S]);
+  return (mg.keys && (mg.keys[DOWN] || mg.keys[S])) || mobDown;
 }
 
 function space() {
