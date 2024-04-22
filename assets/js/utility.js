@@ -325,3 +325,22 @@ const fontMap = {
     ctx.fill();
     ctx.restore();
 }
+
+function partDir(p) {
+  var angle = rndNo(0, 360) * Math.PI / 180;
+  var value = rndNo(50, 180);
+  var radius = [-1, 1][rndNo(0, 1)] * value;
+  return {
+    x: p.x + radius * Math.cos(angle),
+    y: p.y + radius * Math.sin(angle)
+  }
+}
+
+function ranColor() {
+  let l = '0123456789ABCDEF';
+  let c = '#';
+  for (var i = 0; i < 6; i++) {
+    c += l[Math.floor(Math.random() * 16)];
+  }
+  return c;
+}
