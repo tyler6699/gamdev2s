@@ -16,6 +16,9 @@ function Cart() {
   let prevNumber = 0;
   let runOnce=true;
   var imageData;
+  this.shake=0;
+  this.shakeTime=0;
+
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
     if(runOnce){
@@ -25,10 +28,16 @@ function Cart() {
     }
 
     if(gameStarted){
+      // Screen shake
+      this.shake = shaky ? rndNo(-2,2) : 0;
+      if(this.shakeTime>0) this.shakeTime-=delta;
+
       // Camera follow hero
       // Example usage: draw the number "190"
-      this.cam.x = lerp(-this.hero.e.x+350,this.cam.x,.1);
-      this.cam.y = lerp(-this.hero.e.y+200,this.cam.y,.1);
+
+        this.cam.x = lerp(-this.hero.e.x+350,this.cam.x,.1);
+        this.cam.y = lerp(-this.hero.e.y+200,this.cam.y,.1);
+
       TIME += delta;
       mg.clear();
 

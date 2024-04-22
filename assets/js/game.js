@@ -21,8 +21,6 @@ let WIN = false;
 let STAGE=0;
 let atlas = new Image();
 atlas.src = "atlas.png";
-// Shadows
-let shadowImage=new Image();
 let cart = new Cart();
 let start=false;
 let music=true;
@@ -46,6 +44,7 @@ var mobUp=false;
 var mobDown=false;
 var mobRight=false;
 var mobLeft=false;
+let shaky = true;
 
 // Load the music player
 // genAudio();
@@ -80,11 +79,7 @@ let mg = {
     document.body.insertBefore(this.canvas, document.body.childNodes[6]);
     // Run the game loop
     this.frameId = requestAnimationFrame(updateGameLoop);
-
-    shadowImage.src = 'atlas.png';
-    shadowImage.onload = function() {
-      shadowImage = mkShadows(shadowImage);
-    }
+  }
 
     // Keyboard
     window.addEventListener('keydown', function(e) {

@@ -14,7 +14,6 @@ function Entity(w, h, x, y, angle, type) {
   this.x = x;
   this.y = y;
   this.image = atlas;
-  this.shadow = shadowImage;
   this.alpha = 1;
   this.isSolid = false;
   this.flip=false;
@@ -57,6 +56,7 @@ function Entity(w, h, x, y, angle, type) {
     this.Y = Math.floor(this.Y);
     ctx.save();
     ctx.translate(this.x, this.y);
+    if(cart.shakeTime>0){ctx.translate(cart.shake,cart.shake);}
     ctx.globalAlpha = this.alpha;
 
     img = this.image;
