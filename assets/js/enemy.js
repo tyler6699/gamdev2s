@@ -14,7 +14,7 @@ function Enemy(x, y, w, h, type, index, totalEnemies) {
 
     // Check collision with hero
    if (this.e.isCollidingWith(cart.hero.e) && this.safe <=0) {
-     cart.hero.hp--;
+     if(cart.hero.hp>0)cart.hero.hp--;
      cart.shakeTime=.2
      knockback(cart.hero, this, 5);
      this.safe=2;
@@ -23,10 +23,10 @@ function Enemy(x, y, w, h, type, index, totalEnemies) {
    cart.attacks.weapons.forEach(weapon => {
      if (this.e.isCollidingWith(weapon)) {
        this.active = false;
-       cart.hero.power++;
+       if(cart.hero.power<100)cart.hero.power++;
        cart.shakeTime=.2
        for(let i=0; i<30;i++){
-         cart.hero.particles.push(new particle(rndNo(3,10), rndNo(3,10), this.e.x+5, this.e.y+5, 0, "circle", true, RIGHT));
+         cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), this.e.x+5, this.e.y+5, 0, "circle", true, RIGHT));
        }
      }
    });
