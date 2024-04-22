@@ -21,6 +21,8 @@ let WIN = false;
 let STAGE=0;
 let atlas = new Image();
 atlas.src = "atlas.png";
+// Shadows
+let shadowImage=new Image();
 let cart = new Cart();
 let start=false;
 let music=true;
@@ -79,7 +81,6 @@ let mg = {
     document.body.insertBefore(this.canvas, document.body.childNodes[6]);
     // Run the game loop
     this.frameId = requestAnimationFrame(updateGameLoop);
-  }
 
     // Keyboard
     window.addEventListener('keydown', function(e) {

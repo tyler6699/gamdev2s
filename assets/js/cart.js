@@ -9,15 +9,20 @@ function Cart() {
   this.decor = new Decor();
   this.intro = new Intro();
   let waveStart=3;
-  let waveEnd=20;
+  let waveEnd=5;
   let wave = 1;
   let currentNumber = 3;
   let scale = 20; // Initial scale of the squares
   let prevNumber = 0;
   let runOnce=true;
-  var imageData;
+  let imageData;
   this.shake=0;
   this.shakeTime=0;
+  this.shop=false;
+  this.chests=[]
+  this.chests.push(new Entity(16, 13, -70, 30, 0, types.CHEST));
+  this.chests.push(new Entity(16, 13, 65, 30, 0, types.CHEST));
+  this.chests.push(new Entity(16, 13, 200, 30, 0, types.CHEST));
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -34,9 +39,8 @@ function Cart() {
 
       // Camera follow hero
       // Example usage: draw the number "190"
-
-        this.cam.x = lerp(-this.hero.e.x+350,this.cam.x,.1);
-        this.cam.y = lerp(-this.hero.e.y+200,this.cam.y,.1);
+      this.cam.x = lerp(-this.hero.e.x+350,this.cam.x,.1);
+      this.cam.y = lerp(-this.hero.e.y+200,this.cam.y,.1);
 
       TIME += delta;
       mg.clear();
@@ -46,23 +50,32 @@ function Cart() {
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
       this.time+=delta;
+
+      if(this.shop){
+        TIME=0;
+        this.chests.forEach(c => {
+          c.update(delta);
+        });
+      }
+
       this.decor.update(delta);
       this.hero.update(delta);
 
       // Wave Start Count Down
-      if(waveStart<=0){
+      if(waveStart<=0 && TIME <= waveEnd && !this.shop){
         this.spawner.update(delta, this.time);
         this.attacks.update(delta, this.time);
         drawCountdown(ctx, TIME, waveEnd);
-        if(TIME >= waveEnd){
+      } else if(TIME >= waveEnd){
+          this.shop=true;
           TIME=0;
-          waveStart=3;
           this.spawner.enemies = [];
-          wave++;
           this.hero.e.x=65;
-          this.hero.e.y=30;
-        }
-      } else {
+          this.hero.e.y=140;
+          // wave++;
+          //waveStart=3;
+      } else if(waveStart>0) {
+        console.log("CountDown");
         waveStart-=delta;
         if(Math.ceil(waveStart)!=prevNumber) scale=20;
         scale += .3;

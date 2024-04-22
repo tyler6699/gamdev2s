@@ -20,5 +20,6 @@ const types = {
   SMALLMUSH:18,
   LILY:19,
   LILG:20,
-  LILP:21
+  LILP:21,
+  CHEST:22
 }

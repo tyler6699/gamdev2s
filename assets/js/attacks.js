@@ -9,6 +9,10 @@ function Attack(hero){
   this.figureEightEntity = new Entity(4, 4, 0, 0, 0, types.SHIELD);
 
   this.weapons.push(this.rotatingEntity);
+  //this.weapons.push(this.spinningEntity);
+  //this.weapons.push(this.chasingEntity);
+  //this.weapons.push(this.helicalEntity);
+  //this.weapons.push(this.figureEightEntity);
 
   this.rotate = true;
   this.spin = false;
