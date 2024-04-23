@@ -2,6 +2,7 @@ function Hero(w, h, x, y, angle, type) {
   this.e = new Entity(16, 16, 0, 0, 0, types.HERO);
   this.hair = new Entity(13, 13, 0, 0, 0, types.HAIR1);
   this.head = new Entity(11, 9, 0, 0, 0, types.HEAD1);
+  this.hat = new Entity(16, 14, 0, 0, 0, types.HAT);
   this.rHand = new Entity(4, 4, 0, 0, 0, types.HAND);
   this.lHand = new Entity(4, 4, 0, 0, 0, types.HAND);
   this.change=false;
@@ -9,6 +10,7 @@ function Hero(w, h, x, y, angle, type) {
   this.hp=100;
   this.power=0;
   this.particles=[];
+  this.showhat=false;
 
   this.update = function(delta) {
     this.e.move(delta);
@@ -49,6 +51,10 @@ function Hero(w, h, x, y, angle, type) {
         this.hair.x=this.e.x+18;
         this.hair.y=this.e.y+20;
         break;
+      case types.HAT:
+        this.hair.x=this.e.x+18;
+        this.hair.y=this.e.y+20;
+        break;
     }
 
     if(this.change){
@@ -57,7 +63,9 @@ function Hero(w, h, x, y, angle, type) {
       this.hair.setType();
     }
 
-    this.hair.update(delta);
+    if(!this.showhat){
+        this.hair.update(delta);
+    }
 
     // Update the phase, increase by delta time
     this.handMovementPhase += delta;
@@ -73,6 +81,13 @@ function Hero(w, h, x, y, angle, type) {
 
     this.rHand.update(delta);
     this.lHand.update(delta);
+
+    if(this.showhat){
+      this.hat.flip=this.e.flip;
+      this.hat.x=this.e.x+1;
+      this.hat.y=this.e.y-8;
+      this.hat.update(delta);
+    }
 
   }
 

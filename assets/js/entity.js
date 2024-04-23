@@ -149,6 +149,10 @@ function Entity(w, h, x, y, angle, type, id=0) {
         this.sx=11;
         this.sy=17;
         break;
+      case types.HAT:
+        this.sx=91;
+        this.sy=13;
+        break;
       case types.HAND:
         this.sx=30;
         this.sy=9;
@@ -225,6 +229,10 @@ function Entity(w, h, x, y, angle, type, id=0) {
       case types.SHADOW:
         this.sy=43;
         this.sx=94;
+        break;
+      case types.HAT:
+        this.sy=13;
+        this.sx=91;
         break;
     }
 
