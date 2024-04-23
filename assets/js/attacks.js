@@ -4,18 +4,15 @@ function Attack(hero) {
   this.spinWeapons = [];
   this.chaseWeapons = [];
 
-  this.chasingEntity = new Entity(7, 8, 0, 0, 0, types.C1);
-  this.chaseWeapons.push(this.chasingEntity)
-  this.weapons.push(this.chasingEntity);
-  this.chasingEntity = new Entity(7, 8, 0, 0, 0, types.C2);
-  this.chaseWeapons.push(this.chasingEntity)
-  this.weapons.push(this.chasingEntity);
-  this.chasingEntity = new Entity(7, 8, 0, 0, 0, types.C3);
-  this.chaseWeapons.push(this.chasingEntity)
-  this.weapons.push(this.chasingEntity);
-  this.chasingEntity = new Entity(7, 8, 0, 0, 0, types.C4);
-  this.chaseWeapons.push(this.chasingEntity)
-  this.weapons.push(this.chasingEntity);
+  // Define an array of types for clarity and easier maintenance
+  const entityTypes = [types.C1, types.C2, types.C3, types.C4];
+
+  // Loop through each type and create a new Entity for each
+  entityTypes.forEach(type => {
+      let chasingEntity = new Entity(7, 8, 0, 0, 0, type);
+      this.chaseWeapons.push(chasingEntity);
+      this.weapons.push(chasingEntity);
+  });
 
   this.chasingTargets = new Set();
   this.figureEightEntity = new Entity(7, 8, 0, 0, 0, types.C5);

@@ -47,10 +47,11 @@ function Entity(w, h, x, y, angle, type, id=0) {
       this.y+=speed;
     }
 
-    if(this.x < -2000) this.x=-2000;
-    if(this.x > 2000) this.x=2000;
-    if(this.y < -2000) this.y=-2000;
-    if(this.y > 2000) this.y=2000;
+    let area = 1000;
+    if(this.x < -area) this.x=-area;
+    if(this.x > area) this.x=area;
+    if(this.y < -area) this.y=-area;
+    if(this.y > area) this.y=area;
   }
 
   // Render
