@@ -209,17 +209,17 @@ function Entity(w, h, x, y, angle, type, id=0) {
         this.sy=40;
         this.sx=8;
         break;
-      case types.C2:
+      case types.C3:
         this.sy=40;
         this.sx=16;
         break;
-      case types.C3:
+      case types.C4:
         this.sy=40;
         this.sx=24;
         break;
-      case types.C4:
+      case types.C5:
         this.sy=40;
-        this.sx=232;
+        this.sx=32;
         break;
     }
 

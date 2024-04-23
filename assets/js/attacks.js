@@ -10,7 +10,8 @@ function Attack(hero) {
   this.chaseWeapons.push(this.chasingEntity)
   this.weapons.push(this.chasingEntity);
   this.chasingTargets = new Set();
-  // Configuration for rotating entities
+  this.figureEightEntity = new Entity(7, 8, 0, 0, 0, types.C5);
+  this.weapons.push(this.figureEightEntity);
   this.numberOfRotatingItems = 5; // Default number of rotating items
   this.distanceFromHero = 80; // Default distance from the hero in pixels
   let closestDistance = 500;
@@ -29,7 +30,7 @@ function Attack(hero) {
   this.rotate = true;
   this.spin = false;
   this.chase = true;
-  this.loop = false;
+  this.loop = true;
 
   // Additional function within Attack
 this.applySeparation = function(chase, delta) {
@@ -138,42 +139,23 @@ this.applySeparation = function(chase, delta) {
      }
    });
 
+    if(this.loop){
+      // Update figure-eight entity position
+      radius = 120; // Adjust as needed
+      let orbitSpeed = 2; // Adjust orbit speed as needed
+      let x = this.hero.e.x + 32 + radius * Math.sin(t * orbitSpeed);
+      let y = this.hero.e.y + 50 + radius * Math.sin(t * 2 * orbitSpeed); // Double the frequency for the figure-eight pattern
+      this.figureEightEntity.x = x;
+      this.figureEightEntity.y = y;
+
+      this.figureEightEntity.update(delta);
+    }
   }
 }
 
 
-// function Attack(hero){
-//   this.hero = hero;
-//   this.weapons=[];
-//
-//   this.rotatingEntity = new Entity(6, 8, 0, 0, 0, types.SHIELD);
-//   this.spinningEntity = new Entity(4, 4, 0, 0, 0, types.SHIELD);
-//   this.chasingEntity = new Entity(6, 8, 0, 0, 0, types.SHIELD);
-//   this.helicalEntity = new Entity(6, 8, 0, 0, 0, types.SHIELD);
-//   this.figureEightEntity = new Entity(4, 4, 0, 0, 0, types.SHIELD);
-//
-//   this.weapons.push(this.rotatingEntity);
-//   //this.weapons.push(this.spinningEntity);
-//   //this.weapons.push(this.chasingEntity);
-//   //this.weapons.push(this.helicalEntity);
-//   //this.weapons.push(this.figureEightEntity);
-//
-//   this.rotate = true;
 //   this.spin = false;
-//   this.chase = false;
-//   this.loop = false;
-//
-//   this.update = function(delta, t) {
-//     if(this.rotate){
-//       // Update rotating entity position
-//       let radius = 60; // Adjust as needed
-//       let rotateSpeed = .8;
-//       let angle = t * 2 * Math.PI / rotateSpeed;
-//       this.rotatingEntity.x = (this.hero.e.x+32) + radius * Math.cos(angle);
-//       this.rotatingEntity.y = (this.hero.e.y+32) + radius * Math.sin(angle);
-//
-//       this.rotatingEntity.update(delta);
-//     }
+
 //
 //     if(this.spin){
 //       let spinningRadius = 60; // Adjust as needed
@@ -183,30 +165,3 @@ this.applySeparation = function(chase, delta) {
 //
 //       this.spinningEntity.update(delta);
 //     }
-//
-//     if(this.chase){
-//       let chasingSpeed = 0.1; // Adjust chasing speed as needed
-//       let dx = this.hero.e.x - this.chasingEntity.x;
-//       let dy = this.hero.e.y - this.chasingEntity.y;
-//       let distance = Math.sqrt(dx * dx + dy * dy);
-//       if (distance > 1) { // Move only if distance is significant
-//         this.chasingEntity.x += chasingSpeed * dx;
-//         this.chasingEntity.y += chasingSpeed * dy;
-//       }
-//
-//       this.chasingEntity.update(delta);
-//     }
-//
-//     if(this.loop){
-//       // Update figure-eight entity position
-//       radius = 80; // Adjust as needed
-//       let orbitSpeed = 2; // Adjust orbit speed as needed
-//       let x = this.hero.e.x + 32 + radius * Math.sin(t * orbitSpeed);
-//       let y = this.hero.e.y + 50 + radius * Math.sin(t * 2 * orbitSpeed); // Double the frequency for the figure-eight pattern
-//       this.figureEightEntity.x = x;
-//       this.figureEightEntity.y = y;
-//
-//       this.figureEightEntity.update(delta);
-//     }
-//   }
-// }
