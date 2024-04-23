@@ -20,9 +20,9 @@ function Cart() {
   this.shakeTime=0;
   this.shop=false;
   this.chests=[]
-  this.chests.push(new Entity(16, 13, -70, 30, 0, types.CHEST));
-  this.chests.push(new Entity(16, 13, 65, 30, 0, types.CHEST));
-  this.chests.push(new Entity(16, 13, 200, 30, 0, types.CHEST));
+  this.chests.push(new Entity(16, 13, -70, 30, 0, types.CHEST,1));
+  this.chests.push(new Entity(16, 13, 65, 30, 0, types.CHEST,2));
+  this.chests.push(new Entity(16, 13, 200, 30, 0, types.CHEST,3));
   let one = new Entity(9, 5, -45, 10, 0, types.ONE);
   let two = new Entity(11, 5, 83, 10, 0, types.TWO);
   let three = new Entity(11, 5, 215, 10, 0, types.THREE);
@@ -58,6 +58,9 @@ function Cart() {
         TIME=0;
         this.chests.forEach(c => {
           c.update(delta);
+           if (c.isCollidingWith(this.hero.e) ) {
+             console.log("Hit chest: " + c.id);
+           }
         });
         one.update(delta);
         two.update(delta);

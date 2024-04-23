@@ -1,4 +1,4 @@
-function Entity(w, h, x, y, angle, type) {
+function Entity(w, h, x, y, angle, type, id=0) {
   this.type = type;
   this.width = w;
   this.height = h;
@@ -18,6 +18,8 @@ function Entity(w, h, x, y, angle, type) {
   this.isSolid = false;
   this.flip=false;
   this.dir=0;//0=R 1=L
+  this.id=id;
+  this.open=false;
 
   // ATLAS Positions
   this.sx=0;
