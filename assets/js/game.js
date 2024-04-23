@@ -25,7 +25,7 @@ atlas.src = "atlas.png";
 let shadowImage=new Image();
 let cart = new Cart();
 let start=false;
-let music=true;
+let music=false;
 let pause=false;
 let leftMB=false;
 let rightMB=false;
@@ -49,7 +49,7 @@ var mobLeft=false;
 let shaky = true;
 
 // Load the music player
-// genAudio();
+genAudio();
 
 // Called by body onload on index page
 function startGame() {
@@ -84,6 +84,11 @@ let mg = {
 
     // Keyboard
     window.addEventListener('keydown', function(e) {
+      if(!music){
+        music=true
+        audio.loop=true;
+        audio.play();
+      }
       if(startDelay<=0&&charSet==3)start=true;
       e.preventDefault();
       mg.keys = (mg.keys || []);
@@ -183,7 +188,6 @@ function stopmove(d) {
 
 function action(button) {
     // Handle action button logic here
-    console.log('Button pressed:', button);
     if(!gameStarted){
       gameStarted=true;
     }

@@ -24,5 +24,10 @@ const types = {
   CHEST:22,
   ONE:23,
   TWO:24,
-  THREE:25
+  THREE:25,
+  C1:26,
+  C2:27,
+  C3:28,
+  C4:29,
+  C5:30
 }

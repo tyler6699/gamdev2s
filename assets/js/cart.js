@@ -9,7 +9,7 @@ function Cart() {
   this.decor = new Decor();
   this.intro = new Intro();
   let waveStart=3;
-  let waveEnd=5;
+  let waveEnd=30;
   let wave = 1;
   let currentNumber = 3;
   let scale = 20; // Initial scale of the squares

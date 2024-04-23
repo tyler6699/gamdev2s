@@ -20,6 +20,7 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.dir=0;//0=R 1=L
   this.id=id;
   this.open=false;
+  this.chasePhase = 'search'; // 'search', 'attack', 'return'
 
   // ATLAS Positions
   this.sx=0;
@@ -200,6 +201,25 @@ function Entity(w, h, x, y, angle, type, id=0) {
       case types.THREE:
         this.sx=85;
         this.sy=29;
+        break;
+      case types.C1:
+        this.sy=40;
+        break;
+      case types.C2:
+        this.sy=40;
+        this.sx=8;
+        break;
+      case types.C2:
+        this.sy=40;
+        this.sx=16;
+        break;
+      case types.C3:
+        this.sy=40;
+        this.sx=24;
+        break;
+      case types.C4:
+        this.sy=40;
+        this.sx=232;
         break;
     }
 
