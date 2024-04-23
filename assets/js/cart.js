@@ -23,6 +23,9 @@ function Cart() {
   this.chests.push(new Entity(16, 13, -70, 30, 0, types.CHEST));
   this.chests.push(new Entity(16, 13, 65, 30, 0, types.CHEST));
   this.chests.push(new Entity(16, 13, 200, 30, 0, types.CHEST));
+  let one = new Entity(9, 5, -45, 10, 0, types.ONE);
+  let two = new Entity(11, 5, 83, 10, 0, types.TWO);
+  let three = new Entity(11, 5, 215, 10, 0, types.THREE);
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -56,6 +59,15 @@ function Cart() {
         this.chests.forEach(c => {
           c.update(delta);
         });
+        one.update(delta);
+        two.update(delta);
+        three.update(delta);
+        if(space()){
+          this.spawner.addEnemy(30,300)
+          wave++;
+          waveStart=3;
+          this.shop=false;
+        }
       }
 
       this.decor.update(delta);
@@ -72,15 +84,12 @@ function Cart() {
           this.spawner.enemies = [];
           this.hero.e.x=65;
           this.hero.e.y=140;
-          // wave++;
-          //waveStart=3;
       } else if(waveStart>0) {
-        console.log("CountDown");
         waveStart-=delta;
         if(Math.ceil(waveStart)!=prevNumber) scale=20;
+        drawNumber(330, 80, Math.ceil(waveStart), scale);
         scale += .3;
         prevNumber = Math.ceil(waveStart)
-        drawNumber(330, 80, Math.ceil(waveStart), scale);
       }
 
       // TODO: Hero HP and Power

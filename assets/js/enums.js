@@ -21,5 +21,8 @@ const types = {
   LILY:19,
   LILG:20,
   LILP:21,
-  CHEST:22
+  CHEST:22,
+  ONE:23,
+  TWO:24,
+  THREE:25
 }
