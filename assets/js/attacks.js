@@ -159,6 +159,9 @@ this.applySeparation = function(chase, delta) {
              break;
        }
        chase.update(delta);
+       cart.shadow.x=chase.x;
+       cart.shadow.y=chase.y+60;
+       cart.shadow.update(delta);
      }
    });
 

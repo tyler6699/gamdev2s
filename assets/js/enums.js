@@ -29,5 +29,6 @@ const types = {
   C2:27,
   C3:28,
   C4:29,
-  C5:30
+  C5:30,
+  SHADOW:31
 }

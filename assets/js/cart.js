@@ -4,6 +4,8 @@ function Cart() {
   this.time=0;
   this.reset=false;
   this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
+  this.heroShadow = new Entity(11, 4, 0, 0, 0, types.SHADOW,1);
+  this.shadow = new Entity(7, 3, 0, 0, 0, types.SHADOW,1);
   this.attacks=new Attack(this.hero);
   this.spawner = new Spawner(this.hero.e);
   this.decor = new Decor();
@@ -99,6 +101,13 @@ function Cart() {
 
       this.decor.update(delta);
       this.hero.update(delta);
+      if(this.hero.e.flip){
+        this.heroShadow.x=this.hero.e.x+4;
+      } else {
+        this.heroShadow.x=this.hero.e.x+18;
+      }
+      this.heroShadow.y=this.hero.e.y+74;
+      this.heroShadow.update(delta);
 
       // Wave Start Count Down
       if(waveStart<=0 && TIME <= waveEnd && !this.shop){
