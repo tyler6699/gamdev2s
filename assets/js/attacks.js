@@ -3,12 +3,20 @@ function Attack(hero) {
   this.weapons = [];
   this.spinWeapons = [];
   this.chaseWeapons = [];
+
   this.chasingEntity = new Entity(7, 8, 0, 0, 0, types.C1);
   this.chaseWeapons.push(this.chasingEntity)
   this.weapons.push(this.chasingEntity);
   this.chasingEntity = new Entity(7, 8, 0, 0, 0, types.C2);
   this.chaseWeapons.push(this.chasingEntity)
   this.weapons.push(this.chasingEntity);
+  this.chasingEntity = new Entity(7, 8, 0, 0, 0, types.C3);
+  this.chaseWeapons.push(this.chasingEntity)
+  this.weapons.push(this.chasingEntity);
+  this.chasingEntity = new Entity(7, 8, 0, 0, 0, types.C4);
+  this.chaseWeapons.push(this.chasingEntity)
+  this.weapons.push(this.chasingEntity);
+
   this.chasingTargets = new Set();
   this.figureEightEntity = new Entity(7, 8, 0, 0, 0, types.C5);
   this.weapons.push(this.figureEightEntity);
@@ -60,7 +68,7 @@ this.applySeparation = function(chase, delta) {
   this.update = function(delta, t) {
     if (this.rotate) {
       // Update all rotating entities
-      let rotateSpeed = 0.8; // Speed of rotation
+      let rotateSpeed = 2; // Speed of rotation
       this.spinWeapons.forEach((entity, index) => {
         let angle = t * 2 * Math.PI / rotateSpeed + (2 * Math.PI / this.numberOfRotatingItems) * index;
         entity.x = this.hero.e.x + 32 + this.distanceFromHero * Math.cos(angle);
@@ -98,8 +106,10 @@ this.applySeparation = function(chase, delta) {
           });
 
           if (this.targetEnemy) {
-          this.chasingTargets.add(this.targetEnemy); // Mark this enemy as targeted
-          chase.chasePhase = 'attack';
+            this.chasingTargets.add(this.targetEnemy); // Mark this enemy as targeted
+            chase.chasePhase = 'attack';
+          } else {
+              chase.chasePhase = 'return';
           }
           break;
 
@@ -119,21 +129,34 @@ this.applySeparation = function(chase, delta) {
            }
            break;
 
-         case 'return':
-          // Before returning, remove the enemy from the targeting list
-           if (this.targetEnemy) {
-             this.chasingTargets.delete(this.targetEnemy);
-           }
-           let dx = this.hero.e.x - chase.x;
-           let dy = this.hero.e.y - chase.y;
-           if (Math.sqrt(dx * dx + dy * dy) > 5) {
-             let angle = Math.atan2(dy, dx);
-             chase.x += Math.cos(angle) * 5;
-             chase.y += Math.sin(angle) * 5;
-           } else {
-             chase.chasePhase = 'search'; // Return completed
-           }
-           break;
+           case 'return':
+             // Before returning, remove the enemy from the targeting list
+             if (this.targetEnemy) {
+               this.chasingTargets.delete(this.targetEnemy);
+             }
+
+             let targetRadius = 60; // Radius at which the entities should circle around the hero
+             let totalChasers = this.chaseWeapons.length;
+             let index = this.chaseWeapons.indexOf(chase);
+             let spacingAngle = (2 * Math.PI / totalChasers) * index; // Calculate unique angle based on index
+
+             let targetX = this.hero.e.x + 30 + targetRadius * Math.cos(spacingAngle); // Target position around hero
+             let targetY = this.hero.e.y + 30 + targetRadius * Math.sin(spacingAngle);
+
+             let dx = targetX - chase.x;
+             let dy = targetY - chase.y;
+             let distanceToTarget = Math.sqrt(dx * dx + dy * dy);
+
+             if (distanceToTarget > 5) {
+               // Continue moving towards the designated point around the hero
+               let angle = Math.atan2(dy, dx);
+               chase.x += Math.cos(angle) * 5; // Move towards the target point
+               chase.y += Math.sin(angle) * 5;
+             } else {
+               // Once the chaser is close enough to its target point, reset to search
+               chase.chasePhase = 'search';
+             }
+             break;
        }
        chase.update(delta);
      }
