@@ -58,14 +58,27 @@ function Cart() {
         TIME=0;
         this.chests.forEach(c => {
           c.update(delta);
-           if (c.isCollidingWith(this.hero.e) ) {
-             console.log("Hit chest: " + c.id);
-             if(c.id==1){
-               // 10
-             } else if(c.id==2){
-               // 20
-             } else {
-               // 30
+           if (c.isCollidingWith(this.hero.e) && !c.open) {
+             c.open=true;
+
+             if(c.id==1&&this.hero.power >=10){
+               this.hero.power-=10;
+               c.sx=50;
+               for(let i=0; i<30;i++){
+                 cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), c.x+50, c.y+60, 0, "circle", true, RIGHT));
+               }
+             } else if(c.id==2&&this.hero.power >=20){
+               this.hero.power-=20;
+               c.sx=50;
+               for(let i=0; i<30;i++){
+                 cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), c.x+50, c.y+60, 0, "circle", true, RIGHT));
+               }
+             } else if(c.id==3&&this.hero.power >=30){
+               this.hero.power-=30;
+               c.sx=50;
+               for(let i=0; i<30;i++){
+                 cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), c.x+50, c.y+60, 0, "circle", true, RIGHT));
+               }
              }
            }
         });
@@ -77,6 +90,10 @@ function Cart() {
           wave++;
           waveStart=3;
           this.shop=false;
+          this.chests.forEach(c => {
+            c.open=false;
+            c.sx=67;
+          });
         }
       }
 
