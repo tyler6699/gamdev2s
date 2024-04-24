@@ -101,6 +101,11 @@ function Cart() {
             c.sx=67;
           });
         }
+
+        let viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+        let fontSize=getResponsiveFontSize(.05)
+        let font=`${fontSize}px Arial`;
+        writeCentre(ctx, "Space for next wave", font, canvasW / 2, viewportHeight - 60)
       }
 
       this.decor.update(delta);
