@@ -11,6 +11,7 @@ function Hero(w, h, x, y, angle, type) {
   this.power=0;
   this.particles=[];
   this.showhat=false;
+  this.maxHP=100;
 
   this.update = function(delta) {
     this.e.move(delta);

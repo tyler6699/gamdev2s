@@ -4,6 +4,7 @@ function Enemy(x, y, w, h, type, index, totalEnemies) {
   this.speed = .8; // Speed of the enemy
   this.angleOffset = (Math.PI * 2) * (index / totalEnemies); // Unique angle for each enemy
   this.safe=0;
+  // this.shadow=
   this.update = function(delta, mobs) {
     if(this.safe>0) this.safe-=delta;
     let steerPow = this.steerFromNearbyMobs(mobs, 60);
@@ -21,14 +22,16 @@ function Enemy(x, y, w, h, type, index, totalEnemies) {
    }
 
    cart.attacks.weapons.forEach(weapon => {
-     if (this.e.isCollidingWith(weapon)) {
-       this.active = false;
-       if(cart.hero.power<100)cart.hero.power++;
-       cart.shakeTime=.2
-       for(let i=0; i<30;i++){
-         cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), this.e.x+5, this.e.y+5, 0, "circle", true, RIGHT));
+     if(weapon.attack){
+       if (this.e.isCollidingWith(weapon)) {
+         this.active = false;
+         if(cart.hero.power<100)cart.hero.power++;
+         cart.shakeTime=.2
+         for(let i=0; i<30;i++){
+           cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), this.e.x+5, this.e.y+5, 0, "circle", true, RIGHT));
+         }
        }
-     }
+    }
    });
 
   };

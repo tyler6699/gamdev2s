@@ -11,7 +11,7 @@ function Cart() {
   this.decor = new Decor();
   this.intro = new Intro();
   let waveStart=3;
-  let waveEnd=30;
+  let waveEnd=5;
   let wave = 1;
   let currentNumber = 3;
   let scale = 20; // Initial scale of the squares
@@ -28,6 +28,7 @@ function Cart() {
   let one = new Entity(6, 5, -30, 10, 0, types.ONE);
   let two = new Entity(7, 5, 100, 10, 0, types.TWO);
   let three = new Entity(7, 5, 230, 10, 0, types.THREE);
+  this.possibleContents = ['chaser', 'shield', 'shieldSpeed', 'figure8', 'hat'];
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -66,18 +67,21 @@ function Cart() {
              if(c.id==1&&this.hero.power >=10){
                this.hero.power-=10;
                c.sx=50;
+               this.hero.hp=this.hero.maxHP;;
                for(let i=0; i<30;i++){
                  cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), c.x+50, c.y+60, 0, "circle", true, RIGHT));
                }
              } else if(c.id==2&&this.hero.power >=20){
                this.hero.power-=20;
                c.sx=50;
+               this.applyUpgrade(c.content);
                for(let i=0; i<30;i++){
                  cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), c.x+50, c.y+60, 0, "circle", true, RIGHT));
                }
              } else if(c.id==3&&this.hero.power >=30){
                this.hero.power-=30;
                c.sx=50;
+               this.applyUpgrade(c.content);
                for(let i=0; i<30;i++){
                  cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), c.x+50, c.y+60, 0, "circle", true, RIGHT));
                }
@@ -116,6 +120,7 @@ function Cart() {
         drawCountdown(ctx, TIME, waveEnd);
       } else if(TIME >= waveEnd){
           this.shop=true;
+          this.randomChests();
           TIME=0;
           this.spawner.enemies = [];
           this.hero.e.x=65;
@@ -138,4 +143,44 @@ function Cart() {
       this.intro.update(delta);
     }
   }
+
+    this.applyUpgrade = function(content) {
+      switch(content) {
+        case 'chaser':
+        let n=cart.attacks.chaseWeapons.filter(weapon => weapon.attack === true).length
+        if(n<4){
+          this.attacks.chaseWeapons[n].attack=true;
+        }
+        if(n==3)this.removeItem('chaser');
+          break;
+        case 'shield':
+          let num=cart.attacks.spinWeapons.filter(weapon => weapon.attack === true).length
+          if(num<5){
+            this.attacks.spinWeapons[num].attack=true;
+          }
+          if(num==4)this.removeItem('shield');
+          break;
+        case 'figure8':
+            this.attacks.figureEightEntity.attack=true;
+            this.removeItem('figure8');
+          break;
+        case 'hat':
+          this.removeItem('hat');
+          break;
+      }
+    };
+
+  this.randomChests = function() {
+    this.chests.forEach(chest => {
+      const randomIndex = Math.floor(Math.random() * this.possibleContents.length);
+      chest.content = this.possibleContents[randomIndex];
+    });
+  };
+
+  this.removeItem = function(item) {
+    const index = this.possibleContents.indexOf(item);
+    if (index > -1) {
+        this.possibleContents.splice(index, 1); // Removes the item if it is found
+    }
+};
 }

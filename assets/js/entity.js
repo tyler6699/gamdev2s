@@ -21,7 +21,8 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.id=id;
   this.open=false;
   this.chasePhase = 'search'; // 'search', 'attack', 'return'
-
+  this.content="";
+  this.attack=false;
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
