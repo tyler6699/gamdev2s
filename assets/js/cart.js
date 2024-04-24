@@ -108,7 +108,7 @@ function Cart() {
         writeCentre(ctx, "Space for next wave", font, canvasW / 2, viewportHeight - 60)
       }
 
-      this.decor.update(delta);
+      if(!this.shop) this.decor.update(delta);
       this.hero.update(delta);
       if(this.hero.e.flip){
         this.heroShadow.x=this.hero.e.x+4;
