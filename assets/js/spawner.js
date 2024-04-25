@@ -25,5 +25,5 @@ function Spawner(hero){
     }
   }
 
-  this.addEnemy(200, 600);
+  this.addEnemy(30, 600);
 }

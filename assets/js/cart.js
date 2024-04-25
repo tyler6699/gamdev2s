@@ -11,8 +11,8 @@ function Cart() {
   this.decor = new Decor();
   this.intro = new Intro();
   let waveStart=3;
-  let waveEnd=5;
-  let wave = 1;
+  this.waveEnd=10;
+  this.wave = 1;
   let currentNumber = 3;
   let scale = 20; // Initial scale of the squares
   let prevNumber = 0;
@@ -31,6 +31,7 @@ function Cart() {
   this.upz = ['hat','figure8','chaser', 'shield', 'shieldSpeed','speed','MHP'];
   let qq = new Entity(8, 10, 0, 0, 0, types.QUEST,1);
   let hp = new Entity(8, 8, 0, 0, 0, types.HP,1);
+  this.mobz=30;
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -136,10 +137,14 @@ function Cart() {
         two.update(delta);
         three.update(delta);
         if(space()){
-          this.spawner.addEnemy(30,300)
-          wave++;
+          this.wave++;
           waveStart=3;
           this.shop=false;
+          // Set mob and wave settings
+          this.waveEnd=8+(this.wave*.5)
+          if(this.waveEnd>30) this.waveEnd=30
+          this.mobz+=10;
+          this.spawner.addEnemy(this.mobz,300);
           this.chests.forEach(c => {
             c.open=false;
             c.sx=67;
@@ -163,11 +168,11 @@ function Cart() {
       this.heroShadow.update(delta);
 
       // Wave Start Count Down
-      if(waveStart<=0 && TIME <= waveEnd && !this.shop){
+      if(waveStart<=0 && TIME <= this.waveEnd && !this.shop){
         this.spawner.update(delta, this.time);
         this.attacks.update(delta, this.time);
-        drawCountdown(ctx, TIME, waveEnd);
-      } else if(TIME >= waveEnd){
+        drawCountdown(ctx, TIME, this.waveEnd);
+      } else if(TIME >= this.waveEnd){
           this.shop=true;
           this.randomChests();
           TIME=0;
@@ -182,7 +187,7 @@ function Cart() {
         prevNumber = Math.ceil(waveStart)
       }
 
-      // TODO: Hero HP and Power
+      // Hero HP and Power
       drawBar(ctx, this.hero.hp, this.hero.maxHP, '#f68687', '#a15156','#faf1f0',0); // HP RED
       drawBar(ctx, this.hero.power, 100, '#84e3b3','#589572','#f0faf7',30); // Power Green
       displayEnemyCount(this.spawner.enemies.length)

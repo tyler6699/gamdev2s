@@ -298,10 +298,12 @@ const fontMap = {
    function displayEnemyCount(n) {
      mg.context.fillStyle = "white";
      mg.context.font = "16px Arial";
-     mg.context.fillText("Mobs: " + n, nativeWidth-100, 50);
-     mg.context.fillText("Speed: " + cart.hero.e.speed, nativeWidth-100, 70);
-     mg.context.fillText("Spin: " + cart.attacks.rotateSpeed, nativeWidth-100, 90);
-
+     mg.context.fillText("Mobs: " + n, nativeWidth-100, 90);
+     mg.context.fillText("Speed: " + cart.hero.e.speed, nativeWidth-100, 110);
+     mg.context.fillText("Spin: " + cart.attacks.rotateSpeed, nativeWidth-100, 130);
+     mg.context.fillStyle = "black";
+     mg.context.fillText("WAVE: " + cart.wave, nativeWidth-100, 50);
+     mg.context.fillText("TIME: " + cart.waveEnd, nativeWidth-100, 70);
    }
 
    function drawHeroBox(x, y, width, height, borderRadius, colour) {
