@@ -28,7 +28,7 @@ function Cart() {
   let one = new Entity(6, 5, -30, 10, 0, types.ONE);
   let two = new Entity(7, 5, 100, 10, 0, types.TWO);
   let three = new Entity(7, 5, 230, 10, 0, types.THREE);
-  this.possibleContents = ['chaser', 'shield', 'shieldSpeed', 'figure8', 'hat'];
+  this.upz = ['hat','figure8','chaser', 'shield', 'shieldSpeed'];
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -61,6 +61,40 @@ function Cart() {
         TIME=0;
         this.chests.forEach(c => {
           c.update(delta);
+
+          // this.upz = ['chaser', 'shield', 'shieldSpeed', 'figure8', 'hat'];
+          switch(c.content) {
+            case 'chaser':
+              var k=cart.attacks.chaseWeapons.filter(weapon => weapon.attack === true).length;
+              if(k<4){
+                var chaser = cart.attacks.chaseWeapons[cart.attacks.chaseWeapons.filter(weapon => weapon.attack === true).length];
+                chaser.x=c.x;
+                chaser.y=c.y-32;
+                chaser.update(delta);
+              }
+              break;
+            case 'shield':
+              var s = cart.attacks.spinWeapons[0];
+              s.x=c.x;
+              s.y=c.y-32;
+              s.update(delta);
+              break;
+            case 'figure8':
+              var s = cart.attacks.figureEightEntity;
+              s.x=c.x;
+              s.y=c.y-32;
+              s.update(delta);
+              break;
+            case 'hat':
+              var h = this.hero.hat;
+              h.x=c.x-50;
+              h.y=c.y-60;
+              h.update(delta);
+              break;
+            case 'HP':
+              break;
+          }
+
            if (c.isCollidingWith(this.hero.e) && !c.open) {
              c.open=true;
 
@@ -176,16 +210,19 @@ function Cart() {
     };
 
   this.randomChests = function() {
-    this.chests.forEach(chest => {
-      const randomIndex = Math.floor(Math.random() * this.possibleContents.length);
-      chest.content = this.possibleContents[randomIndex];
-    });
+    for (let i = this.upz.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.upz[i], this.upz[j]] = [this.upz[j], this.upz[i]];
+    }
+    this.chests[0].content="HP";
+    this.chests[1].content = this.upz[0];
+    this.chests[2].content = this.upz[1];
   };
 
   this.removeItem = function(item) {
-    const index = this.possibleContents.indexOf(item);
+    const index = this.upz.indexOf(item);
     if (index > -1) {
-        this.possibleContents.splice(index, 1); // Removes the item if it is found
+        this.upz.splice(index, 1);
     }
 };
 }
