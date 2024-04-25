@@ -26,26 +26,26 @@ function Entity(w, h, x, y, angle, type, id=0) {
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
+  this.speed=5;
 
   this.move = function(){
-    let speed = 5;
-
+    let spd = this.speed;
     if(left()){
-      this.x-=speed;
+      this.x-=spd;
       this.dir=1;
     }
 
     if(right()){
-      this.x+=speed;
+      this.x+=spd;
       this.dir=0;
     }
 
     if(up()){
-      this.y-=speed;
+      this.y-=spd;
     }
 
     if(down()){
-      this.y+=speed;
+      this.y+=spd;
     }
 
     let area = 1000;

@@ -299,6 +299,9 @@ const fontMap = {
      mg.context.fillStyle = "white";
      mg.context.font = "16px Arial";
      mg.context.fillText("Mobs: " + n, nativeWidth-100, 50);
+     mg.context.fillText("Speed: " + cart.hero.e.speed, nativeWidth-100, 70);
+     mg.context.fillText("Spin: " + cart.attacks.rotateSpeed, nativeWidth-100, 90);
+
    }
 
    function drawHeroBox(x, y, width, height, borderRadius, colour) {

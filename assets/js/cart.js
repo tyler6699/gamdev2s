@@ -28,7 +28,7 @@ function Cart() {
   let one = new Entity(6, 5, -30, 10, 0, types.ONE);
   let two = new Entity(7, 5, 100, 10, 0, types.TWO);
   let three = new Entity(7, 5, 230, 10, 0, types.THREE);
-  this.upz = ['hat','figure8','chaser', 'shield', 'shieldSpeed','speed'];
+  this.upz = ['hat','figure8','chaser', 'shield', 'shieldSpeed','speed','MHP'];
   let qq = new Entity(8, 10, 0, 0, 0, types.QUEST,1);
   let hp = new Entity(8, 8, 0, 0, 0, types.HP,1);
 
@@ -111,7 +111,7 @@ function Cart() {
              if(c.id==1&&this.hero.power >=10){
                this.hero.power-=10;
                c.sx=50;
-               this.hero.hp=this.hero.maxHP;;
+               this.hero.hp=this.hero.maxHP;
                for(let i=0; i<30;i++){
                  cart.hero.particles.push(new particle(rndNo(3,15), rndNo(3,15), c.x+50, c.y+60, 0, "circle", true, RIGHT));
                }
@@ -183,7 +183,7 @@ function Cart() {
       }
 
       // TODO: Hero HP and Power
-      drawBar(ctx, this.hero.hp, 100, '#f68687', '#a15156','#faf1f0',0); // HP RED
+      drawBar(ctx, this.hero.hp, this.hero.maxHP, '#f68687', '#a15156','#faf1f0',0); // HP RED
       drawBar(ctx, this.hero.power, 100, '#84e3b3','#589572','#f0faf7',30); // Power Green
       displayEnemyCount(this.spawner.enemies.length)
       displayFPS(fps);
@@ -214,7 +214,21 @@ function Cart() {
             this.removeItem('figure8');
           break;
         case 'hat':
+          this.hero.showhat=true;
+          this.hero.maxHP=200;
           this.removeItem('hat');
+          break;
+        case 'speed':
+          this.hero.e.speed+=.5;
+          if(this.hero.e.speed>=7)this.removeItem('speed');
+          break;
+        case 'shieldSpeed':
+          this.attacks.rotateSpeed-=.1;
+          if(this.attacks.rotateSpeed<=0.7)this.removeItem('shieldSpeed');
+          break;
+        case 'MHP':
+          this.hero.maxHP+=5;
+          if(this.attacks.rotateSpeed<=0.7)this.removeItem('shieldSpeed');
           break;
       }
     };

@@ -3,6 +3,7 @@ function Attack(hero) {
   this.weapons = [];
   this.spinWeapons = [];
   this.chaseWeapons = [];
+  this.rotateSpeed = 2;
 
   // Define an array of types for clarity and easier maintenance
   const entityTypes = [types.C1, types.C2, types.C3, types.C4];
@@ -70,10 +71,10 @@ this.applySeparation = function(chase, delta) {
   this.update = function(delta, t) {
     if (this.rotate) {
       // Update all rotating entities
-      let rotateSpeed = 2; // Speed of rotation
+
       this.spinWeapons.forEach((entity, index) => {
         if(entity.attack){
-          let angle = t * 2 * Math.PI / rotateSpeed + (2 * Math.PI / this.numberOfRotatingItems) * index;
+          let angle = t * 2 * Math.PI / this.rotateSpeed + (2 * Math.PI / this.numberOfRotatingItems) * index;
           entity.x = this.hero.e.x + 32 + this.distanceFromHero * Math.cos(angle);
           entity.y = this.hero.e.y + 32 + this.distanceFromHero * Math.sin(angle);
           entity.update(delta);
