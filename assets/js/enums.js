@@ -33,5 +33,8 @@ const types = {
   SHADOW:31,
   HAT:32,
   QUEST:33,
-  HP:34
+  HP:34,
+  SUIT1:35,
+  SUIT2:36,
+  SUIT3:37
 }

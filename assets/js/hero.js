@@ -2,6 +2,7 @@ function Hero(w, h, x, y, angle, type) {
   this.e = new Entity(16, 16, 0, 0, 0, types.HERO);
   this.hair = new Entity(13, 13, 0, 0, 0, types.HAIR1);
   this.head = new Entity(11, 9, 0, 0, 0, types.HEAD1);
+  this.suit = new Entity(7, 5, 0, 0, 0, types.SUIT1);
   this.hat = new Entity(16, 14, 0, 0, 0, types.HAT);
   this.rHand = new Entity(4, 4, 0, 0, 0, types.HAND);
   this.lHand = new Entity(4, 4, 0, 0, 0, types.HAND);
@@ -64,10 +65,11 @@ function Hero(w, h, x, y, angle, type) {
         this.hairChange=false;
         this.head.setType();
         this.hair.setType();
+        this.suit.setType();
       }
 
       if(!this.showhat){
-          this.hair.update(delta);
+        this.hair.update(delta);
       }
 
       // Update the phase, increase by delta time
@@ -84,6 +86,9 @@ function Hero(w, h, x, y, angle, type) {
 
       this.rHand.update(delta);
       this.lHand.update(delta);
+      this.suit.x=this.e.flip?this.e.x+22: this.e.x+34;
+      this.suit.y=this.e.y+62;
+      this.suit.update(delta);
 
       if(this.showhat){
         this.hat.flip=this.e.flip;

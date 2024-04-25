@@ -99,6 +99,12 @@ function Intro(){
       this.arrow.y = 170;
       writeStroke(ctx, 1, font, "BLACK", "Select Clothes (Left / Right)", 30, canvasH*.2,6);
       writeTxt(ctx, 1, font, "WHITE", "Select Clothes (Left / Right)", 30, canvasH*.2);
+      if ((left() || right()) && delay <= 0) {
+          delay = 0.3;
+          const t = [types.SUIT1, types.SUIT2, types.SUIT3];
+          cart.hero.suit.type = t[(t.indexOf(cart.hero.suit.type) + 1) % t.length];
+          cart.hero.change = true;
+      }
     }
 
     delay-=delta;
