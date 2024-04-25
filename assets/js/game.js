@@ -160,7 +160,6 @@ function setupControls() {
 
 function move(d) {
     // Handle movement logic here
-    console.log('Move:', d);
     if(d=='up'){
       mobUp=true;
     } else if(d=='down'){
@@ -170,7 +169,6 @@ function move(d) {
     } else if(d=='right'){
       mobRight=true;
     }
-    console.log(d + " - " + mobUp);
 }
 
 function stopmove(d) {
@@ -183,7 +181,6 @@ function stopmove(d) {
     } else if(d=='right'){
       mobRight=false;
     }
-    console.log(d + " - " + mobUp);
 }
 
 function action(button) {
@@ -265,22 +262,6 @@ function shift() {
   return (mg.keys && mg.keys[SHIFT]) || rightMB;
 }
 
-function one() {
-  return mg.keys && (mg.keys[ONE]);
-}
-
-function two() {
-  return mg.keys && (mg.keys[TWO]);
-}
-
-function three() {
-  return mg.keys && (mg.keys[THREE]);
-}
-
-function four() {
-  return mg.keys && (mg.keys[FOUR]);
-}
-
 function t() {
   return mg.keys && (mg.keys[T]);
 }
@@ -291,7 +272,6 @@ function setclicks(){
   clickedRec.y=mousePos.y+5;
   clickedRec.h=10;
   clickedRec.w=10;
-  console.log(clickedAt);
 }
 
 function resizeCanvas() {
