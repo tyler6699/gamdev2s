@@ -79,6 +79,7 @@ let mg = {
     ctx.imageSmoothingEnabled = false;
     this.canvas.classList.add("screen");
     document.body.insertBefore(this.canvas, document.body.childNodes[6]);
+
     // Run the game loop
     this.frameId = requestAnimationFrame(updateGameLoop);
 
@@ -154,6 +155,18 @@ function setupControls() {
     document.getElementById('right').addEventListener('touchstart', () => move('right'));
     document.getElementById('right').addEventListener('touchend', () => stopmove('right'));
     document.getElementById('aButton').addEventListener('touchstart', () => action('A'));
+    document.getElementById('fsButton').addEventListener('touchend', () => toggleFull());
+    document.getElementById('fsButton').addEventListener('mouseup', () => toggleFull());
+}
+
+function toggleFull() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
 }
 
 function move(d) {

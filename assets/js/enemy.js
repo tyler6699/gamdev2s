@@ -1,10 +1,14 @@
-function Enemy(x, y, w, h, type, index, totalEnemies) {
+function Enemy(x, y, w, h, type, index, totalEnemies, dmg) {
   this.active=true;
   this.e = new Entity(w, h, 0, 0, 0, type);
   this.speed = .8; // Speed of the enemy
   this.angleOffset = (Math.PI * 2) * (index / totalEnemies); // Unique angle for each enemy
   this.safe=0;
-  // this.shadow=
+  this.dmg=dmg;
+  this.rHand = new Entity(4, 4, 0, 0, 0, types.HAND);
+  this.lHand = new Entity(4, 4, 0, 0, 0, types.HAND);
+  this.handMov = 0;
+
   this.update = function(delta, mobs) {
     if(this.safe>0) this.safe-=delta;
     let steerPow = this.steerFromNearbyMobs(mobs, 60);
@@ -15,7 +19,7 @@ function Enemy(x, y, w, h, type, index, totalEnemies) {
 
     // Check collision with hero
    if (this.e.isCollidingWith(cart.hero.e) && this.safe <=0) {
-     if(cart.hero.hp>0)cart.hero.hp--;
+     if(cart.hero.hp>0)cart.hero.hp-=this.dmg;
      cart.shakeTime=.2
      knockback(cart.hero, this, 5);
      this.safe=2;
