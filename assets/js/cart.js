@@ -1,8 +1,6 @@
 function Cart() {
   this.cam=new Camera();
-  this.tips=true;
   this.time=0;
-  this.reset=false;
   this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
   this.heroShadow = new Entity(11, 4, 0, 0, 0, types.SHADOW,1);
   this.shadow = new Entity(7, 3, 0, 0, 0, types.SHADOW,1);
@@ -13,7 +11,6 @@ function Cart() {
   let waveStart=3;
   this.waveEnd=10;
   this.wave = 1;
-  let currentNumber = 3;
   let scale = 20; // Initial scale of the squares
   let prevNumber = 0;
   let runOnce=true;
@@ -139,6 +136,7 @@ function Cart() {
         if(space()){
           this.wave++;
           waveStart=3;
+          TIME=0;
           this.shop=false;
           // Set mob and wave settings
           this.waveEnd=8+(this.wave*.5)
@@ -185,6 +183,7 @@ function Cart() {
         drawNumber(330, 80, Math.ceil(waveStart), scale);
         scale += .3;
         prevNumber = Math.ceil(waveStart)
+        TIME=0;
       }
 
       // Hero HP and Power
@@ -198,45 +197,45 @@ function Cart() {
     }
   }
 
-    this.applyUpgrade = function(content) {
-      switch(content) {
-        case 'chaser':
-        let n=cart.attacks.chaseWeapons.filter(weapon => weapon.attack === true).length
-        if(n<4){
-          this.attacks.chaseWeapons[n].attack=true;
-        }
-        if(n==3)this.removeItem('chaser');
-          break;
-        case 'shield':
-          let num=cart.attacks.spinWeapons.filter(weapon => weapon.attack === true).length
-          if(num<5){
-            this.attacks.spinWeapons[num].attack=true;
-          }
-          if(num==4)this.removeItem('shield');
-          break;
-        case 'figure8':
-            this.attacks.figureEightEntity.attack=true;
-            this.removeItem('figure8');
-          break;
-        case 'hat':
-          this.hero.showhat=true;
-          this.hero.maxHP=200;
-          this.removeItem('hat');
-          break;
-        case 'speed':
-          this.hero.e.speed+=.5;
-          if(this.hero.e.speed>=7)this.removeItem('speed');
-          break;
-        case 'shieldSpeed':
-          this.attacks.rotateSpeed-=.1;
-          if(this.attacks.rotateSpeed<=0.7)this.removeItem('shieldSpeed');
-          break;
-        case 'MHP':
-          this.hero.maxHP+=5;
-          if(this.attacks.rotateSpeed<=0.7)this.removeItem('shieldSpeed');
-          break;
+  this.applyUpgrade = function(content) {
+    switch(content) {
+      case 'chaser':
+      let n=cart.attacks.chaseWeapons.filter(weapon => weapon.attack === true).length
+      if(n<4){
+        this.attacks.chaseWeapons[n].attack=true;
       }
-    };
+      if(n==3)this.removeItem('chaser');
+        break;
+      case 'shield':
+        let num=cart.attacks.spinWeapons.filter(weapon => weapon.attack === true).length
+        if(num<5){
+          this.attacks.spinWeapons[num].attack=true;
+        }
+        if(num==4)this.removeItem('shield');
+        break;
+      case 'figure8':
+          this.attacks.figureEightEntity.attack=true;
+          this.removeItem('figure8');
+        break;
+      case 'hat':
+        this.hero.showhat=true;
+        this.hero.maxHP=200;
+        this.removeItem('hat');
+        break;
+      case 'speed':
+        this.hero.e.speed+=.5;
+        if(this.hero.e.speed>=7)this.removeItem('speed');
+        break;
+      case 'shieldSpeed':
+        this.attacks.rotateSpeed-=.1;
+        if(this.attacks.rotateSpeed<=0.7)this.removeItem('shieldSpeed');
+        break;
+      case 'MHP':
+        this.hero.maxHP+=5;
+        if(this.attacks.rotateSpeed<=0.7)this.removeItem('shieldSpeed');
+        break;
+    }
+  };
 
   this.randomChests = function() {
     for (let i = this.upz.length - 1; i > 0; i--) {
@@ -253,5 +252,19 @@ function Cart() {
     if (index > -1) {
         this.upz.splice(index, 1);
     }
-};
+  };
+
+  this.reset = function(){
+    this.time=0;
+    this.waveEnd=10;
+    this.wave = 1;
+    this.shop=false;
+    this.upz = ['hat','figure8','chaser', 'shield', 'shieldSpeed','speed','MHP'];
+    this.mobz=30;
+    this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
+    gameStarted=false;
+    this.attacks=new Attack(this.hero);
+    this.spawner=new Spawner(this.hero.e);
+    this.cam=new Camera();
+  }
 }

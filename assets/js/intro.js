@@ -21,19 +21,19 @@ function Intro(){
 
     let colorIndex = 0;
 
-     // Calculate the number of stripes needed to fill the screen diagonally
-     const numStripes = Math.ceil(Math.sqrt(ctx.canvas.width**2 + ctx.canvas.height**2) / stripeWidth);
+    // Calculate the number of stripes needed to fill the screen diagonally
+    const numStripes = Math.ceil(Math.sqrt(ctx.canvas.width**2 + ctx.canvas.height**2) / stripeWidth);
 
-     for (let i = -numStripes; i < numStripes + 10; i++) {
-       ctx.fillStyle = colors[i % 2];
-       ctx.beginPath();
-       ctx.moveTo((i * stripeWidth) + offset, 0);
-       ctx.lineTo((i + 1) * stripeWidth + offset, 0);
-       ctx.lineTo((i + 1) * stripeWidth + offset - ctx.canvas.height, ctx.canvas.height);
-       ctx.lineTo((i * stripeWidth) + offset - ctx.canvas.height, ctx.canvas.height);
-       ctx.closePath();
-       ctx.fill();
-    }
+   for (let i = -numStripes; i < numStripes + 10; i++) {
+     ctx.fillStyle = colors[i % 2];
+     ctx.beginPath();
+     ctx.moveTo((i * stripeWidth) + offset, 0);
+     ctx.lineTo((i + 1) * stripeWidth + offset, 0);
+     ctx.lineTo((i + 1) * stripeWidth + offset - ctx.canvas.height, ctx.canvas.height);
+     ctx.lineTo((i * stripeWidth) + offset - ctx.canvas.height, ctx.canvas.height);
+     ctx.closePath();
+     ctx.fill();
+  }
 
     offset -= .5; // Change the speed of the stripe movement by adjusting this value
      if (offset <= -stripeWidth*2) {
@@ -41,8 +41,8 @@ function Intro(){
      }
 
     let font=`${fontSize}px Arial`;
-    writeStroke(ctx, 1, font,"Black","GameDevJS 2024", 30, canvasH*.1,12);
-    writeTxt(ctx, 1, font,"WHITE","GameDevJS 2024 ", 30, canvasH*.1);
+    writeStroke(ctx, 1, font,"Black","Pixel Power - CarelessLabs", 30, canvasH*.1,12);
+    writeTxt(ctx, 1, font,"WHITE","Pixel Power - CarelessLabs", 30, canvasH*.1);
     font=`${fontSize-15}px Arial`;
 
     if (delay <= 0) {
