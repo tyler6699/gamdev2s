@@ -28,7 +28,8 @@ function Cart() {
   let one = new Entity(6, 5, -30, 10, 0, types.ONE);
   let two = new Entity(7, 5, 100, 10, 0, types.TWO);
   let three = new Entity(7, 5, 230, 10, 0, types.THREE);
-  this.upz = ['hat','figure8','chaser', 'shield', 'shieldSpeed'];
+  this.upz = ['hat','figure8','chaser', 'shield', 'shieldSpeed','speed'];
+  let qq = new Entity(7, 10, 0, 0, 0, types.QUEST,1);
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -92,6 +93,12 @@ function Cart() {
               h.update(delta);
               break;
             case 'HP':
+              break;
+            default:
+              // draw ?
+              qq.x=c.x-50;
+              qq.y=c.y-60;
+              qq.update(delta);
               break;
           }
 

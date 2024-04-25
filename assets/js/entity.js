@@ -235,6 +235,10 @@ function Entity(w, h, x, y, angle, type, id=0) {
         this.sy=13;
         this.sx=91;
         break;
+      case types.QUEST:
+        this.sy=38;
+        this.sx=45;
+        break;
     }
 
     this.hWidth = this.width / 2;

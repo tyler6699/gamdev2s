@@ -31,5 +31,6 @@ const types = {
   C4:29,
   C5:30,
   SHADOW:31,
-  HAT:32
+  HAT:32,
+  QUEST:33
 }
