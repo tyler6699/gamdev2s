@@ -83,6 +83,18 @@ let mg = {
     // Run the game loop
     this.frameId = requestAnimationFrame(updateGameLoop);
 
+    //Mobile
+    window.addEventListener('touchstart', handleInteraction)('keydown', function(e) {
+      if(!music){
+        music=true
+        audio.loop=true;
+        audio.play();
+        if(audioCtx == null) audioCtx = new AudioContext();
+      }
+      if(startDelay<=0&&charSet==3)start=true;
+      e.preventDefault();
+    })
+
     // Keyboard
     window.addEventListener('keydown', function(e) {
       if(!music){
