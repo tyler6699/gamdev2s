@@ -35,8 +35,11 @@ let fps = 60; // A reasonable default value
 let frameCount = 0;
 let elapsedTime = 0;
 
-var nativeWidth = 800;  // The resolution the game is designed to look best in
-var nativeHeight = 600;
+let a = navigator.userAgent;
+let check = a.match(/Android/i)!=null||a.match(/iPhone/i)!=null||a.match(/iPad/i)!=null;
+
+var nativeWidth = 812;  // The resolution the game is designed to look best in
+var nativeHeight = check?375:470;
 var deviceWidth = window.innerWidth;  // Check for browser compatibility
 var deviceHeight = window.innerHeight;
 var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);

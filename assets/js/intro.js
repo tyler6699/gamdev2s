@@ -62,10 +62,10 @@ function Intro(){
 
     charSet = (charSet + 3) % 3;
 
-    drawHeroBox(0, 0, 300, 300, 15, colour);
+    drawHeroBox(15, colour);
 
     if (charSet == 0) {
-      this.arrow.y = 100;
+      this.arrow.y = check?80:100;
       writeStroke(ctx, 1, font, "BLACK", "Select Hair (Left / Right)", 30, canvasH*.2,6);
       writeTxt(ctx, 1, font, "WHITE", "Select Hair (Left / Right)", 30, canvasH*.2);
       if ((left() || right()) && delay <= 0) {
@@ -75,7 +75,7 @@ function Intro(){
           cart.hero.change = true;
       }
     } else if (charSet == 1) {
-      this.arrow.y = 140;
+      this.arrow.y = check?100:130;
       writeStroke(ctx, 1, font, "BLACK", "Select Head (Left / Right)", 30, canvasH*.2,6);
       writeTxt(ctx, 1, font, "WHITE", "Select Head (Left / Right)", 30, canvasH*.2);
       if ((left() || right()) && delay <= 0) {
@@ -96,7 +96,7 @@ function Intro(){
           }
       }
     } else if (charSet == 2) {
-      this.arrow.y = 170;
+      this.arrow.y = check?140:170;
       writeStroke(ctx, 1, font, "BLACK", "Select Clothes (Left / Right)", 30, canvasH*.2,6);
       writeTxt(ctx, 1, font, "WHITE", "Select Clothes (Left / Right)", 30, canvasH*.2);
       if ((left() || right()) && delay <= 0) {
@@ -109,7 +109,7 @@ function Intro(){
 
     delay-=delta;
     cart.hero.e.x=65;
-    cart.hero.e.y=30;
+    cart.hero.e.y=check?10:30;
 
     ctx.save();
     ctx.scale(3,3);

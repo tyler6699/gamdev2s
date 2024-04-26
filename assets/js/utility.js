@@ -214,7 +214,7 @@ const fontMap = {
      mg.context.fillText("TIME: " + cart.waveEnd, nativeWidth-100, 70);
    }
 
-   function drawHeroBox(x, y, width, height, borderRadius, colour) {
+   function drawHeroBox(borderRadius, colour) {
      ctx.save();
      ctx.scale(3,3)
      // Set shadow properties
@@ -233,7 +233,8 @@ const fontMap = {
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.roundRect(50, 45, 150, 90, 40);
+    var y=check?20:40;
+    ctx.roundRect(50, y, 150, 90, 40);
     ctx.stroke();
     ctx.fill();
     ctx.restore();

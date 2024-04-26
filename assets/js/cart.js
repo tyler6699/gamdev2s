@@ -46,7 +46,8 @@ function Cart() {
       // Camera follow hero
       // Example usage: draw the number "190"
       this.cam.x = lerp(-this.hero.e.x+350,this.cam.x,.1);
-      this.cam.y = lerp(-this.hero.e.y+200,this.cam.y,.1);
+      var xadd = check? 120 : 180;
+      this.cam.y = lerp(-this.hero.e.y+xadd,this.cam.y,.1);
 
       TIME += delta;
       mg.clear();
