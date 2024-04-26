@@ -135,6 +135,7 @@ function Cart() {
         three.update(delta);
         if(space() || processClick){
           this.wave++;
+          playSound(7,2); // level Change
           waveStart=3;
           TIME=0;
           this.shop=false;
@@ -198,6 +199,7 @@ function Cart() {
   }
 
   this.applyUpgrade = function(content) {
+    playSound(1,10);
     switch(content) {
       case 'chaser':
       let n=cart.attacks.chaseWeapons.filter(weapon => weapon.attack === true).length
@@ -231,6 +233,7 @@ function Cart() {
         if(this.attacks.rotateSpeed<=0.7)this.removeItem('shieldSpeed');
         break;
       case 'MHP':
+        playSound(1,10);
         this.hero.maxHP+=5;
         if(this.attacks.rotateSpeed<=0.7)this.removeItem('shieldSpeed');
         break;

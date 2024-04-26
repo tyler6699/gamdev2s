@@ -56,7 +56,6 @@ function startGame() {
   mg.start();
   resizeCanvas(this.ctx);
   setupControls();
-
   document.getElementById('gameControls').addEventListener('touchstart', (event) => {
       event.preventDefault();  // Prevent scrolling/zooming on the control buttons
   }, { passive: false });
@@ -89,6 +88,7 @@ let mg = {
         music=true
         audio.loop=true;
         audio.play();
+        if(audioCtx == null) audioCtx = new AudioContext();
       }
       if(startDelay<=0&&charSet==3)start=true;
       e.preventDefault();

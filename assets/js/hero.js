@@ -103,6 +103,7 @@ function Hero(w, h, x, y, angle, type) {
         this.die+=delta;
         this.e.alpha-=.01;
       } else {
+        playSound(5,4);
         cart.reset();
       }
     }

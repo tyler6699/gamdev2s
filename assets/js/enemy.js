@@ -29,6 +29,7 @@ function Enemy(x, y, w, h, type, index, totalEnemies, dmg) {
      if(weapon.attack){
        if (this.e.isCollidingWith(weapon)) {
          this.active = false;
+         playSound(5,2); // Squishy
          if(cart.hero.power<100)cart.hero.power++;
          cart.shakeTime=.2
          for(let i=0; i<30;i++){
