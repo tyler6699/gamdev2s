@@ -47,6 +47,7 @@ var mobDown=false;
 var mobRight=false;
 var mobLeft=false;
 let shaky = true;
+let loading = 2;
 
 // Load the music player
 genAudio();
