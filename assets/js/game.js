@@ -84,7 +84,7 @@ let mg = {
     this.frameId = requestAnimationFrame(updateGameLoop);
 
     //Mobile
-    window.addEventListener('touchstart', handleInteraction)('keydown', function(e) {
+    window.addEventListener('touchstart', function(e) {
       if(!music){
         music=true
         audio.loop=true;
