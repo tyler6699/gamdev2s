@@ -43,7 +43,6 @@ var nativeHeight = check?375:470;
 var deviceWidth = window.innerWidth;  // Check for browser compatibility
 var deviceHeight = window.innerHeight;
 var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
-var colour = 1;
 
 var mobUp=false;
 var mobDown=false;
@@ -53,7 +52,7 @@ let shaky = true;
 let loading = 2;
 
 // Load the music player
-genAudio();
+// genAudio();
 
 // Called by body onload on index page
 function startGame() {
@@ -310,7 +309,6 @@ function resizeCanvas() {
   scaleFitNative = Math.min(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
   ctx.canvas.width = nativeWidth * scaleFillNative;
   ctx.canvas.height = nativeHeight * scaleFillNative;
-
   this.context = ctx.canvas.getContext("2d");
   this.context.setTransform(scaleFillNative, 0, 0, scaleFillNative, 0, 0);
   this.ctx.mozImageSmoothingEnabled = false;

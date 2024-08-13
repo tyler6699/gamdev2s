@@ -1,40 +1,3 @@
-function drawCountdown(ctx, elapsedTime, totalTime) {
-  const centerX = 400;
-  const centerY = 35;
-  const radius = 30;
-
-  // Calculate the angle for the countdown
-  angle = (Math.PI * 2) * (elapsedTime / totalTime);
-  if (elapsedTime >= totalTime) angle=Math.PI * 2;
-
-  // Draw the full circle background (time passed)
-  ctx.beginPath();
-  ctx.fillStyle = colour == 1 ? '#a6f1c8':'#ffb3a6'; // Color of the elapsed time
-  ctx.moveTo(centerX, centerY);
-  ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-  ctx.closePath();
-  ctx.fill();
-
-  // Draw the countdown part (remaining time)
-  ctx.beginPath();
-  ctx.fillStyle = 'white'; // Color of the remaining time
-  ctx.moveTo(centerX, centerY);
-  ctx.arc(centerX, centerY, radius, -Math.PI / 2, angle - Math.PI / 2, false);
-  ctx.closePath();
-  ctx.fill();
-
-  // Draw the hand
-  ctx.beginPath();
-  ctx.moveTo(centerX, centerY);
-  ctx.lineTo(
-      centerX + radius * Math.cos(angle - Math.PI / 2),
-      centerY + radius * Math.sin(angle - Math.PI / 2)
-  );
-  ctx.strokeStyle = colour == 1 ? '#589572':'#f8847c';
-  ctx.lineWidth = 3;
-  ctx.stroke();
-}
-
 function drawBar(ctx, hp, maxHp, colour, border, backcol, yOff) {
     ctx.save();
     ctx.translate(0,yOff);
@@ -144,16 +107,6 @@ function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
   ctx.restore();
 }
 
-function knockback(hero, src, amt) {
-    // calculate direction based on position of damage source and hero's position
-    let dx = hero.e.x > src.x ? 1 : -1;
-    let dy = hero.e.y > src.y ? 1 : -1;
-
-    // apply knockback
-    hero.e.x += dx * amt;
-    hero.e.y += dy * amt;
-}
-
 const fontMap = {
     '0': [
         [1, 1, 1, 1, 1],
@@ -186,58 +139,47 @@ const fontMap = {
 };
 
 
-   function drawNumber(x, y, number, scale) {
-       for (let i = 0; i < fontMap[number].length; i++) {
-           for (let j = 0; j < fontMap[number][i].length; j++) {
-               if (fontMap[number][i][j] === 1) {
-                   ctx.fillStyle = 'white';
-                   ctx.fillRect(x + j * scale, y + i * scale, scale, scale);
-               }
-           }
-       }
-   }
+ function drawNumber(x, y, number, scale) {
+     for (let i = 0; i < fontMap[number].length; i++) {
+         for (let j = 0; j < fontMap[number][i].length; j++) {
+             if (fontMap[number][i][j] === 1) {
+                 ctx.fillStyle = 'white';
+                 ctx.fillRect(x + j * scale, y + i * scale, scale, scale);
+             }
+         }
+     }
+ }
 
-   function displayFPS(fps) {
-     mg.context.fillStyle = "yellow";
-     mg.context.font = "16px Arial";
-     mg.context.fillText("FPS: " + fps.toFixed(2), nativeWidth-100, 20);
-   }
+ function displayFPS(fps) {
+   mg.context.fillStyle = "yellow";
+   mg.context.font = "16px Arial";
+   mg.context.fillText("FPS: " + fps.toFixed(2), nativeWidth-100, 20);
+ }
 
-   function displayEnemyCount(n) {
-     mg.context.fillStyle = "white";
-     mg.context.font = "16px Arial";
-     mg.context.fillText("Mobs: " + n, nativeWidth-100, 90);
-     mg.context.fillText("Speed: " + cart.hero.e.speed, nativeWidth-100, 110);
-     mg.context.fillText("Spin: " + cart.attacks.rotateSpeed, nativeWidth-100, 130);
-     mg.context.fillStyle = "black";
-     mg.context.fillText("WAVE: " + cart.wave, nativeWidth-100, 50);
-     mg.context.fillText("TIME: " + cart.waveEnd, nativeWidth-100, 70);
-   }
+ function drawHeroBox(borderRadius) {
+   ctx.save();
+   ctx.scale(3,3)
+   // Set shadow properties
+   ctx.shadowColor = '#283747';
+   ctx.shadowBlur = 10;
+   ctx.shadowOffsetX = 5;
+   ctx.shadowOffsetY = 5;
 
-   function drawHeroBox(borderRadius, colour) {
-     ctx.save();
-     ctx.scale(3,3)
-     // Set shadow properties
-     ctx.shadowColor = colour == 1 ? '#3CB371':'#f67c84';
-     ctx.shadowBlur = 10;
-     ctx.shadowOffsetX = 5;
-     ctx.shadowOffsetY = 5;
+  // Box fill color
+  ctx.fillStyle = 'white';
+  ctx.fill();
 
-    // Box fill color
-    ctx.fillStyle = 'white';
-    ctx.fill();
+  // Box stroke color
+  ctx.strokeStyle = '#17202a';
+  ctx.lineWidth = 4;
+  ctx.stroke();
 
-    // Box stroke color
-    ctx.strokeStyle = colour == 1 ? '#3CB371':'#ffb3a6';
-    ctx.lineWidth = 4;
-    ctx.stroke();
-
-    ctx.beginPath();
-    var y=check?20:40;
-    ctx.roundRect(50, y, 150, 90, 40);
-    ctx.stroke();
-    ctx.fill();
-    ctx.restore();
+  ctx.beginPath();
+  var y=check?20:40;
+  ctx.roundRect(50, y, 150, 90, 40);
+  ctx.stroke();
+  ctx.fill();
+  ctx.restore();
 }
 
 function partDir(p) {

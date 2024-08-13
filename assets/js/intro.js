@@ -1,5 +1,4 @@
 function Intro(){
-  this.arrow=new Entity(11, 12, 100, 60, 0, types.ARROW);
   let delay=0;
   let selectDelay=0;
   let offset=0;
@@ -11,14 +10,8 @@ function Intro(){
     drawBox(ctx,0.8,"black",0,0,canvasW,canvasH)
 
     // BACKGROUND STRIPES
-    var colors=['#a8f2cb', '#88e4b0'];
-    const stripeWidth = 50; // width of each stripe
-    if(colour==1){
-      colors = ['#a8f2cb', '#88e4b0']; // two-tone greens,
-    } else {
-      colors = ['#ffb3a6', '#ff9e9a']; // two-tone pinks
-    }
-
+    var colors=['#273746', '#17202a'];
+    const stripeWidth = 100; // width of each stripe
     let colorIndex = 0;
 
     // Calculate the number of stripes needed to fill the screen diagonally
@@ -35,77 +28,19 @@ function Intro(){
      ctx.fill();
   }
 
-    offset -= .5; // Change the speed of the stripe movement by adjusting this value
+    offset -= .3; // Change the speed of the stripe movement by adjusting this value
      if (offset <= -stripeWidth*2) {
          offset = 0;
      }
 
     let font=`${fontSize}px Arial`;
-    writeStroke(ctx, 1, font,"Black","Pixel Power - CarelessLabs", 30, canvasH*.1,12);
-    writeTxt(ctx, 1, font,"WHITE","Pixel Power - CarelessLabs", 30, canvasH*.1);
+    writeStroke(ctx, 1, font,"Black","13 Floors", 30, canvasH*.1,12);
+    writeTxt(ctx, 1, font,"WHITE","13 Floors", 30, canvasH*.1);
     font=`${fontSize-15}px Arial`;
-
-    if (delay <= 0) {
-      if (up()) {
-        delay = 0.3;
-        charSet--;
-      } else if (down()) {
-        delay = 0.3;
-        charSet++;
-      }
-
-      if(t()){ // colour swapper
-        colour = (colour + 1) % 2;
-        delay = 0.3;
-      }
-    }
 
     charSet = (charSet + 3) % 3;
 
-    drawHeroBox(15, colour);
-
-    if (charSet == 0) {
-      this.arrow.y = check?80:100;
-      writeStroke(ctx, 1, font, "BLACK", "Select Hair (Left / Right)", 30, canvasH*.2,6);
-      writeTxt(ctx, 1, font, "WHITE", "Select Hair (Left / Right)", 30, canvasH*.2);
-      if ((left() || right()) && delay <= 0) {
-          delay = 0.3;
-          const h = [types.HAIR1, types.HAIR2, types.HAIR3, types.HAIR4];
-          cart.hero.hair.type = h[(h.indexOf(cart.hero.hair.type) + 1) % h.length];
-          cart.hero.change = true;
-      }
-    } else if (charSet == 1) {
-      this.arrow.y = check?100:130;
-      writeStroke(ctx, 1, font, "BLACK", "Select Head (Left / Right)", 30, canvasH*.2,6);
-      writeTxt(ctx, 1, font, "WHITE", "Select Head (Left / Right)", 30, canvasH*.2);
-      if ((left() || right()) && delay <= 0) {
-          delay = 0.3;
-          const t = [types.HEAD1, types.HEAD2, types.HEAD3];
-          cart.hero.head.type = t[(t.indexOf(cart.hero.head.type) + 1) % t.length];
-          cart.hero.change = true;
-          if(cart.hero.head.type == types.HEAD3 || cart.hero.head.type == types.HEAD2){
-            cart.hero.rHand.sx=16;
-            cart.hero.rHand.sy=28;
-            cart.hero.lHand.sx=16;
-            cart.hero.lHand.sy=28;
-          } else {
-            cart.hero.rHand.sx=30;
-            cart.hero.rHand.sy=9;
-            cart.hero.lHand.sx=30;
-            cart.hero.lHand.sy=9;
-          }
-      }
-    } else if (charSet == 2) {
-      this.arrow.y = check?140:170;
-      writeStroke(ctx, 1, font, "BLACK", "Select Clothes (Left / Right)", 30, canvasH*.2,6);
-      writeTxt(ctx, 1, font, "WHITE", "Select Clothes (Left / Right)", 30, canvasH*.2);
-      if ((left() || right()) && delay <= 0) {
-          delay = 0.3;
-          const t = [types.SUIT1, types.SUIT2, types.SUIT3];
-          cart.hero.suit.type = t[(t.indexOf(cart.hero.suit.type) + 1) % t.length];
-          cart.hero.change = true;
-      }
-    }
+    drawHeroBox(15);
 
     delay-=delta;
     cart.hero.e.x=65;
@@ -114,11 +49,6 @@ function Intro(){
     ctx.save();
     ctx.scale(3,3);
     cart.hero.update(delta);
-    ctx.restore();
-
-    ctx.save();
-    ctx.scale(1.5,1.5);
-    this.arrow.update(delta);
     ctx.restore();
 
     // Start Text
