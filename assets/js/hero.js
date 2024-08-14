@@ -8,6 +8,7 @@ function Hero(w, h, x, y, angle, type) {
   this.showhat=false;
   this.maxHP=100;
   this.die=0;
+  this.e.gun = new Gun();
 
   this.update = function(delta) {
     this.e.move(delta);
@@ -21,13 +22,15 @@ function Hero(w, h, x, y, angle, type) {
       return p.remove == false;
     });
 
+    this.e.gun.drawBullets(delta);
+    
     if(this.hp>0){
       // Update the phase, increase by delta time
       this.handMovementPhase += delta;
 
       // Bouncing Hands
       let bounce = 3 * Math.sin(this.handMovementPhase * 2 * Math.PI * 0.4); // Oscillates with an amplitude of 5 pixels, frequency of 0.5 Hz
-      
+
     } else if(this.hp==0){
       if(this.die<1.5){
         this.e.sx=16;
@@ -39,8 +42,20 @@ function Hero(w, h, x, y, angle, type) {
         cart.reset();
       }
     }
+  }
 
-
+  holdClickT = 0;
+  this.checkGun = function(){
+    if(leftMB) holdClickT += delta;
+    if(processClick || leftMB > .25){
+      this.e.idle=0;
+      ox = this.e.x - this.e.mhWScaled;
+      oy = this.e.y - this.e.mhHScaled;
+      dx = clickedAt.x;
+      dy = clickedAt.y;
+      console.log("Shoot");
+      this.e.gun.addBullets(ox,oy,dx,dy);
+    }
   }
 
 }

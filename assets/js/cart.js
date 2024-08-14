@@ -46,13 +46,14 @@ function Cart() {
       this.time+=delta;
 
       this.hero.update(delta);
-      if(this.hero.e.flip){
-        this.heroShadow.x=this.hero.e.x+4;
-      } else {
-        this.heroShadow.x=this.hero.e.x+18;
-      }
-      this.heroShadow.y=this.hero.e.y+74;
-      this.heroShadow.update(delta);
+      this.hero.checkGun();       
+      // if(this.hero.e.flip){
+      //   this.heroShadow.x=this.hero.e.x+4;
+      // } else {
+      //   this.heroShadow.x=this.hero.e.x+18;
+      // }
+      // this.heroShadow.y=this.hero.e.y+74;
+      // this.heroShadow.update(delta);
 
       // Hero HP and Power
       drawBar(ctx, this.hero.hp, this.hero.maxHP, '#f8f9f9', '#283747','#aeb6bf',0); // HP

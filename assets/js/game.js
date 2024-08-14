@@ -18,9 +18,14 @@ let processClick = false;
 let GAMEOVER=false;
 let RELOAD=false;
 let WIN = false;
+
 let STAGE=0;
 let atlas = new Image();
 atlas.src = "atlas.png";
+
+var AMMOSTART=101;
+var SHOOTDIST = 600;
+var BSPEED = 3;
 // Shadows
 let shadowImage=new Image();
 let cart = new Cart();
