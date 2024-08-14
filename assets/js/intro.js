@@ -10,7 +10,7 @@ function Intro(){
     drawBox(ctx,0.8,"black",0,0,canvasW,canvasH)
 
     // BACKGROUND STRIPES
-    var colors=['#273746', '#17202a'];
+    var colors=['#5b2c6f', '#17202a'];
     const stripeWidth = 100; // width of each stripe
     let colorIndex = 0;
 

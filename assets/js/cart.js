@@ -55,8 +55,8 @@ function Cart() {
       this.heroShadow.update(delta);
 
       // Hero HP and Power
-      drawBar(ctx, this.hero.hp, this.hero.maxHP, '#f68687', '#a15156','#faf1f0',0); // HP RED
-      drawBar(ctx, this.hero.power, 100, '#84e3b3','#589572','#f0faf7',30); // Power Green
+      drawBar(ctx, this.hero.hp, this.hero.maxHP, '#f8f9f9', '#283747','#aeb6bf',0); // HP
+      //drawBar(ctx, this.hero.power, 100, '#84e3b3','#589572','#f0faf7',30); // Power
       displayFPS(fps);
     } else {
       // Intro Screen
