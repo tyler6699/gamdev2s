@@ -23,7 +23,7 @@ function Hero(w, h, x, y, angle, type) {
     });
 
     this.e.gun.drawBullets(delta);
-    
+
     if(this.hp>0){
       // Update the phase, increase by delta time
       this.handMovementPhase += delta;
@@ -49,11 +49,11 @@ function Hero(w, h, x, y, angle, type) {
     if(leftMB) holdClickT += delta;
     if(processClick || leftMB > .25){
       this.e.idle=0;
-      ox = this.e.x - this.e.mhWScaled;
-      oy = this.e.y - this.e.mhHScaled;
+      ox=ctx.canvas.width/2;
+      oy=ctx.canvas.height/2;
       dx = clickedAt.x;
       dy = clickedAt.y;
-      console.log("Shoot");
+      console.log("Shoot: ox:" + ox + " oy:" + oy + " dx:" + dx + " dy:" + dy);
       this.e.gun.addBullets(ox,oy,dx,dy);
     }
   }

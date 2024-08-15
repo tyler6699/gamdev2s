@@ -25,7 +25,7 @@ atlas.src = "atlas.png";
 
 var AMMOSTART=101;
 var SHOOTDIST = 600;
-var BSPEED = 3;
+var BSPEED = 10;
 // Shadows
 let shadowImage=new Image();
 let cart = new Cart();
@@ -54,7 +54,7 @@ var mobDown=false;
 var mobRight=false;
 var mobLeft=false;
 let shaky = true;
-let loading = 2;
+let loading = .2;
 
 // Load the music player
 // genAudio();
@@ -299,10 +299,10 @@ function t() {
 
 function setclicks(){
   clickedAt.set(mousePos.x, mousePos.y);
-  clickedRec.x=mousePos.x-5;
-  clickedRec.y=mousePos.y+5;
-  clickedRec.h=10;
-  clickedRec.w=10;
+  clickedRec.x=mousePos.x-1;
+  clickedRec.y=mousePos.y+1;
+  clickedRec.h=2;
+  clickedRec.w=2;
 }
 
 function resizeCanvas() {
