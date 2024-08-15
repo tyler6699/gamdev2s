@@ -33,8 +33,8 @@ function Gun(){
   }
 }
 
-function Bullet(ox,oy,dx,dy1){
-  this.speed = 2;
+function Bullet(ox,oy,dx,dy){
+  this.speed = 200;
   this.w = 60;
   this.h = 30;
   this.dst=0;
@@ -43,18 +43,27 @@ function Bullet(ox,oy,dx,dy1){
   this.dist=0;
   this.mhWidth = this.w / -2;
   this.mhHeight = this.h / -2;
-  // 0 is perfect
-  // .5 is awful
   this.accuracy=20;
 
-  // Vector
-  this.v = new vec2(cart.hero.e.x+60, cart.hero.e.y+50);
+  // Calculate the direction vector
+   let dirX = dx - ox;
+   let dirY = dy - oy;
 
-  this.angle = Math.atan2(oy - dy, ox - dx);
-  dx += (Math.random() - 0.5) * 2 * this.accuracy
-  dy +=  (Math.random() - 0.5) * 2 * this.accuracy
-  this.dx = (dx-ox)*this.speed;
-  this.dy = (dy-oy)*this.speed;
+   // Apply accuracy adjustment
+   dirX += (Math.random() - 0.5) * 2 * this.accuracy;
+   dirY += (Math.random() - 0.5) * 2 * this.accuracy;
+
+   // Normalize the direction vector
+   const magnitude = Math.sqrt(dirX * dirX + dirY * dirY);
+   const normX = dirX / magnitude;
+   const normY = dirY / magnitude;
+
+   // Scale the normalized vector by speed
+   this.dx = normX * this.speed;
+   this.dy = normY * this.speed;
+
+   this.v = new vec2(cart.hero.e.x + 60, cart.hero.e.y + 50);
+   this.angle = Math.atan2(normY, normX);
 
   this.draw = function(delta, friendly = false){
     // Update Position
@@ -62,6 +71,9 @@ function Bullet(ox,oy,dx,dy1){
       // Previous position
       xx = this.v.x;
       yy = this.v.y;
+
+      console.log(this.v);
+      console.log(cart.hero.e.x + " : " + cart.hero.e.y)
 
       // New Position
       this.v.x +=(this.dx*delta);
@@ -74,7 +86,14 @@ function Bullet(ox,oy,dx,dy1){
       ctx.rotate(this.angle);
       ctx.globalAlpha = .5;
       ctx.fillStyle = "white";
-      ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));
+      //ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));
+
+      ctx.strokeStyle = "silver";
+      ctx.beginPath();
+      ctx.fillStyle = "white";
+      ctx.roundRect(0, 0, 40, 20, 30);
+      ctx.fill();
+
       ctx.restore();
     }
   }

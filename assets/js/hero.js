@@ -51,9 +51,9 @@ function Hero(w, h, x, y, angle, type) {
       this.e.idle=0;
       ox=ctx.canvas.width/2;
       oy=ctx.canvas.height/2;
-      dx = clickedAt.x;
-      dy = clickedAt.y;
-      console.log("Shoot: ox:" + ox + " oy:" + oy + " dx:" + dx + " dy:" + dy);
+      dx = mousePos.x;
+      dy = mousePos.y;
+      //console.log("Shoot: ox:" + ox + " oy:" + oy + " dx:" + dx + " dy:" + dy);
       this.e.gun.addBullets(ox,oy,dx,dy);
     }
   }
