@@ -72,9 +72,6 @@ function Bullet(ox,oy,dx,dy){
       xx = this.v.x;
       yy = this.v.y;
 
-      console.log(this.v);
-      console.log(cart.hero.e.x + " : " + cart.hero.e.y)
-
       // New Position
       this.v.x +=(this.dx*delta);
       this.v.y +=(this.dy*delta);

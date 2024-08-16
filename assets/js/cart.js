@@ -21,8 +21,8 @@ function Cart() {
   this.update = function(delta, gameStarted=false) {
     if(runOnce){
       var gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, '#3CB371'); // Dark green at the top
-      gradient.addColorStop(1, '#A6F1C8'); // Lighter green at the bottom
+      gradient.addColorStop(0, '#2c3e50'); // Dark green at the top
+      gradient.addColorStop(1, '#2c3e50'); // Lighter green at the bottom
     }
 
     if(gameStarted){
@@ -46,7 +46,7 @@ function Cart() {
       this.time+=delta;
 
       this.hero.update(delta);
-      this.hero.checkGun();       
+      this.hero.checkGun();
       // if(this.hero.e.flip){
       //   this.heroShadow.x=this.hero.e.x+4;
       // } else {
@@ -56,9 +56,35 @@ function Cart() {
       // this.heroShadow.update(delta);
 
       // Hero HP and Power
-      drawBar(ctx, this.hero.hp, this.hero.maxHP, '#f8f9f9', '#283747','#aeb6bf',0); // HP
+      //drawBar(ctx, this.hero.hp, this.hero.maxHP, '#f8f9f9', '#283747','#aeb6bf',0); // HP
       //drawBar(ctx, this.hero.power, 100, '#84e3b3','#589572','#f0faf7',30); // Power
       displayFPS(fps);
+
+      // HP Bar
+      // USE this.hero.maxHP
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = "#17202a";
+      ctx.roundRect(10, 10, 50, 300, 30);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.fillStyle = "#5b2c6f";
+      ctx.roundRect(15, 200, 40, 100, 30);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.globalAlpha = .3;
+      ctx.fillStyle = "white";
+      ctx.roundRect(12, 35, 8, 250, 30);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.globalAlpha = .1;
+      ctx.fillStyle = "white";
+      ctx.roundRect(24, 35, 4, 250, 30);
+      ctx.fill();
+      ctx.restore();
     } else {
       // Intro Screen
       this.intro.update(delta);
