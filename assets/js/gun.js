@@ -34,7 +34,7 @@ function Gun(){
 }
 
 function Bullet(ox,oy,dx,dy){
-  this.speed = 200;
+  this.speed = 500;
   this.w = 60;
   this.h = 30;
   this.dst=0;
@@ -81,13 +81,9 @@ function Bullet(ox,oy,dx,dy){
       ctx.translate(this.v.x, this.v.y);
       ctx.translate(cart.cam.x,cart.cam.y);
       ctx.rotate(this.angle);
-      ctx.globalAlpha = .5;
-      ctx.fillStyle = "white";
-      //ctx.fillRect((this.mhWidth *.5), (this.mhHeight * .5), (this.w * .5), (this.h * .5));
-
-      ctx.strokeStyle = "silver";
+      ctx.globalAlpha = .8;
       ctx.beginPath();
-      ctx.fillStyle = "white";
+      ctx.fillStyle = "#f2f4f4";
       ctx.roundRect(0, 0, 40, 20, 30);
       ctx.fill();
 

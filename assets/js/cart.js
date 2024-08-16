@@ -21,8 +21,8 @@ function Cart() {
   this.update = function(delta, gameStarted=false) {
     if(runOnce){
       var gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, '#2c3e50'); // Dark green at the top
-      gradient.addColorStop(1, '#2c3e50'); // Lighter green at the bottom
+      gradient.addColorStop(1, '#17202a'); // Dark
+      gradient.addColorStop(0, '#2c3e50'); // Lighter green at the bottom
     }
 
     if(gameStarted){
