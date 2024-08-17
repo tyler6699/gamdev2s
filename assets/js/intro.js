@@ -43,8 +43,9 @@ function Intro(){
     drawHeroBox(15);
 
     delay-=delta;
-    cart.hero.e.x=65;
-    cart.hero.e.y=check?10:30;
+
+    cart.hero.e.x=canvasW/2;
+    cart.hero.e.y=canvasH;
 
     ctx.save();
     ctx.scale(3,3);

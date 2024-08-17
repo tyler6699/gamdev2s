@@ -10,7 +10,7 @@ function Hero(w, h, x, y, angle, type) {
   this.die=0;
   this.e.gun = new Gun();
 
-  this.update = function(delta) {
+  this.update = function(delta) {    
     this.e.move(delta);
     this.e.update(delta);
 

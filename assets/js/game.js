@@ -39,6 +39,8 @@ let zoom=4;
 let fps = 60; // A reasonable default value
 let frameCount = 0;
 let elapsedTime = 0;
+let startX = canvasW / 2;
+let startY = canvasH;
 
 let a = navigator.userAgent;
 let check = a.match(/Android/i)!=null||a.match(/iPhone/i)!=null||a.match(/iPad/i)!=null;
@@ -78,7 +80,7 @@ let mg = {
     this.context = this.canvas.getContext("2d");
     this.context.scale(1, 1);
     this.context.setTransform(scaleFillNative, 0, 0, scaleFillNative, 0, 0);
-
+    const gl = this.canvas.getContext("webgl");
     // PixelArt Sharp
     ctx=this.context;
     ctx.mozImageSmoothingEnabled = false;

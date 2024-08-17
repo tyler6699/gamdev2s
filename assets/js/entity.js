@@ -47,12 +47,6 @@ function Entity(w, h, x, y, angle, type, id=0) {
     if(down()){
       this.y+=spd;
     }
-
-    let area = 1000;
-    if(this.x < -area) this.x=-area;
-    if(this.x > area) this.x=area;
-    if(this.y < -area) this.y=-area;
-    if(this.y > area) this.y=area;
   }
 
   // Render
