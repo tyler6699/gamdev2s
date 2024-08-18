@@ -1,11 +1,14 @@
 function Hero(w, h, x, y, angle, type) {
   this.e = new Entity(16, 16, 0, 0, 0, types.HERO);
+  this.lHand = new Entity(4, 4, 0, 0, 0, types.HAND);
+  this.rHand = new Entity(4, 4, 0, 0, 0, types.HAND);
+  this.shadow = new Entity(9, 4, 0, 0, 0, types.SHADOW);
+  this.shadow.alpha=.4;
   this.change=false;
   this.handMovementPhase = 0;
   this.hp=100;
   this.power=0;
   this.particles=[];
-  this.showhat=false;
   this.maxHP=100;
   this.die=0;
   this.e.gun = new Gun();
@@ -13,7 +16,11 @@ function Hero(w, h, x, y, angle, type) {
 
   this.update = function(delta) {
     this.e.move(delta);
+    this.e.flip=mg.keys && (mg.keys[LEFT] || mg.keys[A]);
     this.e.update(delta);
+    this.lHand.update(delta);
+    this.rHand.update(delta);
+    this.shadow.update(delta);
 
     this.particles.forEach(p => {
       p.update(ctx, delta);
@@ -32,6 +39,11 @@ function Hero(w, h, x, y, angle, type) {
       // Bouncing Hands
       let bounce = 3 * Math.sin(this.handMovementPhase * 2 * Math.PI * 0.4); // Oscillates with an amplitude of 5 pixels, frequency of 0.5 Hz
 
+      // Hands
+      this.lHand.setV(this.e.x+70, this.e.y+64+bounce);
+      this.rHand.setV(this.e.x+15, this.e.y+64+bounce);
+      this.shadow.setV(this.e.x+22, this.e.y+80);
+
     } else if(this.hp==0){
       if(this.die<1.5){
         this.e.sx=16;
@@ -44,7 +56,7 @@ function Hero(w, h, x, y, angle, type) {
       }
     }
 
-    this.currentTile=getTile(this.e.x-70, this.e.y+30)
+    this.currentTile=getTile(this.e.x-80, this.e.y+30)
     //console.log(this.currentTile);
   }
 

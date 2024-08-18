@@ -138,7 +138,6 @@ const fontMap = {
     ]
 };
 
-
  function drawNumber(x, y, number, scale) {
      for (let i = 0; i < fontMap[number].length; i++) {
          for (let j = 0; j < fontMap[number][i].length; j++) {

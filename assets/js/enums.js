@@ -6,7 +6,8 @@ const types = {
   HP:4,
   TNY:5,
   TILE:6,
-  TEXT:7
+  TEXT:7,
+  HAND:8
 }
 
 const guntype = {

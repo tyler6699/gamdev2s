@@ -50,11 +50,11 @@ function Entity(w, h, x, y, angle, type, id=0) {
     }
 
     if(up()){
-      newY-=spd;
+      newY-=spd/2;
     }
 
     if(down()){
-      newY+=spd;
+      newY+=spd/2;
     }
 
     this.col = Math.round((newY / 64) + (newX / 128));
@@ -95,6 +95,11 @@ function Entity(w, h, x, y, angle, type, id=0) {
               this.x -= 1;
           }
       }
+  }
+
+  this.setV = function(x,y) {
+    this.x=x;
+    this.y=y;
   }
 
   // Render
@@ -156,9 +161,16 @@ function Entity(w, h, x, y, angle, type, id=0) {
       case types.TILE:
         this.sx=16;
         break;
-        case types.TEST:
-          this.sx=31;
-          break;
+      case types.TEST:
+        this.sx=31;
+        break;
+      case types.HAND:
+        this.sy=17;
+        break;
+      case types.SHADOW:
+        this.sx=5;
+        this.sy=17;
+        break;
     }
 
     this.hWidth = this.width / 2;
