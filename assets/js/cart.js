@@ -62,13 +62,15 @@ function Cart() {
       TIME += delta;
       mg.clear();
 
-      // GRASS
+      // Background
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+      drawIsometricRoom();
+
       this.time+=delta;
       this.tiles.forEach(e => e.sx=16);
-      
+
       if(this.hero.currentTile != null){
         this.hero.currentTile.sx=49;
       }
@@ -145,8 +147,8 @@ function getTile(xHero, yHero) {
 }
 
 function drawIsometricRoom() {
-    const tileWidth = 32;
-    const tileHeight = 32;
+    const tileWidth = 128;
+    const tileHeight = 64;
     const roomWidth = 10; // Number of tiles
     const roomDepth = 10; // Number of tiles
     const roomHeight = 4; // Number of tiles
@@ -164,68 +166,28 @@ function drawIsometricRoom() {
         }
     }
 
-    // Draw right wall as a single shape with gradient
-    drawWall(
-           startX,
-           startY,
-           roomWidth, roomHeight, tileWidth, tileHeight,
-           'right'
-       );
-
-       // Show Hero hit box
-       ctx.save();
-       ctx.translate(32,32); // 64 is width
-       ctx.translate(cart.cam.x,cart.cam.y);
-       ctx.rect(xxx,yyy,sss,sss);
-       ctx.fill(); // Render the path
-       yyy = cart.hero.e.y;
-       xxx = cart.hero.e.x;
-       ctx.restore();
+  // Show Hero hit box
+  // ctx.save();
+  // ctx.translate(32,32); // 64 is width
+  // ctx.translate(cart.cam.x,cart.cam.y);
+  // ctx.rect(xxx,yyy,sss,sss);
+  // ctx.fill(); // Render the path
+  // yyy = cart.hero.e.y;
+  // xxx = cart.hero.e.x;
+  // ctx.restore();
 }
 
 function drawTile(x, y, width, height, color) {
-   ctx.save();
-   ctx.translate(cart.cam.x,cart.cam.y);
-  ctx.translate(width,height*2)
-
+  ctx.save();
+  ctx.translate(cart.cam.x,cart.cam.y);
+  ctx.translate(width,height/2)
   ctx.beginPath();
   ctx.moveTo(x, y);
   ctx.lineTo(x + width / 2, y + height / 2);
   ctx.lineTo(x, y + height);
   ctx.lineTo(x - width / 2, y + height / 2);
   ctx.closePath();
-
-  //ctx.rect(x,y,width,height);
   ctx.fillStyle = color;
   ctx.fill();
-  ctx.strokeStyle = '#000';
-  ctx.stroke();
   ctx.restore();
-}
-
-function drawWall(x, y, widthTiles, heightTiles, tileWidth, tileHeight, side) {
-    ctx.beginPath();
-
-    if (side === 'left') {
-        ctx.moveTo(x, y);
-        ctx.lineTo(x, y - heightTiles * tileHeight);
-        ctx.lineTo(x - widthTiles * (tileWidth / 2), y - heightTiles * tileHeight + widthTiles * (tileHeight / 2));
-        ctx.lineTo(x - widthTiles * (tileWidth / 2), y + widthTiles * (tileHeight / 2));
-    } else if (side === 'right') {
-        ctx.moveTo(x, y);
-        ctx.lineTo(x, y - heightTiles * tileHeight);
-        ctx.lineTo(x + widthTiles * (tileWidth / 2), y - heightTiles * tileHeight + widthTiles * (tileHeight / 2));
-        ctx.lineTo(x + widthTiles * (tileWidth / 2), y + widthTiles * (tileHeight / 2));
-    }
-    ctx.closePath();
-
-    // Create gradient for the wall
-    const gradient = ctx.createLinearGradient(x, y - heightTiles * tileHeight, x, y);
-    gradient.addColorStop(0, '#78281f');
-    gradient.addColorStop(1, '#641e16');
-
-    ctx.fillStyle = gradient;
-    ctx.fill();
-    ctx.strokeStyle = '#000';
-    ctx.stroke();
 }
