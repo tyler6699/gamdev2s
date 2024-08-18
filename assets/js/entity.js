@@ -13,6 +13,8 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.angle = angle;
   this.x = x;
   this.y = y;
+  this.prevX=0;
+  this.prevY=0;
   this.image = atlas;
   this.alpha = 1;
   this.isSolid = false;
@@ -27,26 +29,72 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.sx=0;
   this.sy=0;
   this.speed=5;
+  this.row=0;
+  this.col=0;
 
   this.move = function(){
     let spd = this.speed;
+    this.prevX=this.x;
+    this.prevY=this.y;
+    let newX=this.x;
+    let newY=this.y;
+
     if(left()){
-      this.x-=spd;
+      newX-=spd;
       this.dir=1;
     }
 
     if(right()){
-      this.x+=spd;
+      newX+=spd;
       this.dir=0;
     }
 
     if(up()){
-      this.y-=spd;
+      newY-=spd;
     }
 
     if(down()){
-      this.y+=spd;
+      newY+=spd;
     }
+
+    this.col = Math.round((newY / 64) + (newX / 128));
+    this.row = Math.round((newY / 64) - (newX / 128));
+    if((this.col >=0 && this.col < 10)&&(this.row >=-1 &&   this.row < 9)){
+      this.y=newY;
+      this.x=newX;
+    }
+
+    if (this.row == -2) {
+          if (right()) {
+              this.y += spd;
+          } else if (up()) {
+              this.x -= spd;
+          }
+      }
+
+      if (this.col == -1) {
+          if (left()) {
+              this.y += 1;
+          } else if (up()) {
+              this.x += 1;
+          }
+      }
+
+      if (this.row == 9) {
+          if (left()) {
+              this.y -= 1;
+          } else if (down()) {
+              this.x += 1;
+          }
+      }
+
+      if (this.col == 10) {
+          if (right()) {
+              this.y -= 1;
+          } else if (down()) {
+              this.x -= 1;
+          }
+      }
   }
 
   // Render
@@ -105,6 +153,12 @@ function Entity(w, h, x, y, angle, type, id=0) {
       case types.GRASS:
         this.sx=16;
         break;
+      case types.TILE:
+        this.sx=16;
+        break;
+        case types.TEST:
+          this.sx=31;
+          break;
     }
 
     this.hWidth = this.width / 2;

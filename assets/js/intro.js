@@ -44,8 +44,8 @@ function Intro(){
 
     delay-=delta;
 
-    cart.hero.e.x=canvasW/2;
-    cart.hero.e.y=canvasH;
+    cart.hero.e.x=60;
+    cart.hero.e.y=200;
 
     ctx.save();
     ctx.scale(3,3);

@@ -2,6 +2,12 @@
 // ║ JS13K template by @CarelessLabs  ║
 // ╚══════════════════════════════════╝
 
+//
+let xxx=0;
+let yyy=0;
+let sss=64;
+//
+
 // Reference for new atlas
 let canvasW = window.innerWidth;
 let canvasH = window.innerHeight;
@@ -39,8 +45,8 @@ let zoom=4;
 let fps = 60; // A reasonable default value
 let frameCount = 0;
 let elapsedTime = 0;
-let startX = canvasW / 2;
-let startY = canvasH;
+let startX = 0;//canvasW / 2;
+let startY = 0;//canvasH;
 
 let a = navigator.userAgent;
 let check = a.match(/Android/i)!=null||a.match(/iPhone/i)!=null||a.match(/iPad/i)!=null;

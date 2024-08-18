@@ -4,7 +4,9 @@ const types = {
   HERO:2,
   SHADOW:3,
   HP:4,
-  TNY:24
+  TNY:5,
+  TILE:6,
+  TEXT:7
 }
 
 const guntype = {

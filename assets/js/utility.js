@@ -154,6 +154,8 @@ const fontMap = {
    mg.context.fillStyle = "yellow";
    mg.context.font = "16px Arial";
    mg.context.fillText("FPS: " + fps.toFixed(2), nativeWidth-100, 20);
+   mg.context.fillText("HERO: x:" + cart.hero.e.x + " y:" + cart.hero.e.y, nativeWidth-200, 40);
+   mg.context.fillText("HERO: R:" + cart.hero.e.row + " C:" + cart.hero.e.col, nativeWidth-200, 60);
  }
 
  function drawHeroBox(borderRadius) {

@@ -17,6 +17,29 @@ function Cart() {
   this.shakeTime=0;
   this.shop=false;
 
+  // setup tiles
+  let rows = 10;
+  let cols = 10
+  this.tiles=[];
+
+  let id =0;
+  for (r = 0; r < rows; r++) {
+    for (c = 0; c < cols; c++) {
+      id++;
+      xx = (c - r) * 64;
+      yy = (c + r) * 32;
+      var tile = new Entity(32, 16, xx, yy, 0, types.TILE);
+
+      if(id==45){
+        // tile x: 0 y: 256
+        // x: 0 y: 256 row: 4 col: 4
+        console.log("x: " + tile.x + " y: " + tile.y + " row: " + r + " col: " + c);
+        tile.sx=49;
+      }
+      this.tiles.push(tile);
+    }
+  }
+
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
     if(runOnce){
@@ -32,9 +55,9 @@ function Cart() {
 
       // Camera follow hero
       // Example usage: draw the number "190"
-      this.cam.x = lerp(-this.hero.e.x+350,this.cam.x,.7);
+      this.cam.x = Math.ceil(lerp(-this.hero.e.x+350,this.cam.x,.7));
       var xadd = check? 120 : 180;
-      this.cam.y = lerp(-this.hero.e.y+xadd,this.cam.y,.7);
+      this.cam.y = Math.ceil(lerp(-this.hero.e.y+xadd,this.cam.y,.7));
 
       TIME += delta;
       mg.clear();
@@ -44,9 +67,15 @@ function Cart() {
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
       this.time+=delta;
+      this.tiles.forEach(e => e.sx=16);
+      
+      if(this.hero.currentTile != null){
+        this.hero.currentTile.sx=49;
+      }
 
-      drawIsometricRoom();
+      this.tiles.forEach(e => e.update(delta));
       this.hero.update(delta);
+
       this.hero.checkGun();
       // if(this.hero.e.flip){
       //   this.heroShadow.x=this.hero.e.x+4;
@@ -93,25 +122,35 @@ function Cart() {
     }
   }
 
-  this.reset = function(){
+  this.reset = function(){a
     this.time=0;
     this.hero = new Hero(16, 16, 0, 0, 0, types.HERO);
-    this.hero.e.x=canvasW/2;
-    this.hero.e.y=canvasH/2;
+    this.cart.hero.e.x=60;
+    this.cart.hero.e.y=200;
     gameStarted=false;
     this.cam=new Camera();
   }
 }
 
+function getTile(xHero, yHero) {
+    let c = Math.round((yHero / 64) + (xHero / 128));
+    let r = Math.round((yHero / 64) - (xHero / 128));
+    // console.log(c + " " + r);
+    // console.log(cart.tiles[c + (10 * r)])
+    if(cart.tiles[c + (10 * r)]!=null){
+      cart.tiles[c + (10 * r)].sx=49;
+    }
+
+    return cart.tiles[c + (10 * r)];
+}
+
 function drawIsometricRoom() {
-    const tileWidth = 100;
-    const tileHeight = 50;
-    const roomWidth = 1; // Number of tiles
-    const roomDepth = 1; // Number of tiles
+    const tileWidth = 32;
+    const tileHeight = 32;
+    const roomWidth = 10; // Number of tiles
+    const roomDepth = 10; // Number of tiles
     const roomHeight = 4; // Number of tiles
 
-    ctx.save();
-    ctx.translate(cart.cam.x,cart.cam.y);
     // Draw floor with checkered pattern
     for (let y = 0; y < roomDepth; y++) {
         for (let x = 0; x < roomWidth; x++) {
@@ -122,21 +161,8 @@ function drawIsometricRoom() {
                 tileWidth, tileHeight,
                 color // Alternating black and white
             );
-            //console.log(cart.hero.e.x + " y:" + cart.hero.e.y);
-            //console.log("x: " + x);
-            //console.log(startY + (x + y) * (tileHeight / 2));
-            //400 y:492
-
         }
     }
-
-    // Draw left wall as a single shape with gradient
-    drawWall(
-        startX,
-        startY,
-        roomDepth, roomHeight, tileWidth, tileHeight,
-        'left'
-    );
 
     // Draw right wall as a single shape with gradient
     drawWall(
@@ -145,21 +171,36 @@ function drawIsometricRoom() {
            roomWidth, roomHeight, tileWidth, tileHeight,
            'right'
        );
-    ctx.restore();
+
+       // Show Hero hit box
+       ctx.save();
+       ctx.translate(32,32); // 64 is width
+       ctx.translate(cart.cam.x,cart.cam.y);
+       ctx.rect(xxx,yyy,sss,sss);
+       ctx.fill(); // Render the path
+       yyy = cart.hero.e.y;
+       xxx = cart.hero.e.x;
+       ctx.restore();
 }
 
 function drawTile(x, y, width, height, color) {
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + width / 2, y + height / 2);
-    ctx.lineTo(x, y + height);
-    ctx.lineTo(x - width / 2, y + height / 2);
-    ctx.closePath();
+   ctx.save();
+   ctx.translate(cart.cam.x,cart.cam.y);
+  ctx.translate(width,height*2)
 
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.strokeStyle = '#000';
-    ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + width / 2, y + height / 2);
+  ctx.lineTo(x, y + height);
+  ctx.lineTo(x - width / 2, y + height / 2);
+  ctx.closePath();
+
+  //ctx.rect(x,y,width,height);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.strokeStyle = '#000';
+  ctx.stroke();
+  ctx.restore();
 }
 
 function drawWall(x, y, widthTiles, heightTiles, tileWidth, tileHeight, side) {

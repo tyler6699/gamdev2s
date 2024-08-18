@@ -9,8 +9,9 @@ function Hero(w, h, x, y, angle, type) {
   this.maxHP=100;
   this.die=0;
   this.e.gun = new Gun();
+  this.currentTile=null;
 
-  this.update = function(delta) {    
+  this.update = function(delta) {
     this.e.move(delta);
     this.e.update(delta);
 
@@ -42,6 +43,9 @@ function Hero(w, h, x, y, angle, type) {
         cart.reset();
       }
     }
+
+    this.currentTile=getTile(this.e.x-70, this.e.y+30)
+    //console.log(this.currentTile);
   }
 
   holdClickT = 0;
