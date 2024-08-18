@@ -107,48 +107,6 @@ function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
   ctx.restore();
 }
 
-const fontMap = {
-    '0': [
-        [1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1]
-    ],
-    '1': [
-        [0, 0, 1, 0, 0],
-        [0, 1, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0]
-    ],
-    '2': [
-        [1, 1, 1, 1, 1],
-        [0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1]
-    ],
-    '3': [
-        [1, 1, 1, 1, 1],
-        [0, 0, 0, 0, 1],
-        [0, 1, 1, 1, 1],
-        [0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1]
-    ]
-};
-
- function drawNumber(x, y, number, scale) {
-     for (let i = 0; i < fontMap[number].length; i++) {
-         for (let j = 0; j < fontMap[number][i].length; j++) {
-             if (fontMap[number][i][j] === 1) {
-                 ctx.fillStyle = 'white';
-                 ctx.fillRect(x + j * scale, y + i * scale, scale, scale);
-             }
-         }
-     }
- }
-
  function displayFPS(fps) {
    mg.context.fillStyle = "yellow";
    mg.context.font = "16px Arial";

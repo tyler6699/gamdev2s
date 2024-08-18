@@ -1,5 +1,5 @@
 function Gun(){
-  this.ammo=AMMOSTART;
+  this.ammo=1000;
   this.bullets=[];
   this.rate=.1;
   this.wait=0;
@@ -45,8 +45,6 @@ function Bullet(ox,oy,dx,dy,parent,distance,gun){
   this.active=true;
   this.hb = new rectanlge(ox, oy, this.w, this.h);
   this.dist=0;
-  this.mhWidth = this.w / -2;
-  this.mhHeight = this.h / -2;
   this.accuracy=20;
   this.shadow = new Entity(6, 6, 0, 0, 0, types.SHADOW);
   this.shadow.alpha=.1;
@@ -78,6 +76,7 @@ function Bullet(ox,oy,dx,dy,parent,distance,gun){
     if(this.active){
       this.shadow.update(delta);
       this.shadow.setV(this.v.x, this.v.y+30);
+      
       // Previous position
       xx = this.v.x;
       yy = this.v.y;

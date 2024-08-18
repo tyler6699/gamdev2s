@@ -23,8 +23,6 @@ let STAGE=0;
 let atlas = new Image();
 atlas.src = "atlas.png";
 
-var AMMOSTART=101;
-var BSPEED = 10;
 // Shadows
 let shadowImage=new Image();
 let cart = new Cart();

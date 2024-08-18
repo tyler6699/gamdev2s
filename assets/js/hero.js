@@ -4,10 +4,8 @@ function Hero(w, h, x, y, angle, type) {
   this.rHand = new Entity(4, 4, 0, 0, 0, types.HAND);
   this.shadow = new Entity(9, 4, 0, 0, 0, types.SHADOW);
   this.shadow.alpha=.4;
-  this.change=false;
-  this.handMovementPhase = 0;
+  this.handPhase = 0;
   this.hp=100;
-  this.power=0;
   this.maxHP=100;
   this.die=0;
   this.e.gun = new Gun();
@@ -15,17 +13,15 @@ function Hero(w, h, x, y, angle, type) {
   this.isJumping = false;
   this.jumpSpeed = 0;
   this.gravity = -9; // Gravity to apply during the fall
-  this.initialJumpSpeed = 3; // Initial speed of the jump
+  this.iJumpSpd = 3; // Initial speed of the jump
   this.jumpHeight = 0; // Current height of the jump
-  this.dustParticles = []; // Array to hold dust particles
+  this.particles = []; // Array to hold dust particles
   this.dustTimer = 0; // Timer to control dust particle creation
 
   this.update = function(delta) {
-
     if (space() && !this.isJumping) {
-      // Initiate the jump
       this.isJumping = true;
-      this.jumpSpeed = this.initialJumpSpeed;
+      this.jumpSpeed = this.iJumpSpd;
     }
 
     if (this.isJumping) {
@@ -46,7 +42,7 @@ function Hero(w, h, x, y, angle, type) {
 
       if (this.dustTimer > 0.2 && !this.isJumping) {
         this.dustTimer = 0;
-        this.dustParticles.push(new DustParticle(this.e.x+55, this.e.y+95));
+        this.particles.push(new DustParticle(this.e.x+55, this.e.y+95));
       }
     }
 
@@ -64,10 +60,10 @@ function Hero(w, h, x, y, angle, type) {
 
     if(this.hp>0){
       // Update the phase, increase by delta time
-      this.handMovementPhase += delta;
+      this.handPhase += delta;
 
       // Bouncing Hands
-      let bounce = 3 * Math.sin(this.handMovementPhase * 2 * Math.PI * 0.4); // Oscillates with an amplitude of 5 pixels, frequency of 0.5 Hz
+      let bounce = 3 * Math.sin(this.handPhase * 2 * Math.PI * 0.4); // Oscillates with an amplitude of 5 pixels, frequency of 0.5 Hz
 
       // Hands
       this.lHand.setV(this.e.x+70, this.e.y+64+bounce);
@@ -87,12 +83,11 @@ function Hero(w, h, x, y, angle, type) {
     }
 
     this.currentTile=getTile(this.e.x-80, this.e.y+30)
-    //console.log(this.currentTile);
     // Update and draw dust particles
-    this.dustParticles = this.dustParticles.filter(p => p.isAlive());
-    this.dustParticles.forEach(p => {
+    this.particles = this.particles.filter(p => p.isAlive());
+    this.particles.forEach(p => {
       p.update(delta);
-   });
+    });
   }
 
   holdClickT = 0;

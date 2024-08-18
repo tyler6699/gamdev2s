@@ -162,9 +162,6 @@ function Entity(w, h, x, y, angle, type, id=0) {
       case types.TILE:
         this.sx=16;
         break;
-      case types.TEST:
-        this.sx=31;
-        break;
       case types.HAND:
         this.sy=17;
         break;

@@ -6,13 +6,8 @@ function Cart() {
   this.shadow = new Entity(7, 3, 0, 0, 0, types.SHADOW,1);
   this.decor = new Decor();
   this.intro = new Intro();
-  let waveStart=3;
-  this.waveEnd=10;
-  this.wave = 1;
-  let scale = 20; // Initial scale of the squares
   let prevNumber = 0;
   let runOnce=true;
-  let imageData;
   this.shake=0;
   this.shakeTime=0;
   this.shop=false;
@@ -30,12 +25,6 @@ function Cart() {
       yy = (c + r) * 32;
       var tile = new Entity(32, 16, xx, yy, 0, types.TILE);
 
-      if(id==45){
-        // tile x: 0 y: 256
-        // x: 0 y: 256 row: 4 col: 4
-        console.log("x: " + tile.x + " y: " + tile.y + " row: " + r + " col: " + c);
-        tile.sx=49;
-      }
       this.tiles.push(tile);
     }
   }
@@ -54,7 +43,6 @@ function Cart() {
       if(this.shakeTime>0) this.shakeTime-=delta;
 
       // Camera follow hero
-      // Example usage: draw the number "190"
       this.cam.x = Math.ceil(lerp(-this.hero.e.x+350,this.cam.x,.7));
       var xadd = check? 120 : 180;
       this.cam.y = Math.ceil(lerp(-this.hero.e.y+xadd,this.cam.y,.7));
@@ -79,18 +67,6 @@ function Cart() {
       this.hero.update(delta);
 
       this.hero.checkGun();
-      // if(this.hero.e.flip){
-      //   this.heroShadow.x=this.hero.e.x+4;
-      // } else {
-      //   this.heroShadow.x=this.hero.e.x+18;
-      // }
-      // this.heroShadow.y=this.hero.e.y+74;
-      // this.heroShadow.update(delta);
-
-      // Hero HP and Power
-      //drawBar(ctx, this.hero.hp, this.hero.maxHP, '#f8f9f9', '#283747','#aeb6bf',0); // HP
-      //drawBar(ctx, this.hero.power, 100, '#84e3b3','#589572','#f0faf7',30); // Power
-
       displayFPS(fps);
 
       // HP Bar
