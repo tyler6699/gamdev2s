@@ -13,6 +13,7 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.angle = angle;
   this.x = x;
   this.y = y;
+  this.z = 0;
   this.prevX=0;
   this.prevY=0;
   this.image = atlas;
@@ -107,7 +108,7 @@ function Entity(w, h, x, y, angle, type, id=0) {
     this.x = Math.floor(this.x);
     this.Y = Math.floor(this.Y);
     ctx.save();
-    ctx.translate(this.x, this.y);
+    ctx.translate(this.x, this.y+this.z);
     if(cart.shakeTime>0){ctx.translate(cart.shake,cart.shake);}
     ctx.globalAlpha = this.alpha;
 

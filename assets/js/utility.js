@@ -155,6 +155,7 @@ const fontMap = {
    mg.context.fillText("FPS: " + fps.toFixed(2), nativeWidth-100, 20);
    mg.context.fillText("HERO: x:" + cart.hero.e.x + " y:" + cart.hero.e.y, nativeWidth-200, 40);
    mg.context.fillText("HERO: R:" + cart.hero.e.row + " C:" + cart.hero.e.col, nativeWidth-200, 60);
+   mg.context.fillText("JUMP: " + cart.hero.jumpHeight, nativeWidth-200, 80);
  }
 
  function drawHeroBox(borderRadius) {

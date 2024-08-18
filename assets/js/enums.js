@@ -16,14 +16,3 @@ const guntype = {
   THREESHOT:2,
   MULTISHOT:3
 }
-
-const actions = {
-  GUN:0,
-  DESK:1,
-  CHAIR:2,
-  PC:3,
-  SERVER:4,
-  VEND:5,
-  AUTO:6,
-  UP:7
-}

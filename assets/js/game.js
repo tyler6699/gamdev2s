@@ -2,12 +2,6 @@
 // ║ JS13K template by @CarelessLabs  ║
 // ╚══════════════════════════════════╝
 
-//
-let xxx=0;
-let yyy=0;
-let sss=64;
-//
-
 // Reference for new atlas
 let canvasW = window.innerWidth;
 let canvasH = window.innerHeight;
@@ -294,7 +288,7 @@ function down() {
 }
 
 function space() {
-  return (mg.keys && mg.keys[SPACE]) || leftMB;
+  return (mg.keys && mg.keys[SPACE]);
 }
 
 function shift() {

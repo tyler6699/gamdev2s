@@ -7,7 +7,7 @@ function Gun(){
   this.angles = [0];
   this.r=0.0174533;
 
-  this.addBullets = function(ox,oy,dx,dy){
+  this.addBullets = function(ox,oy,dx,dy,e){
     // Remove old drawBullets
     if(this.ammo>0 && this.wait<=0){
       this.wait=this.rate;
@@ -15,7 +15,7 @@ function Gun(){
       // Angle of mouse and hero centre
       var angle = Math.atan2(dy - oy, dx - ox);
       this.angle = Math.atan2(dy - oy, dx - ox);
-      this.bullets.push(new Bullet(ox,oy,dx,dy));
+      this.bullets.push(new Bullet(ox,oy,dx,dy,e));
     }
   }
 
@@ -33,7 +33,7 @@ function Gun(){
   }
 }
 
-function Bullet(ox,oy,dx,dy){
+function Bullet(ox,oy,dx,dy,parent){
   this.speed = 500;
   this.w = 60;
   this.h = 30;
@@ -44,6 +44,8 @@ function Bullet(ox,oy,dx,dy){
   this.mhWidth = this.w / -2;
   this.mhHeight = this.h / -2;
   this.accuracy=20;
+  this.shadow = new Entity(6, 6, 0, 0, 0, types.SHADOW);
+  this.shadow.alpha=.1;
 
   // Calculate the direction vector
    let dirX = dx - ox;
@@ -62,12 +64,14 @@ function Bullet(ox,oy,dx,dy){
    this.dx = normX * this.speed;
    this.dy = normY * this.speed;
 
-   this.v = new vec2(cart.hero.e.x + 60, cart.hero.e.y + 50);
+   this.v = new vec2(parent.x + 60, parent.y + 50 + parent.z);
    this.angle = Math.atan2(normY, normX);
 
   this.draw = function(delta, friendly = false){
     // Update Position
     if(this.active){
+      this.shadow.update(delta);
+      this.shadow.setV(this.v.x, this.v.y+30);
       // Previous position
       xx = this.v.x;
       yy = this.v.y;
