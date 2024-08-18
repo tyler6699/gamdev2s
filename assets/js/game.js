@@ -24,7 +24,6 @@ let atlas = new Image();
 atlas.src = "atlas.png";
 
 var AMMOSTART=101;
-var SHOOTDIST = 600;
 var BSPEED = 10;
 // Shadows
 let shadowImage=new Image();

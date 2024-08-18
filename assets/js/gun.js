@@ -6,6 +6,8 @@ function Gun(){
   this.type=guntype.ONESHOT;
   this.angles = [0];
   this.r=0.0174533;
+  this.distance = 200;
+  this.particles=[];
 
   this.addBullets = function(ox,oy,dx,dy,e){
     // Remove old drawBullets
@@ -15,7 +17,7 @@ function Gun(){
       // Angle of mouse and hero centre
       var angle = Math.atan2(dy - oy, dx - ox);
       this.angle = Math.atan2(dy - oy, dx - ox);
-      this.bullets.push(new Bullet(ox,oy,dx,dy,e));
+      this.bullets.push(new Bullet(ox,oy,dx,dy,e,this.distance,this));
     }
   }
 
@@ -26,6 +28,8 @@ function Gun(){
 
     this.bullets.forEach(e => e.draw(delta, friendly));
 
+    this.particles.forEach(p => {p.update(delta);});
+
     // Remove bullets
     this.bullets = this.bullets.filter(function (b) {
       return b.active == true;
@@ -33,7 +37,7 @@ function Gun(){
   }
 }
 
-function Bullet(ox,oy,dx,dy,parent){
+function Bullet(ox,oy,dx,dy,parent,distance,gun){
   this.speed = 500;
   this.w = 60;
   this.h = 30;
@@ -46,6 +50,8 @@ function Bullet(ox,oy,dx,dy,parent){
   this.accuracy=20;
   this.shadow = new Entity(6, 6, 0, 0, 0, types.SHADOW);
   this.shadow.alpha=.1;
+  this.distance=distance;
+  this.gun=gun;
 
   // Calculate the direction vector
    let dirX = dx - ox;
@@ -80,6 +86,13 @@ function Bullet(ox,oy,dx,dy,parent){
       this.v.x +=(this.dx*delta);
       this.v.y +=(this.dy*delta);
 
+      this.dist +=  Math.sqrt( ((this.v.x-xx)*(this.v.x-xx)) + ((this.v.y-yy)*(this.v.y-yy)) );
+
+      if(this.dist > this.distance){
+         this.active = false;
+         this.gun.particles.push(new DustParticle(xx,yy));
+       }
+
       // Draw
       ctx.save();
       ctx.translate(this.v.x, this.v.y);
@@ -90,7 +103,6 @@ function Bullet(ox,oy,dx,dy,parent){
       ctx.fillStyle = "#f2f4f4";
       ctx.roundRect(0, 0, 40, 20, 30);
       ctx.fill();
-
       ctx.restore();
     }
   }

@@ -8,7 +8,6 @@ function Hero(w, h, x, y, angle, type) {
   this.handMovementPhase = 0;
   this.hp=100;
   this.power=0;
-  this.particles=[];
   this.maxHP=100;
   this.die=0;
   this.e.gun = new Gun();
@@ -61,15 +60,6 @@ function Hero(w, h, x, y, angle, type) {
     this.lHand.update(delta);
     this.rHand.update(delta);
     this.shadow.update(delta);
-
-    this.particles.forEach(p => {
-      p.update(ctx, delta);
-    });
-
-    // this.particles = this.particles.filter(function (p) {
-    //   return p.remove == false;
-    // });
-
     this.e.gun.drawBullets(delta);
 
     if(this.hp>0){
