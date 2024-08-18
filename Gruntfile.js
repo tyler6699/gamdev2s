@@ -25,6 +25,7 @@ module.exports = function(grunt) {
                 "assets/js/entity.js",
                 "assets/js/hero.js",
                 "assets/js/enums.js",
+                "assets/js/gun.js",
                 "assets/js/utility.js",
                 "assets/js/attacks.js",
                 "assets/js/intro.js",
