@@ -37,6 +37,7 @@ function Hero(w, h, x, y, angle, type) {
       if (this.jumpHeight <= 0) {
         this.jumpHeight = 0;
         this.isJumping = false;
+        cart.shakeTime=.08;
       }
     }
 
@@ -44,7 +45,7 @@ function Hero(w, h, x, y, angle, type) {
     if (mg.keys && (mg.keys[LEFT] || mg.keys[RIGHT] || mg.keys[A] || mg.keys[D])) {
       this.dustTimer += delta;
 
-      if (this.dustTimer > 0.2) {
+      if (this.dustTimer > 0.2 && !this.isJumping) {
         this.dustTimer = 0;
         this.dustParticles.push(new DustParticle(this.e.x+55, this.e.y+95));
       }
@@ -115,6 +116,7 @@ function Hero(w, h, x, y, angle, type) {
       dy = mousePos.y;
       //console.log("Shoot: ox:" + ox + " oy:" + oy + " dx:" + dx + " dy:" + dy);
       this.e.gun.addBullets(ox,oy,dx,dy, this.e);
+      cart.shakeTime=.05;
     }
   }
 
