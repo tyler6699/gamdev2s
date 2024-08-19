@@ -16,6 +16,7 @@ function Cart() {
   let rows = 10;
   let cols = 10
   this.tiles=[];
+  this.blocks=[];
 
   let id =0;
   for (r = 0; r < rows; r++) {
@@ -24,10 +25,13 @@ function Cart() {
       xx = (c - r) * 64;
       yy = (c + r) * 32;
       var tile = new Entity(32, 16, xx, yy, 0, types.TILE);
-
       this.tiles.push(tile);
     }
   }
+
+  //block Test
+  var block = new Entity(32, 16, 0, 192, 0, types.BLOCK);
+  //this.blocks.push(block);
 
   // Render & Logic
   this.update = function(delta, gameStarted=false) {
@@ -64,6 +68,7 @@ function Cart() {
       }
 
       this.tiles.forEach(e => e.update(delta));
+      this.blocks.forEach(e => e.update(delta));
       this.hero.update(delta);
 
       this.hero.checkGun();

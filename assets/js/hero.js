@@ -33,6 +33,18 @@ function Hero(w, h, x, y, angle, type) {
         this.jumpHeight = 0;
         this.isJumping = false;
         cart.shakeTime=.08;
+
+        // Determine the number of particles to create (excluding the top 2)
+        const numParticles = 4; // Adjusted for the remaining 4 positions (left, right, bottom-left, bottom-right)
+        const radius = 16; // You can adjust the radius as needed
+        const startAngle = Math.PI / 5; // Start slightly above the bottom-left
+        const angleIncrement = (Math.PI) / (numParticles + 1); // Adjusted angle increment
+        for (let i = 0; i < numParticles; i++) {
+            const angle = startAngle + i * angleIncrement;
+            const offsetX = Math.cos(angle) * radius;
+            const offsetY = Math.sin(angle) * radius;
+            this.particles.push(new DustParticle(this.e.x + 55 + offsetX, this.e.y + 95 + offsetY));
+        }
       }
     }
 

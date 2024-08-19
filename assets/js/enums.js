@@ -1,11 +1,11 @@
 const types = {
   AIR:0,
-  HERO:2,
-  SHADOW:3,
-  HP:4,
-  TILE:6,
-  TEXT:7,
-  HAND:8
+  HERO:1,
+  SHADOW:2,
+  TILE:3,
+  BLOCK:4,
+  TEXT:5,
+  HAND:6
 }
 
 const guntype = {

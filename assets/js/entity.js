@@ -156,8 +156,9 @@ function Entity(w, h, x, y, angle, type, id=0) {
     switch(this.type){
       case types.HERO:
         break;
-      case types.GRASS:
+      case types.BLOCK:
         this.sx=16;
+        this.sy=17;
         break;
       case types.TILE:
         this.sx=16;
