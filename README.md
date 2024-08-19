@@ -1,10 +1,10 @@
 # JavaScript Game Template
 
-## A simple framework for making a javascript game
+## A simple framework for making a JavaScript game
 
 ### game.js
 
-Sets up the fundamentals required for a browser game, screen size, context, key inputs, simple game state and creates a new Cart(). Tracks the mouse position and where the last click occured, after each game loop processed click is reset, to be checked within each single loop or discarded.
+Sets up the fundamentals required for a browser game, screen size, context, key inputs, simple game state and creates a new Cart(). Tracks the mouse position and where the last click occurred, after each game loop processed click is reset, to be checked within each single loop or discarded.
 
 ### cart.js
 
