@@ -4,5 +4,4 @@ function Enemy(x, y, w, h, type, index, totalEnemies, dmg) {
 
   this.update = function(delta, mobs) {
   }
-
 }

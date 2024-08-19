@@ -2,14 +2,8 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.type = type;
   this.width = w;
   this.height = h;
-  this.mhWidth = w / -2;
-  this.mhHeight = h / -2;
-  this.mhWScld = (w / -2);
-  this.mhHScld = (h / -2);
   this.hWidth = w / 2;
   this.hHeight = h / 2;
-  this.cenX=x-this.mhWScld;
-  this.cenY=y-this.mhHScld;
   this.angle = angle;
   this.x = x;
   this.y = y;
@@ -23,9 +17,9 @@ function Entity(w, h, x, y, angle, type, id=0) {
   this.dir=0;//0=R 1=L
   this.id=id;
   this.open=false;
-  this.chasePhase = 'search'; // 'search', 'attack', 'return'
-  this.content="";
+  this.chasePhase = 'none';
   this.attack=false;
+  
   // ATLAS Positions
   this.sx=0;
   this.sy=0;
@@ -114,8 +108,6 @@ function Entity(w, h, x, y, angle, type, id=0) {
 
     img = this.image;
     s   = this.scale;
-    mhw = this.mhWidth;
-    mhh = this.mhHeight;
     hw  = this.hWidth;
     hh  = this.hHeight;
     w   = this.width;
@@ -136,9 +128,6 @@ function Entity(w, h, x, y, angle, type, id=0) {
 
     ctx.drawImage(img, this.sx, this.sy, w, h, hw, hh, w, h);
     ctx.restore();
-
-    this.cenX=this.x-this.mhWScld;
-    this.cenY=this.y-this.mhHScld;
   }
 
   this.isCollidingWith = function(other) {

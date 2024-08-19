@@ -1,40 +1,3 @@
-function drawBar(ctx, hp, maxHp, colour, border, backcol, yOff) {
-    ctx.save();
-    ctx.translate(0,yOff);
-    const hpBarWidth = 200;
-    const hpBarHeight = 20;
-    const margin = 10;
-
-    // Draw the black background of the HP bar
-    ctx.fillStyle = border;
-    ctx.fillRect(margin, margin, hpBarWidth, hpBarHeight);
-
-    // Calculate the width of the red inner HP bar based on current health
-    const hpPercentage = hp / maxHp;
-    const redBarWidth = hpBarWidth * hpPercentage;
-
-    ctx.fillStyle = backcol;
-    ctx.fillRect(margin+2, margin+2, hpBarWidth-4, hpBarHeight-4);
-
-    ctx.fillStyle = colour;
-    ctx.fillRect(margin+2, margin+2, redBarWidth-4, hpBarHeight-4);
-
-    // Set text properties
-   ctx.font = '14px Arial';
-   ctx.fillStyle = 'black';
-   ctx.textAlign = 'center';
-   ctx.textBaseline = 'middle';
-
-   // Calculate text position
-   const textX = margin + hpBarWidth / 2;
-   const textY = margin + hpBarHeight / 2;
-
-   // Draw text (current HP and max HP)
-   ctx.fillText(`${hp} / ${maxHp}`, textX, textY);
-
-   ctx.restore();
-}
-
 // Useful Functions and classes
 function rectanlge(x, y, w, h) {
   this.x = x;
@@ -142,16 +105,6 @@ function writeStroke(ctx,a,font,colour,txt,x,y, strokeW) {
   ctx.restore();
 }
 
-function partDir(p) {
-  var angle = rndNo(0, 360) * Math.PI / 180;
-  var value = rndNo(50, 180);
-  var radius = [-1, 1][rndNo(0, 1)] * value;
-  return {
-    x: p.x + radius * Math.cos(angle),
-    y: p.y + radius * Math.sin(angle)
-  }
-}
-
 function ranColor() {
   let l = '0123456789ABCDEF';
   let c = '#';
@@ -159,4 +112,51 @@ function ranColor() {
     c += l[Math.floor(Math.random() * 16)];
   }
   return c;
+}
+
+function getTile(xHero, yHero) {
+    let c = Math.round((yHero / 64) + (xHero / 128));
+    let r = Math.round((yHero / 64) - (xHero / 128));
+
+    if(cart.tiles[c + (10 * r)]!=null){
+      cart.tiles[c + (10 * r)].sx=49;
+    }
+
+    return cart.tiles[c + (10 * r)];
+}
+
+function drawIsometricRoom() {
+    const tileWidth = 128;
+    const tileHeight = 64;
+    const roomWidth = 10; // Number of tiles
+    const roomDepth = 10; // Number of tiles
+    const roomHeight = 4; // Number of tiles
+
+    // Draw floor with checkered pattern
+    for (let y = 0; y < roomDepth; y++) {
+        for (let x = 0; x < roomWidth; x++) {
+            const color = (x + y) % 2 === 0 ? '#273746' : '#566573';
+            drawTile(
+                startX + (x - y) * (tileWidth / 2),
+                startY + (x + y) * (tileHeight / 2),
+                tileWidth, tileHeight,
+                color // Alternating black and white
+            );
+        }
+    }
+}
+
+function drawTile(x, y, width, height, color) {
+  ctx.save();
+  ctx.translate(cart.cam.x,cart.cam.y);
+  ctx.translate(width,height/2)
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + width / 2, y + height / 2);
+  ctx.lineTo(x, y + height);
+  ctx.lineTo(x - width / 2, y + height / 2);
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.restore();
 }

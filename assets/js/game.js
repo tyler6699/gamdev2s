@@ -18,13 +18,9 @@ let processClick = false;
 let GAMEOVER=false;
 let RELOAD=false;
 let WIN = false;
-
 let STAGE=0;
 let atlas = new Image();
 atlas.src = "atlas.png";
-
-// Shadows
-let shadowImage=new Image();
 let cart = new Cart();
 let start=false;
 let music=false;
@@ -33,25 +29,18 @@ let leftMB=false;
 let rightMB=false;
 let startDelay=0.1;
 let zoom=4;
-let fps = 60; // A reasonable default value
+let fps = 60; // default value
 let frameCount = 0;
 let elapsedTime = 0;
 let startX = 0;//canvasW / 2;
 let startY = 0;//canvasH;
-
 let a = navigator.userAgent;
 let check = a.match(/Android/i)!=null||a.match(/iPhone/i)!=null||a.match(/iPad/i)!=null;
-
 var nativeWidth = 812;  // The resolution the game is designed to look best in
 var nativeHeight = check?375:470;
 var deviceWidth = window.innerWidth;  // Check for browser compatibility
 var deviceHeight = window.innerHeight;
 var scaleFillNative = Math.max(deviceWidth / nativeWidth, deviceHeight / nativeHeight);
-
-var mobUp=false;
-var mobDown=false;
-var mobRight=false;
-var mobLeft=false;
 let shaky = true;
 let loading = .2;
 
@@ -188,31 +177,6 @@ function toggleFull() {
   }
 }
 
-function move(d) {
-    // Handle movement logic here
-    if(d=='up'){
-      mobUp=true;
-    } else if(d=='down'){
-      mobDown=true;
-    } else if(d=='left'){
-      mobLeft=true;
-    } else if(d=='right'){
-      mobRight=true;
-    }
-}
-
-function stopmove(d) {
-    if(d=='up'){
-      mobUp=false;
-    } else if(d=='down'){
-      mobDown=false;
-    } else if(d=='left'){
-      mobLeft=false;
-    } else if(d=='right'){
-      mobRight=false;
-    }
-}
-
 function action(button) {
     // Handle action button logic here
     if(!gameStarted){
@@ -268,33 +232,13 @@ function updateGameArea(delta) {
   processClick=false;
 }
 
-function left() {
-  return (mg.keys && (mg.keys[LEFT] || mg.keys[A])) || mobLeft;
-}
-
-function right() {
-  return (mg.keys && (mg.keys[RIGHT] || mg.keys[D])) || mobRight;
-}
-
-function up() {
-  return (mg.keys && (mg.keys[UP] || mg.keys[W])) || mobUp;
-}
-
-function down() {
-  return (mg.keys && (mg.keys[DOWN] || mg.keys[S])) || mobDown;
-}
-
-function space() {
-  return (mg.keys && mg.keys[SPACE]);
-}
-
-function shift() {
-  return (mg.keys && mg.keys[SHIFT]) || rightMB;
-}
-
-function t() {
-  return mg.keys && (mg.keys[T]);
-}
+function left() {return (mg.keys && (mg.keys[LEFT] || mg.keys[A]));}
+function right() {return (mg.keys && (mg.keys[RIGHT] || mg.keys[D]));}
+function up() {return (mg.keys && (mg.keys[UP] || mg.keys[W]));}
+function down() {return (mg.keys && (mg.keys[DOWN] || mg.keys[S]));}
+function space() {return (mg.keys && mg.keys[SPACE]);}
+function shift() {return (mg.keys && mg.keys[SHIFT]) || rightMB;}
+function t() {return mg.keys && (mg.keys[T]);}
 
 function setclicks(){
   clickedAt.set(mousePos.x, mousePos.y);
