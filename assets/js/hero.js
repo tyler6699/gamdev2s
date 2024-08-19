@@ -43,7 +43,7 @@ function Hero(w, h, x, y, angle, type) {
             const angle = startAngle + i * angleIncrement;
             const offsetX = Math.cos(angle) * radius;
             const offsetY = Math.sin(angle) * radius;
-            this.particles.push(new DustParticle(this.e.x + 55 + offsetX, this.e.y + 95 + offsetY));
+            this.particles.push(new Dusty(this.e.x + 55 + offsetX, this.e.y + 95 + offsetY));
         }
       }
     }
@@ -54,7 +54,7 @@ function Hero(w, h, x, y, angle, type) {
 
       if (this.dustTimer > 0.2 && !this.isJumping) {
         this.dustTimer = 0;
-        this.particles.push(new DustParticle(this.e.x+55, this.e.y+95));
+        this.particles.push(new Dusty(this.e.x+55, this.e.y+95));
       }
     }
 
@@ -111,10 +111,8 @@ function Hero(w, h, x, y, angle, type) {
       oy=ctx.canvas.height/2;
       dx = mousePos.x;
       dy = mousePos.y;
-      //console.log("Shoot: ox:" + ox + " oy:" + oy + " dx:" + dx + " dy:" + dy);
       this.e.gun.addBullets(ox,oy,dx,dy, this.e);
       cart.shakeTime=.05;
     }
   }
-
 }

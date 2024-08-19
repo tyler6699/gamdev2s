@@ -17,36 +17,28 @@ function Intro(){
     // Calculate the number of stripes needed to fill the screen diagonally
     const numStripes = Math.ceil(Math.sqrt(ctx.canvas.width**2 + ctx.canvas.height**2) / stripeWidth);
 
-   for (let i = -numStripes; i < numStripes + 10; i++) {
-     ctx.fillStyle = colors[i % 2];
-     ctx.beginPath();
-     ctx.moveTo((i * stripeWidth) + offset, 0);
-     ctx.lineTo((i + 1) * stripeWidth + offset, 0);
-     ctx.lineTo((i + 1) * stripeWidth + offset - ctx.canvas.height, ctx.canvas.height);
-     ctx.lineTo((i * stripeWidth) + offset - ctx.canvas.height, ctx.canvas.height);
-     ctx.closePath();
-     ctx.fill();
-  }
+    for (let i = -numStripes; i < numStripes + 10; i++) {
+      ctx.fillStyle = colors[i % 2];
+      ctx.beginPath();
+      ctx.moveTo((i * stripeWidth) + offset, 0);
+      ctx.lineTo((i + 1) * stripeWidth + offset, 0);
+      ctx.lineTo((i + 1) * stripeWidth + offset - ctx.canvas.height, ctx.canvas.height);
+      ctx.lineTo((i * stripeWidth) + offset - ctx.canvas.height, ctx.canvas.height);
+      ctx.closePath();
+      ctx.fill();
+    }
 
     offset -= .3; // Change the speed of the stripe movement by adjusting this value
-     if (offset <= -stripeWidth*2) {
-         offset = 0;
-     }
-
+    if (offset <= -stripeWidth*2) offset = 0;
     let font=`${fontSize}px Arial`;
     writeStroke(ctx, 1, font,"Black","13 Floors", 30, canvasH*.1,12);
     writeTxt(ctx, 1, font,"WHITE","13 Floors", 30, canvasH*.1);
     font=`${fontSize-15}px Arial`;
-
     charSet = (charSet + 3) % 3;
-
     drawHeroBox(15);
-
     delay-=delta;
-
-    cart.hero.e.x=60;
-    cart.hero.e.y=200;
-
+    // cart.hero.e.x=60;
+    // cart.hero.e.y=200;
     ctx.save();
     ctx.scale(3,3);
     cart.hero.update(delta);

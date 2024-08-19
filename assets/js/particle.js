@@ -1,4 +1,4 @@
-function DustParticle(x, y) {
+function Dusty(x, y) {
   this.x = x;
   this.y = y;
   this.size = 8;  // Initial size of the dust

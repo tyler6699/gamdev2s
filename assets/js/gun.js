@@ -89,7 +89,7 @@ function Bullet(ox,oy,dx,dy,parent,distance,gun){
 
       if(this.dist > this.distance){
          this.active = false;
-         this.gun.particles.push(new DustParticle(xx,yy));
+         this.gun.particles.push(new Dusty(xx,yy));
        }
 
       // Draw
